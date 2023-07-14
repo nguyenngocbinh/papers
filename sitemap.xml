@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/quarto-workflows/browser.html</loc>
-    <lastmod>2023-07-14T02:11:31.828Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/learning-more.html</loc>
+    <lastmod>2023-07-14T10:14:29.899Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/quarto-workflows/index.html</loc>
-    <lastmod>2023-07-14T02:11:30.560Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/explore.html</loc>
+    <lastmod>2023-07-14T10:14:28.647Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/explore.html</loc>
-    <lastmod>2023-07-14T02:11:29.156Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/browser.html</loc>
+    <lastmod>2023-07-14T10:14:27.399Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/index.html</loc>
-    <lastmod>2023-07-14T02:11:27.148Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/index.html</loc>
+    <lastmod>2023-07-14T10:14:26.451Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/transition-from-rmarkdown.html</loc>
-    <lastmod>2023-07-14T02:11:24.312Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/transition-from-rmarkdown.html</loc>
+    <lastmod>2023-07-14T10:14:25.391Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/learning-more.html</loc>
-    <lastmod>2023-07-14T02:11:26.584Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/index.html</loc>
+    <lastmod>2023-07-14T10:14:22.987Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/machine-learning/transformer.html</loc>
-    <lastmod>2023-07-14T02:11:28.372Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/irb/ModelGuideline.html</loc>
+    <lastmod>2023-07-14T10:14:25.983Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/quarto-workflows/jupyter.html</loc>
-    <lastmod>2023-07-14T02:11:29.948Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/rstudio.html</loc>
+    <lastmod>2023-07-14T10:14:26.995Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/documents/quarto-workflows/rstudio.html</loc>
-    <lastmod>2023-07-14T02:11:31.308Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/jupyter.html</loc>
+    <lastmod>2023-07-14T10:14:28.015Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/transformer.html</loc>
+    <lastmod>2023-07-14T10:14:29.563Z</lastmod>
   </url>
 </urlset>

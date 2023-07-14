@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Making sharable documents with Quarto - From RStudio</title>
+<title>Making sharable documents with Quarto - Model guideline</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,8 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../quarto-workflows/jupyter.html" rel="next">
-<link href="../quarto-workflows/browser.html" rel="prev">
+<link href="../machine-learning/transformer.html" rel="next">
+<link href="../transition-from-rmarkdown.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto-workflows/index.html">Quarto workflows</a></li><li class="breadcrumb-item"><a href="../quarto-workflows/rstudio.html">From RStudio</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../irb/ModelGuideline.html">Model guideline</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -122,11 +122,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../quarto-workflows/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quarto workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../quarto-workflows/browser.html" class="sidebar-item-text sidebar-link">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto-workflows/rstudio.html" class="sidebar-item-text sidebar-link active">
+  <a href="../quarto-workflows/rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">From RStudio</span></a>
   </div>
 </li>
@@ -161,16 +161,16 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
+            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Model guideline</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
+  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Model guideline</span></a>
   </div>
 </li>
@@ -203,32 +203,34 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
+  <li><a href="#triết-lý-xây-dựng-mô-hình" id="toc-triết-lý-xây-dựng-mô-hình" class="nav-link active" data-scroll-target="#triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</a></li>
+  <li><a href="#phạm-vi-mô-hình" id="toc-phạm-vi-mô-hình" class="nav-link" data-scroll-target="#phạm-vi-mô-hình">Phạm vi mô hình</a></li>
+  <li><a href="#single-factor-analysis" id="toc-single-factor-analysis" class="nav-link" data-scroll-target="#single-factor-analysis">Single factor analysis</a>
   <ul class="collapse">
-  <li><a href="#rstudio-and-github" id="toc-rstudio-and-github" class="nav-link" data-scroll-target="#rstudio-and-github">RStudio and GitHub</a></li>
-  <li><a href="#clone-your-repo" id="toc-clone-your-repo" class="nav-link" data-scroll-target="#clone-your-repo">Clone your repo</a></li>
-  <li><a href="#install-quarto" id="toc-install-quarto" class="nav-link" data-scroll-target="#install-quarto">Install Quarto</a></li>
-  <li><a href="#rstudio-orientation" id="toc-rstudio-orientation" class="nav-link" data-scroll-target="#rstudio-orientation">RStudio orientation</a></li>
-  <li><a href="#visual-editor" id="toc-visual-editor" class="nav-link" data-scroll-target="#visual-editor">Visual Editor</a></li>
+  <li><a href="#woe-binning" id="toc-woe-binning" class="nav-link" data-scroll-target="#woe-binning">WoE binning</a></li>
+  <li><a href="#chuẩn-hóa-biến" id="toc-chuẩn-hóa-biến" class="nav-link" data-scroll-target="#chuẩn-hóa-biến">Chuẩn hóa biến</a></li>
   </ul></li>
-  <li><a href="#quarto-render" id="toc-quarto-render" class="nav-link" data-scroll-target="#quarto-render">Quarto render</a>
-  <ul class="collapse">
-  <li><a href="#make-a-small-change-and-render-it" id="toc-make-a-small-change-and-render-it" class="nav-link" data-scroll-target="#make-a-small-change-and-render-it">Make a small change and render it</a></li>
-  </ul></li>
-  <li><a href="#create-a-new-.rmd-page" id="toc-create-a-new-.rmd-page" class="nav-link" data-scroll-target="#create-a-new-.rmd-page">Create a new <code>.Rmd</code> page</a></li>
-  <li><a href="#update-_quarto.yml" id="toc-update-_quarto.yml" class="nav-link" data-scroll-target="#update-_quarto.yml">Update <code>_quarto.yml</code></a></li>
-  <li><a href="#authoring-tips" id="toc-authoring-tips" class="nav-link" data-scroll-target="#authoring-tips">Authoring tips</a></li>
-  <li><a href="#commit-and-push" id="toc-commit-and-push" class="nav-link" data-scroll-target="#commit-and-push">Commit and push!</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#multiple-factors-analysis" id="toc-multiple-factors-analysis" class="nav-link" data-scroll-target="#multiple-factors-analysis">Multiple Factors Analysis</a></li>
+  <li><a href="#chọn-mô-hình-cuối-cùng" id="toc-chọn-mô-hình-cuối-cùng" class="nav-link" data-scroll-target="#chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</a></li>
+  <li><a href="#kiểm-định-mô-hình" id="toc-kiểm-định-mô-hình" class="nav-link" data-scroll-target="#kiểm-định-mô-hình">Kiểm định mô hình</a></li>
+  <li><a href="#giám-sát-mô-hình" id="toc-giám-sát-mô-hình" class="nav-link" data-scroll-target="#giám-sát-mô-hình">Giám sát mô hình</a></li>
+  <li><a href="#chuyển-đổi-điểm" id="toc-chuyển-đổi-điểm" class="nav-link" data-scroll-target="#chuyển-đổi-điểm">Chuyển đổi điểm</a></li>
+  <li><a href="#apply-irb" id="toc-apply-irb" class="nav-link" data-scroll-target="#apply-irb">Apply IRB</a></li>
+  <li><a href="#pd-model-calibration" id="toc-pd-model-calibration" class="nav-link" data-scroll-target="#pd-model-calibration">PD Model Calibration</a></li>
+  <li><a href="#xác-định-chu-kỳ-kinh-tế" id="toc-xác-định-chu-kỳ-kinh-tế" class="nav-link" data-scroll-target="#xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</a></li>
+  <li><a href="#chia-pool" id="toc-chia-pool" class="nav-link" data-scroll-target="#chia-pool">Chia pool</a></li>
+  <li><a href="#đánh-giá-lại-pd" id="toc-đánh-giá-lại-pd" class="nav-link" data-scroll-target="#đánh-giá-lại-pd">Đánh giá lại PD</a></li>
+  <li><a href="#moc" id="toc-moc" class="nav-link" data-scroll-target="#moc">MoC</a></li>
+  <li><a href="#thấu-chi" id="toc-thấu-chi" class="nav-link" data-scroll-target="#thấu-chi">Thấu chi</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nguyenngocbinh/papers/edit/main/quarto-workflows/rstudio.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">From RStudio</h1>
+<h1 class="title">Model guideline</h1>
 </div>
 
 
@@ -243,132 +245,298 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>The RStudio software (called an IDE, integrated development environment) is an excellent way to edit files and interface with GitHub. Plus, as it is made by the same folks who make Quarto, it has many integrated features for streamlining your workflow with Quarto, including how it previews your edits and provides debugging support for yaml! <a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto's RStudio tutorials</a> has great instructions on getting started with RStudio, including computations and authoring.</p>
-<p>Here is what you’ll need to do to set up and use RStudio with Quarto.</p>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<section id="rstudio-and-github" class="level3">
-<h3 class="anchored" data-anchor-id="rstudio-and-github">RStudio and GitHub</h3>
-<p>For a workflow with RStudio and GitHub on your local computer, you will need four things:</p>
+<section id="triết-lý-xây-dựng-mô-hình" class="level2">
+<h2 class="anchored" data-anchor-id="triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</h2>
+<ul>
+<li>Nhìn tổng thể chân dung khách hàng</li>
+</ul>
+</section>
+<section id="phạm-vi-mô-hình" class="level2">
+<h2 class="anchored" data-anchor-id="phạm-vi-mô-hình">Phạm vi mô hình</h2>
+<ul>
+<li>Cần xác định rõ phạm vi của mô hình trước khi bắt đầu xây dựng &amp; phát triển mô hình</li>
+</ul>
+</section>
+<section id="single-factor-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="single-factor-analysis">Single factor analysis</h2>
+<section id="woe-binning" class="level3">
+<h3 class="anchored" data-anchor-id="woe-binning">WoE binning</h3>
+<ul>
+<li>Số lượng nhóm phân chia dựa trên tỷ lệ bad rate tương đối, nếu 5 nhóm thì nhóm thứ 3 tỷ lệ này xấp xỉ 1</li>
+<li>Số lượng nhóm khoảng 5-7 nhóm (đẹp nhất là 5 nhóm)</li>
+<li>Nên chọn số lượng nhóm số lẻ</li>
+<li>Missing tùy thuộc từng trường hợp sẽ nhóm vào nhóm có tỷ lệ bad rate cao nhất hoặc nhóm có tỷ lệ bad rate xấp xỉ</li>
+<li>Tùy từng biến có trend sẽ coasre trend theo biến</li>
+</ul>
+</section>
+<section id="chuẩn-hóa-biến" class="level3">
+<h3 class="anchored" data-anchor-id="chuẩn-hóa-biến">Chuẩn hóa biến</h3>
+<ul>
+<li><code>Normalising Score</code>: Dùng để dễ so sánh coef của mô hình đa biến sau khi đã hồi quy. Normalised Log Odds thông thường có <strong>trung bình = 0, std = 50</strong></li>
+</ul>
+</section>
+</section>
+<section id="multiple-factors-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-factors-analysis">Multiple Factors Analysis</h2>
+<ul>
+<li><p>Theo triết lý xây dựng mô hình, mỗi nhóm thông tin khách hàng có ít nhất 1 biến:</p>
+<p>VD: Nhóm thông tin chung có 1 biến, nhóm thông tin hành vi tiêu dùng 3 biến, … các nhóm thông tin còn lại có ít nhất 1 biến</p></li>
+</ul>
+</section>
+<section id="chọn-mô-hình-cuối-cùng" class="level2">
+<h2 class="anchored" data-anchor-id="chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</h2>
+<ul>
+<li>30% &gt; <code>std-coef</code> &gt; 5%</li>
+<li>Nếu có hệ số dưới 5%, điều chỉnh lại trọng số = 5%, rồi nhân ngược lại ra <code>adjusted-coef</code></li>
+<li>Cân nhắc trọng số của các nhóm thông tin: Ví dụ: Nhóm thông tin A có 2 biến tổng trọng số 10%, nhóm thông tin B có 3 biến tổng trọng số 50% (nhóm thông tin B này quá mạnh so với nhóm thông tin A)</li>
+<li>Nên tăng hoặc giảm hệ số các biến trong cùng 1 nhóm thông tin</li>
+</ul>
+</section>
+<section id="kiểm-định-mô-hình" class="level2">
+<h2 class="anchored" data-anchor-id="kiểm-định-mô-hình">Kiểm định mô hình</h2>
+</section>
+<section id="giám-sát-mô-hình" class="level2">
+<h2 class="anchored" data-anchor-id="giám-sát-mô-hình">Giám sát mô hình</h2>
+<ul>
+<li><p><code>Gini</code> đơn biến suy giảm quá 15%, hoặc 10% cho các biến nhân khẩu học điều chỉnh lại mô hình</p></li>
+<li><p>Sau khi mô hình vi phạm các ngưỡng thì xem xét lại mô hình</p></li>
+<li><p>Báo cáo lại những yếu tố ảnh hưởng tới mô hình. VD: Tình hình cho vay, …</p></li>
+<li><p>Front-end monitoring: Xem sự dịch chuyển các nhóm hạng, danh mục</p></li>
+<li><p>Back-end monitoring: performance (test trên cả overall, sub-segment)của mô hình vẫn tốt, các factors vẫn phản ánh được kết quả của mô hình. Tùy thuộc dữ liệu có thể ấy dữ liệu từ 2 năm đến 5 năm dữ liệu</p></li>
+<li><p>Thông thường các factors dễ thay đổi, có thể chạy mô hình trên dữ liệu mới</p></li>
+<li><p>Population thay đổi (PSI):</p>
+<ul>
+<li>Front-end</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Dev</th>
+<th>OOT</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PSI</td>
+<td>NA</td>
+<td>3.1%</td>
+<td><p>Chỉ số ổn định tổng thể (PSI)</p>
+<p>- PSI &lt; 15%: chỉ số phân phối điểm ổn định.</p>
+<p>- PSI &gt;= 15% và &lt; 25%: chỉ số dịch chuyển vừa phải.</p>
+<p>- PSI &gt;=25%: thể hiện sự thay đổi đáng kể.</p>
+<p>Nếu có sự thay đổi đáng kể, thẻ điểm có thể không áp dụng cho mẫu OOT.<br>
+</p></td>
+</tr>
+<tr class="even">
+<td>AHI</td>
+<td>5.1%</td>
+<td>4.0%</td>
+<td><p>Chỉ số Herfindah được điều chỉnh (AHI) để đo độ tập trung trong dải điểm nhất định.</p>
+<p>- AHI &lt; 20%: không tập trung</p>
+<p>- AHI &gt;= 20%: có sự tập trung trong dải điểm nhất định. Cần điều tra để đảm bảo không có vấn đề gì với khả năng phân biệt rủi ro.</p></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Back-end</p>
+<table class="table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Overall</th>
+<th>Dev</th>
+<th>OOT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gini</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>No of default</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Outcome</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sub-segment</th>
+<th>Risk Ranking</th>
+<th></th>
+<th>Default</th>
+<th></th>
+<th>Outcome</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Dev</td>
+<td>OOT</td>
+<td>Dev</td>
+<td>OOT</td>
+<td>Baseline</td>
+<td>2020</td>
+</tr>
+<tr class="even">
+<td><strong>Product type</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Credit card only</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Personal Loan only</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Đơn vị kinh doanh</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Công ty tài chính</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Factor mới thêm vào có thể dùng phương pháp điều chỉnh weight</p></li>
+</ul>
+</section>
+<section id="chuyển-đổi-điểm" class="level2">
+<h2 class="anchored" data-anchor-id="chuyển-đổi-điểm">Chuyển đổi điểm</h2>
+</section>
+<section id="apply-irb" class="level2">
+<h2 class="anchored" data-anchor-id="apply-irb">Apply IRB</h2>
+<ul>
+<li>Quy trình tín dụng</li>
+<li>Quy trình đánh giá khách hàng</li>
+</ul>
+</section>
+<section id="pd-model-calibration" class="level2">
+<h2 class="anchored" data-anchor-id="pd-model-calibration">PD Model Calibration</h2>
+<ul>
+<li><p>Housing loan: với 6 tháng hành vi trả nợ chưa đủ mạnh, chưa có nhiều behavious, sử dụng MoB 12 để xác định khách hàng mới hoặc cũ</p></li>
+<li><p>Thẻ tín dụng: chỉ cần 6 tháng đã có được hành vi tiêu dùng, trả nợ</p></li>
+<li><p>Chú ý <strong><code>tính đồng nhất</code></strong> của danh mục</p></li>
+<li><p>Nếu thay đổi chính sách thì mô hình phải phản ánh chính sách forward-looking</p></li>
+<li><p>Nếu không có thông tin liên quan đến thị trường, thì phải có điều chỉnh downgrade PD</p></li>
+<li><p>A-score: Cyclicality ~ 40 -50%, B-score ~ 60-70%</p></li>
+<li><p>Ước tính cyclicality: do 1 model thường không dùng qua 1 chu kỳ kinh tế, nếu back score thì có thẻ dữ liệu cũ không đủ. Những biến như age, gender thì không có cyclicality</p></li>
+<li><p>Retail có thể có master scale riêng với từng danh mục, nhưng có thể distribution không đẹp</p></li>
+</ul>
+</section>
+<section id="xác-định-chu-kỳ-kinh-tế" class="level2">
+<h2 class="anchored" data-anchor-id="xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</h2>
+<ul>
+<li><p>Thu thập dữ liệu càng dài càng tốt, tối thiểu 5 năm</p></li>
+<li><p>Thị trường châu á, lấy mốc khủng hoảng kinh tế là 1998</p></li>
+<li><p>Dùng portfolio có tính chất tương tự, có thể dùng portfolio tương tự của Central Bank NPL, chứng minh correlation sau đó <code>extrapolate</code></p></li>
+<li><p>Forward looking, chọn số trung bình giữa baseline và worst-case</p></li>
+<li><p>Trong giai đoạn covid, nếu có nhà nước có nhiều chính sách làm cho odr giảm, thì có thể bỏ những data point này ra khỏi mẫu trong thời kỳ crisis</p></li>
+</ul>
+</section>
+<section id="chia-pool" class="level2">
+<h2 class="anchored" data-anchor-id="chia-pool">Chia pool</h2>
+<ul>
+<li>Dựa trên product types, pd, mob, bucket …</li>
+</ul>
+</section>
+<section id="đánh-giá-lại-pd" class="level2">
+<h2 class="anchored" data-anchor-id="đánh-giá-lại-pd">Đánh giá lại PD</h2>
+<ul>
+<li>dựa vào CT, ODR, đánh giá implied pd còn phù hợp hay không</li>
+</ul>
+</section>
+<section id="moc" class="level2">
+<h2 class="anchored" data-anchor-id="moc">MoC</h2>
+</section>
+<section id="thấu-chi" class="level2">
+<h2 class="anchored" data-anchor-id="thấu-chi">Thấu chi</h2>
 <ol type="1">
-<li>R</li>
-<li>RStudio</li>
-<li>Git</li>
-<li>GitHub</li>
+<li><p>Có tài sản đảm bảo</p>
+<ul>
+<li>Nếu là KH housing loan vay thêm thấu chi, có thể dùng housing score card</li>
+</ul>
+<!-- -->
+<ul>
+<li>Nếu tài sản là tiền gửi nhỏ, thì áp dụng standardise</li>
+</ul></li>
+<li><p>Không có tài sản</p>
+<ul>
+<li><p>Xếp chung vào nhóm credit card</p></li>
+<li></li>
+</ul></li>
 </ol>
-<p>Follow the <a href="https://ucsb-meds.github.io/meds-install-guide.html">UCSB MEDS Installation Guide</a> for detailed instructions on how to create accounts, download, install, and configure on Mac and Windows. This takes about 20 minutes. (For an even more detailed walk-through, see <a href="https://docs.google.com/document/d/1zx2upJJqFZe94O3BQSMI56Z76s3haLXC0otKSpcZaJQ/edit">Allison Horst’s ESM 206 Google Doc</a>).</p>
-</section>
-<section id="clone-your-repo" class="level3">
-<h3 class="anchored" data-anchor-id="clone-your-repo">Clone your repo</h3>
-<p>You’ll start by cloning your repository into RStudio.</p>
-<p>File &gt; New Project &gt; Version Control &gt; Git &gt; paste your repository name.</p>
-<p><a href="https://rstudio-conf-2020.github.io/r-for-excel/github.html#clone-your-repository-using-rstudio">R for Excel Users: Clone your repository using RStudio</a> has detailed instructions and screenshots of these steps.</p>
-</section>
-<section id="install-quarto" class="level3">
-<h3 class="anchored" data-anchor-id="install-quarto">Install Quarto</h3>
-<p>Next, you’ll install Quarto: <a href="https://quarto.org/docs/get-started/" class="uri">https://quarto.org/docs/get-started/</a>. After downloading, follow the installation wizard on your computer. When it is complete, you won’t see an application or any new software, but it is now available to RStudio (as well as all other applications on your computer, including the command line).</p>
-</section>
-<section id="rstudio-orientation" class="level3">
-<h3 class="anchored" data-anchor-id="rstudio-orientation">RStudio orientation</h3>
-<p>Now let’s take a moment to get oriented. This is an RStudio project, which is indicated in the top-right. The bottom right pane shows all the files in your project; everything we’ve cloned from GitHub. We can open any RStudio project by opening its <code>.Rproj</code> file, or from RStudio File &gt; Open Project ….</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/rstudio-orientation.png" class="img-fluid figure-img" alt="Screenshot of the RStudio IDE highlighting the project name and files pane"></p>
-<figcaption class="figure-caption">RStudio IDE highlighting the project name and files pane</figcaption>
-</figure>
-</div>
-</section>
-<section id="visual-editor" class="level3">
-<h3 class="anchored" data-anchor-id="visual-editor">Visual Editor</h3>
-<p>The RStudio Visual Editor is quite new and has features that improve your writing experience. Working in the Visual Editor feels a bit like working in a Google Doc.</p>
-<p>Here’s an example showing the same file in the original Source Editor with content in markdown format and in the Visual Editor with content that looks more like it will appear in a live site. You can switch freely between these modes.</p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/rstudio-source-editor.png" class="img-fluid figure-img" alt="Screenshot of the RStudio IDE with red oval highlighting the Source button."></p>
-<figcaption class="figure-caption">RStudio IDE highlighting the Source Editor</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/rstudio-visual-editor.png" class="img-fluid figure-img" alt="Screenshot of the RStudio IDE with red oval highlighting the Visual button."></p>
-<figcaption class="figure-caption">RStudio IDE highlighting the Visual Editor</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p>Already have some content formatted in a Google Doc? You can copy-paste it into the Visual Editor and most formatting will be retained.</p>
-<p>The editing bar provides familiar point and click access to text formatting options like bulleted or numbered lists.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/rstudio-visual-edit-bar.png" class="img-fluid figure-img" alt="RStudio IDE Visual Editor editing bar is highlighted by a red rectangle"></p>
-<figcaption class="figure-caption">RStudio IDE highlighting the point and click editing bar</figcaption>
-</figure>
-</div>
-<section id="keyboard-shortcuts" class="level4">
-<h4 class="anchored" data-anchor-id="keyboard-shortcuts">Keyboard shortcuts</h4>
-<p>The Visual Editor also lets you use many keyboard shortcuts that might be familiar for adding boldface (command-b), italics (command-i), or headers. On a Mac, option-command-2 will make a level 2 header. Try it with option-command-1, or option-command-0 for normal text!</p>
-</section>
-<section id="insert-an-image-or-figure" class="level4">
-<h4 class="anchored" data-anchor-id="insert-an-image-or-figure">Insert an image or figure</h4>
-<p>To insert an image (called a figure in Quarto), click the image icon. This brings up a window in which we can select the image, set its alignment, give it a caption and alt text, hyperlink it, or edit other metadata.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/rstudio-insert-image.png" class="img-fluid figure-img" alt="Pop-up window appears when image icon is clicked"></p>
-<figcaption class="figure-caption">Insert image or figure using the Visual Editor</figcaption>
-</figure>
-</div>
-<p>Once an image is added, clicking on that image gives us editing options. We can resize it dynamically by clicking in the image and dragging a corner or side to resize. When an image is selected, its dimensions are displayed for editing. Clicking on the gray ellipsis to the right of the dimensions opens the pop-up window to access more metadata edits.</p>
-</section>
-<section id="insert-a-table" class="level4">
-<h4 class="anchored" data-anchor-id="insert-a-table">Insert a table</h4>
-<p>Similar to adding an image, to insert a table, we click the Table dropdown.</p>
-</section>
-</section>
-</section>
-<section id="quarto-render" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-render">Quarto render</h2>
-<p>In the Build tab in the top-right pane, click “Render Website”. This will build the .html files and preview your website. It’s equivalent to “knitting” in RMarkdown.</p>
-<p>Note that you can also click “Preview Website”. With “Render Website” in RStudio, Quarto is able to render and preview in one step.</p>
-<p>If you’d ever like to stop the preview, in the bottom-left, click on the Jobs tab and then the red Stop button.</p>
-<section id="make-a-small-change-and-render-it" class="level3">
-<h3 class="anchored" data-anchor-id="make-a-small-change-and-render-it">Make a small change and render it</h3>
-<p>Click on <code>index.md</code>. This will open this markdown file in a fourth pane; the editor pane. Make a small change, for example change to today’s date on Line 4. Then, save your file; there is a disc icon at the top of the file.</p>
-<p>Then, render this file: press “Render” which is to the right of the disc icon that saves the file. This will render only this single file, as opposed to rerendering the whole website like when we clicked “Render Website” in the top right pane. Checking <strong>Render on Save</strong> (between the disc icon and the Render button) is a great strategy for doing this in one step.</p>
-</section>
-</section>
-<section id="create-a-new-.rmd-page" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-new-.rmd-page">Create a new <code>.Rmd</code> page</h2>
-<p>New &gt; RMarkdown document &gt; OK</p>
-<p>The starter RMarkdown document has some R code inside: it displays a summary of the cars dataset that is pre-loaded into R (<code>summary(cars)</code>) and plots the pressure data that is also pre-loaded (<code>plot(pressure)</code>).</p>
-<p>Save this document as <code>r-example.rmd</code>.</p>
-</section>
-<section id="update-_quarto.yml" class="level2">
-<h2 class="anchored" data-anchor-id="update-_quarto.yml">Update <code>_quarto.yml</code></h2>
-<p>Now we’ll add <code>r-example.rmd</code> to our <code>_quarto.yml</code> file; this is where we register all files to include in our site. Let’s add it after the section called “Quarto Workflows”.</p>
-<p>Open <code>_quarto.yml</code> by clicking on it from the file directory.</p>
-<p>Scroll down to review the current contents in the <code>sidebar:</code> section under <code>contents:</code>. It’s there we see all the file arrangement that we see in the previewed site.</p>
-<p>Add <code>- r-example.rmd</code> in its own line, making sure that your indentation aligns with the other pages.</p>
-<p>From the Build tab, clicking Preview Website will recreate your website!</p>
-</section>
-<section id="authoring-tips" class="level2">
-<h2 class="anchored" data-anchor-id="authoring-tips">Authoring tips</h2>
-<p>Checking “Render on Save” is really helpful when iterating quickly on a document.</p>
-<p>If the document is very code-heavy, consider using <a href="https://quarto.org/docs/projects/code-execution.html#freeze"><code>freeze</code></a> that will not run the code each time.</p>
-<p><a href="https://quarto.org/">Quarto.org</a> has details about authoring, including specific instructions about <a href="https://quarto.org/docs/get-started/authoring/rstudio.html">authoring in RStudio</a>.</p>
-</section>
-<section id="commit-and-push" class="level2">
-<h2 class="anchored" data-anchor-id="commit-and-push">Commit and push!</h2>
-<p>Committing and pushing will make the changes you see locally live on your website (using the <a href="../explore.html#setup-github-action">GitHub Action we set up earlier</a>).</p>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<p>If you have trouble rendering your website after for example changing the extenstion of a file from <code>.md</code> to <code>.qmd</code>, refreshing your RStudio often helps. Do this by clicking the project name at the upper right of the RStudio window (in this case, <code>quarto-website-tutorial</code>), and underneath the “close project” section, click the same name of your project: <code>quarto-website-tutorial</code>. This will relaunch your whole project afresh.</p>
 
 
 </section>
@@ -724,13 +892,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../quarto-workflows/browser.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">From the Browser</span>
+      <a href="../transition-from-rmarkdown.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Transition from Rmd</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../quarto-workflows/jupyter.html" class="pagination-link">
-        <span class="nav-page-text">From Jupyter</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../machine-learning/transformer.html" class="pagination-link">
+        <span class="nav-page-text">Transformer</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
