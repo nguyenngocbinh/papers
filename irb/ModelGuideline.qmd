@@ -1,0 +1,176 @@
+---
+title: "Model guideline"
+---
+
+## Triết lý xây dựng mô hình
+
+-   Nhìn tổng thể chân dung khách hàng
+
+## Phạm vi mô hình
+
+-   Cần xác định rõ phạm vi của mô hình trước khi bắt đầu xây dựng & phát triển mô hình
+
+## Single factor analysis
+
+### WoE binning
+
+-   Số lượng nhóm phân chia dựa trên tỷ lệ bad rate tương đối, nếu 5 nhóm thì nhóm thứ 3 tỷ lệ này xấp xỉ 1
+-   Số lượng nhóm khoảng 5-7 nhóm (đẹp nhất là 5 nhóm)
+-   Nên chọn số lượng nhóm số lẻ
+-   Missing tùy thuộc từng trường hợp sẽ nhóm vào nhóm có tỷ lệ bad rate cao nhất hoặc nhóm có tỷ lệ bad rate xấp xỉ
+-   Tùy từng biến có trend sẽ coasre trend theo biến
+
+### Chuẩn hóa biến
+
+-   `Normalising Score`: Dùng để dễ so sánh coef của mô hình đa biến sau khi đã hồi quy. Normalised Log Odds thông thường có **trung bình = 0, std = 50**
+
+## Multiple Factors Analysis
+
+-   Theo triết lý xây dựng mô hình, mỗi nhóm thông tin khách hàng có ít nhất 1 biến:
+
+    VD: Nhóm thông tin chung có 1 biến, nhóm thông tin hành vi tiêu dùng 3 biến, ... các nhóm thông tin còn lại có ít nhất 1 biến
+
+## Chọn mô hình cuối cùng
+
+-   30% \> `std-coef` \> 5%
+-   Nếu có hệ số dưới 5%, điều chỉnh lại trọng số = 5%, rồi nhân ngược lại ra `adjusted-coef`
+-   Cân nhắc trọng số của các nhóm thông tin: Ví dụ: Nhóm thông tin A có 2 biến tổng trọng số 10%, nhóm thông tin B có 3 biến tổng trọng số 50% (nhóm thông tin B này quá mạnh so với nhóm thông tin A)
+-   Nên tăng hoặc giảm hệ số các biến trong cùng 1 nhóm thông tin
+
+## Kiểm định mô hình
+
+## Giám sát mô hình
+
+-   `Gini` đơn biến suy giảm quá 15%, hoặc 10% cho các biến nhân khẩu học điều chỉnh lại mô hình
+
+-   Sau khi mô hình vi phạm các ngưỡng thì xem xét lại mô hình
+
+-   Báo cáo lại những yếu tố ảnh hưởng tới mô hình. VD: Tình hình cho vay, ...
+
+-   Front-end monitoring: Xem sự dịch chuyển các nhóm hạng, danh mục
+
+-   Back-end monitoring: performance (test trên cả overall, sub-segment)của mô hình vẫn tốt, các factors vẫn phản ánh được kết quả của mô hình. Tùy thuộc dữ liệu có thể ấy dữ liệu từ 2 năm đến 5 năm dữ liệu
+
+-   Thông thường các factors dễ thay đổi, có thể chạy mô hình trên dữ liệu mới
+
+-   Population thay đổi (PSI):
+
+    -   Front-end
+
+    +-----+------+------+-------------------------------------------------------------------------------------------------------------------------------------+
+    |     | Dev  | OOT  | Remark                                                                                                                              |
+    +=====+======+======+=====================================================================================================================================+
+    | PSI | NA   | 3.1% | Chỉ số ổn định tổng thể (PSI)                                                                                                       |
+    |     |      |      |                                                                                                                                     |
+    |     |      |      | \- PSI \< 15%: chỉ số phân phối điểm ổn định.                                                                                       |
+    |     |      |      |                                                                                                                                     |
+    |     |      |      | \- PSI \>= 15% và \< 25%: chỉ số dịch chuyển vừa phải.                                                                              |
+    |     |      |      |                                                                                                                                     |
+    |     |      |      | \- PSI \>=25%: thể hiện sự thay đổi đáng kể.                                                                                        |
+    |     |      |      |                                                                                                                                     |
+    |     |      |      | Nếu có sự thay đổi đáng kể, thẻ điểm có thể không áp dụng cho mẫu OOT.\                                                             |
+    +-----+------+------+-------------------------------------------------------------------------------------------------------------------------------------+
+    | AHI | 5.1% | 4.0% | Chỉ số Herfindah được điều chỉnh (AHI) để đo độ tập trung trong dải điểm nhất định.                                                 |
+    |     |      |      |                                                                                                                                     |
+    |     |      |      | \- AHI \< 20%: không tập trung                                                                                                      |
+    |     |      |      |                                                                                                                                     |
+    |     |      |      | \- AHI \>= 20%: có sự tập trung trong dải điểm nhất định. Cần điều tra để đảm bảo không có vấn đề gì với khả năng phân biệt rủi ro. |
+    +-----+------+------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+-   Back-end
+
+    +---------------+---------------+---------------+
+    | Overall       | Dev           | OOT           |
+    +===============+===============+===============+
+    | Gini          |               |               |
+    +---------------+---------------+---------------+
+    | No of default |               |               |
+    +---------------+---------------+---------------+
+    | Outcome       |               |               |
+    +---------------+---------------+---------------+
+    |               |               |               |
+    +---------------+---------------+---------------+
+
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | Sub-segment           | Risk Ranking |        | Default |        | Outcome  |        |
+    +=======================+==============+========+=========+========+==========+========+
+    |                       | Dev          | OOT    | Dev     | OOT    | Baseline | 2020   |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | **Product type**      |              |        |         |        |          |        |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | Credit card only      |              |        |         |        |          |        |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | Personal Loan only    |              |        |         |        |          |        |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | **Đơn vị kinh doanh** |              |        |         |        |          |        |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | HO                    |              |        |         |        |          |        |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+    | Công ty tài chính     |              |        |         |        |          |        |
+    +-----------------------+--------------+--------+---------+--------+----------+--------+
+
+-   Factor mới thêm vào có thể dùng phương pháp điều chỉnh weight
+
+## Chuyển đổi điểm
+
+## Apply IRB
+
+-   Quy trình tín dụng
+-   Quy trình đánh giá khách hàng
+
+## PD Model Calibration
+
+-   Housing loan: với 6 tháng hành vi trả nợ chưa đủ mạnh, chưa có nhiều behavious, sử dụng MoB 12 để xác định khách hàng mới hoặc cũ
+
+-   Thẻ tín dụng: chỉ cần 6 tháng đã có được hành vi tiêu dùng, trả nợ
+
+-   Chú ý **`tính đồng nhất`** của danh mục
+
+-   Nếu thay đổi chính sách thì mô hình phải phản ánh chính sách forward-looking
+
+-   Nếu không có thông tin liên quan đến thị trường, thì phải có điều chỉnh downgrade PD
+
+-   A-score: Cyclicality \~ 40 -50%, B-score \~ 60-70%
+
+-   Ước tính cyclicality: do 1 model thường không dùng qua 1 chu kỳ kinh tế, nếu back score thì có thẻ dữ liệu cũ không đủ. Những biến như age, gender thì không có cyclicality
+
+-   Retail có thể có master scale riêng với từng danh mục, nhưng có thể distribution không đẹp
+
+## Xác định chu kỳ kinh tế
+
+-   Thu thập dữ liệu càng dài càng tốt, tối thiểu 5 năm
+
+-   Thị trường châu á, lấy mốc khủng hoảng kinh tế là 1998
+
+-   Dùng portfolio có tính chất tương tự, có thể dùng portfolio tương tự của Central Bank NPL, chứng minh correlation sau đó `extrapolate`
+
+-   Forward looking, chọn số trung bình giữa baseline và worst-case
+
+-   Trong giai đoạn covid, nếu có nhà nước có nhiều chính sách làm cho odr giảm, thì có thể bỏ những data point này ra khỏi mẫu trong thời kỳ crisis
+
+## Chia pool
+
+-   Dựa trên product types, pd, mob, bucket ...
+
+## Đánh giá lại PD
+
+-   dựa vào CT, ODR, đánh giá implied pd còn phù hợp hay không
+
+## MoC
+
+## Thấu chi
+
+1.  Có tài sản đảm bảo
+
+    -   Nếu là KH housing loan vay thêm thấu chi, có thể dùng housing score card
+
+    ```{=html}
+    <!-- -->
+    ```
+    -   Nếu tài sản là tiền gửi nhỏ, thì áp dụng standardise
+
+2.  Không có tài sản
+
+    -   Xếp chung vào nhóm credit card
+
+    -   
