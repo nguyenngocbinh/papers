@@ -133,76 +133,6 @@
     "text": "Install Quarto\nhttps://quarto.org/docs/get-started/ describes how to install Quarto, which will depend on your operating system. We’ll walk through installation for each tool in the next chapters."
   },
   {
-    "objectID": "transition-from-rmarkdown.html",
-    "href": "transition-from-rmarkdown.html",
-    "title": "Transition from RMarkdown",
-    "section": "",
-    "text": "You may already have workflows in RMarkdown and are interested in transitioning to Quarto. There’s no hurry to migrate to Quarto. Keep using Rmarkdown and when you’re ready the migration will be fine.\nHere are some notes as we migrate RMarkdown sites and books.\nTODO: translating R code chunks"
-  },
-  {
-    "objectID": "transition-from-rmarkdown.html#bookdown-to-quarto",
-    "href": "transition-from-rmarkdown.html#bookdown-to-quarto",
-    "title": "Transition from RMarkdown",
-    "section": "Bookdown to Quarto",
-    "text": "Bookdown to Quarto\nConverting a Bookdown book to Quarto is slightly more involved than converting a website. A book has chapters whose order must be defined, and likely has citations and cross-refs. Still, conversion is not that hard.\nWe got some practice converting from Bookdown to Quarto by helping Gavin Fay convert his lab’s fantastic onboarding documentation, the Faylab Lab Manual. Here’s the GitHub view before and after.\nOur best first reference material for this was Nick Tierney’s Notes on Changing from Rmarkdown/Bookdown to Quarto. Nick shares some scripts in that post to automate some changes. In our case, the book was small enough that we made all changes manually. Quarto documentation was indispensable.\n\nExperimenting in a low-risk environment\nWe forked a copy of the Faylab Lab manual to the Openscapes organization, and worked in a branch so we could make changes relatively risk-free. We could always fork a new copy of the original if we “broke” something. (Caution: the default when making a pull request from a fork is to push changes to the original upstream repo, not your fork and it does this without warning if you have write-access to that repo.) With local previews it’s easy to test / play with settings to see what they do. We tended to make a change, Preview, then compare the look and functionality of the book to the original. It was helpful to comment out some elements of the configuration file _output.yml after their counterparts had been added to the Quarto configuration file _quarto.yml, or to confirm they were no longer needed, before making the drastic move of deleting them.\n\n\nThe conversion\nHere are the main steps to convert the Faylab Lab manual from Bookdown to Quarto.\nCreate new empty file called _quarto.yml and add book metadata there. The screenshots below\nSet project type as book.\nMove metadata out of index.qmd and into _quarto.yml. Title, author, and publication date were in index.qmd with date set using date: \"Last updated:r Sys.Date()\". Now these are in _quarto.yml with date set using date: last-modified. Note that having R code would require you to adjust code chunk options in the Quarto style (#|). This tripped us up a bit; see GitHub Actions.\nMove chapters listing out of _bookdown.yml and into _quarto.yml.\nAdd page footer to _quarto.yml.\nHere’s what ours looked like when we finished the steps above (_quarto.yml).\n\n\n\n\n\n\n_quarto.yml contents\n\n\n\n\n\n\n\nFaylab Lab Manual\n\n\n\n\n\nChange insertion of images from html style to Quarto style. (Note Quarto calls them “figures”, not “images”.) The following snippet will insert the GitHub octocat logo in a page:\n![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){fig-align=\"left\" width=\"35px\"}\nChange all filename extensions .Rmd -&gt; .qmd (you could Preview after this change and see that the book looks the same). Note that Quarto works with .Rmd files just as well as it does .qmd, so this change is not urgent. In fact, if you have a lot of R code in your .Rmds (unlike the Faylab Lab Manual), there will be additional tinkering needed to make the code chunks happy.\n\n\nCitations\nThe Faylab Lab Manual cited two papers, presenting us with an opportunity to see how easy it is to add references to a Quarto book. Briefly, in the Visual Editor, Insert &gt; Citation &gt; DOI. Pasting the DOI or its full URL, we can insert the citation. This automatically creates a references.bib file and adds the full citations at the bottom of the chapter page (watch demo). In July 2022, we had to manually add a ## References heading, but this may not be necessary in future Quarto updates.\n\n\n\n\n\n\nInsert citation via its DOI using RStudio Visual Editor\n\n\n\n\n\n\n\n\n\n\nPublishing notes\nIf the book’s output is strictly html, there’s no need to specify output-dir in _quarto.yml. The output directory default is _book/, which is what we’d like. If we wanted other types of output like like PDF or EPUB, etc. those single file outputs are also written to the output-dir (Quarto docs).\nIf you currently have a docs/ folder, delete it.\nUpdate .gitignore to ignore _book/. At the same time, we have it ignore caches and a .quarto file:\n/.quarto/\n*_cache/\n_book/\nOnce all is settled, delete _output.yml.\nOnce the Openscapes fork was fully reviewed, we made a pull request from that to the main branch of the book’s repo. Once that was merged, we set up GitHub Actions to render the book. (TODO: instructions for GitHub Actions)\n\n\nGitHub Actions\nThis book was mostly prose and screenshots without any R code. This made the conversion from RMarkdown to Quarto likely more straightforward than if you also needed to adjust code chunk options in the quarto style (#|). Our initial GitHub Action to render the converted Faylab Lab Manual failed because we had a piece of R code - even though the code was commented out! This was resolved when we deleted the line."
-  },
-  {
-    "objectID": "transition-from-rmarkdown.html#distill-to-quarto",
-    "href": "transition-from-rmarkdown.html#distill-to-quarto",
-    "title": "Transition from RMarkdown",
-    "section": "Distill to quarto",
-    "text": "Distill to quarto\nWe transitioned our events site from distill to quarto in May 2022 (github view before and after). We followed excellent notes and examples from Nick Tierney and Danielle Navarro.\nAfter we had changed all the files, the Build tab in the RStudio IDE still showed “Build website” rather then “Render Website” and “Preview Website”, and would error when we pushed them (because that button was expecting a distill site, not a quarto site). To fix this, we updated the .Rproj file. Clicking on the .Rproj file in the RStudio IDE will open a dialog box where you can click things you want (you can also open these in a text editor or from the GitHub website to see the actual text). To fix this situation with the Build tab: Project Options &gt; Build Tools &gt; Project Build Tools &gt; None.\nLooking at files /posts/_metadata.yml and _quarto.yml helps see where things are defined. For example, to make event post citations appear, we added citation: true to /posts/_metadata.yml and in _quarto.yml under the website key we set site-url: https://openscapes.github.io/events. We deleted footer.html used with distill because footer is now defined in quarto.yml.\n\nPublishing notes\n\nBackground: Our distill site had been set up to output to a docs folder, and had GitHub Settings &gt; Pages set to look there rather gh-pages branch. (Julie note: this was a new-to-me capability when we set up the events distill site in Spring 2021 so I had forgotten that was an option). We’ve inititally kept this same set-up for now with our events page in _quarto.yml: output-dir: docs. However, this is sub-optimal; better to not have to commit and push these files but to instead have a GitHub Action generate them upon a commit. So the following is what we did -\n\nDon’t specify output-dir in _quarto.yml. The output directory default is _site/, which is what we’d like.\nIf you currently have a docs/ folder (like we did as we were experimenting), delete it.\nUpdate .gitignore to ignore _site/. At the same time, we have it ignore caches and a .quarto file:\n/.quarto/\n*_cache/\n_site/\nPush these changes, merge into main.\nOn GitHub.com, in your repo, set up GitHub publishing\nFollow instructions from the explore and setup chapter."
-  },
-  {
-    "objectID": "transition-from-rmarkdown.html#troubleshooting",
-    "href": "transition-from-rmarkdown.html#troubleshooting",
-    "title": "Transition from RMarkdown",
-    "section": "Troubleshooting",
-    "text": "Troubleshooting\n\nGitHub Action fails, says you need RMarkdown but you don’t have R code!\nAnd you changed all .Rmds to .qmds!\nYou likely have a few setup code chunks from RMarkdown, that look like this:\n{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = FALSE)\nYou can find them by opening each of your files and having a look, or use GitHub’s search for the keyword knitr"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Making shareable documents with Quarto",
-    "section": "",
-    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "Making shareable documents with Quarto",
-    "section": "",
-    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
-  },
-  {
-    "objectID": "index.html#what-is-quarto",
-    "href": "index.html#what-is-quarto",
-    "title": "Making shareable documents with Quarto",
-    "section": "What is Quarto?",
-    "text": "What is Quarto?\nQuarto helps you have your ideas and your code in one place, and present it in a beautiful way.\nQuarto unifies and extends the RMarkdown ecosystem - it unifies by combining the functionality of R Markdown, bookdown, distill, xaringian, etc into a single consistent system. And it extends in several ways: all features are possible beyond R too, including Python and Javascript. It also has more “guardrails”: accessibility and inclusion are centered in the design. Quarto is for people who love RMarkdown, and it’s for people who have never used RMarkdown.\nThe ability for Quarto to streamline collaboration has been so cool and important for our NASA Openscapes project. Quarto has been a common place for us to collaborate - across R and Python languages and coding expertise."
-  },
-  {
-    "objectID": "index.html#what-is-this-tutorial",
-    "href": "index.html#what-is-this-tutorial",
-    "title": "Making shareable documents with Quarto",
-    "section": "What is this tutorial?",
-    "text": "What is this tutorial?\nThis is a 1-hour tutorial that can be used to teach or as self-paced learning.\nWe introduce Quarto by exploring this tutorial website, and practicing the basic Quarto workflow using different tools (GitHub browser, RStudio, and Jupyter) for editing your website.\nWe’ll start off from the browser so you don’t need to install any additional software, however this approach is very limited and you will soon outgrow its capabilities. If you don’t already have a workflow to edit files and sync to GitHub from your computer, I recommend RStudio. You don’t need to know R to use RStudio, and it has powerful editor features that make for happy workflows.\nQuarto.org is the go-to place for full documentation and more tutorials!"
-  },
-  {
-    "objectID": "index.html#example-quarto-sites",
-    "href": "index.html#example-quarto-sites",
-    "title": "Making shareable documents with Quarto",
-    "section": "Example Quarto sites",
-    "text": "Example Quarto sites\nA few Quarto websites from Openscapes - so far we have been using Quarto for documentation using Quarto and Markdown files and Jupyter Notebooks.\n\nChampions Lessons Series\nOpenscapes Approach Guide\n\n2021 NASA Cloud Hackathon\nFaylab Lab Manual\nA Quarto tip a day, by Mine Çetinkaya-Rundel"
-  },
-  {
-    "objectID": "index.html#about",
-    "href": "index.html#about",
-    "title": "Making shareable documents with Quarto",
-    "section": "About",
-    "text": "About\nOpenscapes is about better science for future us. We help researchers reimagine data analysis, develop modern skills that are of immediate value to them, and cultivate collaborative and inclusive research teams as part of the broader global open movement.\nWe’re developing this tutorial to help folks with different levels of technical skills use Quarto for documentation and tutorial building. This tutorial was originally created for several different audiences: NASA-Openscapes researcher support engineers using Python, communications directors at organizations promoting open science who do not identify as coders, and fisheries scientists curious about transitioning from RMarkdown. We’re hoping it’s useful to folks with backgrounds as wide as these; if you find it useful or have suggestions for improvement, please let us know by clicking “Edit this page” or “Report an issue” at the upper right side of any page."
-  },
-  {
     "objectID": "irb/ModelGuideline.html",
     "href": "irb/ModelGuideline.html",
     "title": "Model guideline",
@@ -313,6 +243,111 @@
     "title": "Model guideline",
     "section": "Thấu chi",
     "text": "Thấu chi\n\nCó tài sản đảm bảo\n\nNếu là KH housing loan vay thêm thấu chi, có thể dùng housing score card\n\n\n\nNếu tài sản là tiền gửi nhỏ, thì áp dụng standardise\n\nKhông có tài sản\n\nXếp chung vào nhóm credit card"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Making shareable documents with Quarto",
+    "section": "",
+    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Making shareable documents with Quarto",
+    "section": "",
+    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
+  },
+  {
+    "objectID": "index.html#what-is-quarto",
+    "href": "index.html#what-is-quarto",
+    "title": "Making shareable documents with Quarto",
+    "section": "What is Quarto?",
+    "text": "What is Quarto?\nQuarto helps you have your ideas and your code in one place, and present it in a beautiful way.\nQuarto unifies and extends the RMarkdown ecosystem - it unifies by combining the functionality of R Markdown, bookdown, distill, xaringian, etc into a single consistent system. And it extends in several ways: all features are possible beyond R too, including Python and Javascript. It also has more “guardrails”: accessibility and inclusion are centered in the design. Quarto is for people who love RMarkdown, and it’s for people who have never used RMarkdown.\nThe ability for Quarto to streamline collaboration has been so cool and important for our NASA Openscapes project. Quarto has been a common place for us to collaborate - across R and Python languages and coding expertise."
+  },
+  {
+    "objectID": "index.html#what-is-this-tutorial",
+    "href": "index.html#what-is-this-tutorial",
+    "title": "Making shareable documents with Quarto",
+    "section": "What is this tutorial?",
+    "text": "What is this tutorial?\nThis is a 1-hour tutorial that can be used to teach or as self-paced learning.\nWe introduce Quarto by exploring this tutorial website, and practicing the basic Quarto workflow using different tools (GitHub browser, RStudio, and Jupyter) for editing your website.\nWe’ll start off from the browser so you don’t need to install any additional software, however this approach is very limited and you will soon outgrow its capabilities. If you don’t already have a workflow to edit files and sync to GitHub from your computer, I recommend RStudio. You don’t need to know R to use RStudio, and it has powerful editor features that make for happy workflows.\nQuarto.org is the go-to place for full documentation and more tutorials!"
+  },
+  {
+    "objectID": "index.html#example-quarto-sites",
+    "href": "index.html#example-quarto-sites",
+    "title": "Making shareable documents with Quarto",
+    "section": "Example Quarto sites",
+    "text": "Example Quarto sites\nA few Quarto websites from Openscapes - so far we have been using Quarto for documentation using Quarto and Markdown files and Jupyter Notebooks.\n\nChampions Lessons Series\nOpenscapes Approach Guide\n\n2021 NASA Cloud Hackathon\nFaylab Lab Manual\nA Quarto tip a day, by Mine Çetinkaya-Rundel"
+  },
+  {
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Making shareable documents with Quarto",
+    "section": "About",
+    "text": "About\nOpenscapes is about better science for future us. We help researchers reimagine data analysis, develop modern skills that are of immediate value to them, and cultivate collaborative and inclusive research teams as part of the broader global open movement.\nWe’re developing this tutorial to help folks with different levels of technical skills use Quarto for documentation and tutorial building. This tutorial was originally created for several different audiences: NASA-Openscapes researcher support engineers using Python, communications directors at organizations promoting open science who do not identify as coders, and fisheries scientists curious about transitioning from RMarkdown. We’re hoping it’s useful to folks with backgrounds as wide as these; if you find it useful or have suggestions for improvement, please let us know by clicking “Edit this page” or “Report an issue” at the upper right side of any page."
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html",
+    "href": "transition-from-rmarkdown.html",
+    "title": "Transition from RMarkdown",
+    "section": "",
+    "text": "You may already have workflows in RMarkdown and are interested in transitioning to Quarto. There’s no hurry to migrate to Quarto. Keep using Rmarkdown and when you’re ready the migration will be fine.\nHere are some notes as we migrate RMarkdown sites and books.\nTODO: translating R code chunks"
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html#bookdown-to-quarto",
+    "href": "transition-from-rmarkdown.html#bookdown-to-quarto",
+    "title": "Transition from RMarkdown",
+    "section": "Bookdown to Quarto",
+    "text": "Bookdown to Quarto\nConverting a Bookdown book to Quarto is slightly more involved than converting a website. A book has chapters whose order must be defined, and likely has citations and cross-refs. Still, conversion is not that hard.\nWe got some practice converting from Bookdown to Quarto by helping Gavin Fay convert his lab’s fantastic onboarding documentation, the Faylab Lab Manual. Here’s the GitHub view before and after.\nOur best first reference material for this was Nick Tierney’s Notes on Changing from Rmarkdown/Bookdown to Quarto. Nick shares some scripts in that post to automate some changes. In our case, the book was small enough that we made all changes manually. Quarto documentation was indispensable.\n\nExperimenting in a low-risk environment\nWe forked a copy of the Faylab Lab manual to the Openscapes organization, and worked in a branch so we could make changes relatively risk-free. We could always fork a new copy of the original if we “broke” something. (Caution: the default when making a pull request from a fork is to push changes to the original upstream repo, not your fork and it does this without warning if you have write-access to that repo.) With local previews it’s easy to test / play with settings to see what they do. We tended to make a change, Preview, then compare the look and functionality of the book to the original. It was helpful to comment out some elements of the configuration file _output.yml after their counterparts had been added to the Quarto configuration file _quarto.yml, or to confirm they were no longer needed, before making the drastic move of deleting them.\n\n\nThe conversion\nHere are the main steps to convert the Faylab Lab manual from Bookdown to Quarto.\nCreate new empty file called _quarto.yml and add book metadata there. The screenshots below\nSet project type as book.\nMove metadata out of index.qmd and into _quarto.yml. Title, author, and publication date were in index.qmd with date set using date: \"Last updated:r Sys.Date()\". Now these are in _quarto.yml with date set using date: last-modified. Note that having R code would require you to adjust code chunk options in the Quarto style (#|). This tripped us up a bit; see GitHub Actions.\nMove chapters listing out of _bookdown.yml and into _quarto.yml.\nAdd page footer to _quarto.yml.\nHere’s what ours looked like when we finished the steps above (_quarto.yml).\n\n\n\n\n\n\n_quarto.yml contents\n\n\n\n\n\n\n\nFaylab Lab Manual\n\n\n\n\n\nChange insertion of images from html style to Quarto style. (Note Quarto calls them “figures”, not “images”.) The following snippet will insert the GitHub octocat logo in a page:\n![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){fig-align=\"left\" width=\"35px\"}\nChange all filename extensions .Rmd -&gt; .qmd (you could Preview after this change and see that the book looks the same). Note that Quarto works with .Rmd files just as well as it does .qmd, so this change is not urgent. In fact, if you have a lot of R code in your .Rmds (unlike the Faylab Lab Manual), there will be additional tinkering needed to make the code chunks happy.\n\n\nCitations\nThe Faylab Lab Manual cited two papers, presenting us with an opportunity to see how easy it is to add references to a Quarto book. Briefly, in the Visual Editor, Insert &gt; Citation &gt; DOI. Pasting the DOI or its full URL, we can insert the citation. This automatically creates a references.bib file and adds the full citations at the bottom of the chapter page (watch demo). In July 2022, we had to manually add a ## References heading, but this may not be necessary in future Quarto updates.\n\n\n\n\n\n\nInsert citation via its DOI using RStudio Visual Editor\n\n\n\n\n\n\n\n\n\n\nPublishing notes\nIf the book’s output is strictly html, there’s no need to specify output-dir in _quarto.yml. The output directory default is _book/, which is what we’d like. If we wanted other types of output like like PDF or EPUB, etc. those single file outputs are also written to the output-dir (Quarto docs).\nIf you currently have a docs/ folder, delete it.\nUpdate .gitignore to ignore _book/. At the same time, we have it ignore caches and a .quarto file:\n/.quarto/\n*_cache/\n_book/\nOnce all is settled, delete _output.yml.\nOnce the Openscapes fork was fully reviewed, we made a pull request from that to the main branch of the book’s repo. Once that was merged, we set up GitHub Actions to render the book. (TODO: instructions for GitHub Actions)\n\n\nGitHub Actions\nThis book was mostly prose and screenshots without any R code. This made the conversion from RMarkdown to Quarto likely more straightforward than if you also needed to adjust code chunk options in the quarto style (#|). Our initial GitHub Action to render the converted Faylab Lab Manual failed because we had a piece of R code - even though the code was commented out! This was resolved when we deleted the line."
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html#distill-to-quarto",
+    "href": "transition-from-rmarkdown.html#distill-to-quarto",
+    "title": "Transition from RMarkdown",
+    "section": "Distill to quarto",
+    "text": "Distill to quarto\nWe transitioned our events site from distill to quarto in May 2022 (github view before and after). We followed excellent notes and examples from Nick Tierney and Danielle Navarro.\nAfter we had changed all the files, the Build tab in the RStudio IDE still showed “Build website” rather then “Render Website” and “Preview Website”, and would error when we pushed them (because that button was expecting a distill site, not a quarto site). To fix this, we updated the .Rproj file. Clicking on the .Rproj file in the RStudio IDE will open a dialog box where you can click things you want (you can also open these in a text editor or from the GitHub website to see the actual text). To fix this situation with the Build tab: Project Options &gt; Build Tools &gt; Project Build Tools &gt; None.\nLooking at files /posts/_metadata.yml and _quarto.yml helps see where things are defined. For example, to make event post citations appear, we added citation: true to /posts/_metadata.yml and in _quarto.yml under the website key we set site-url: https://openscapes.github.io/events. We deleted footer.html used with distill because footer is now defined in quarto.yml.\n\nPublishing notes\n\nBackground: Our distill site had been set up to output to a docs folder, and had GitHub Settings &gt; Pages set to look there rather gh-pages branch. (Julie note: this was a new-to-me capability when we set up the events distill site in Spring 2021 so I had forgotten that was an option). We’ve inititally kept this same set-up for now with our events page in _quarto.yml: output-dir: docs. However, this is sub-optimal; better to not have to commit and push these files but to instead have a GitHub Action generate them upon a commit. So the following is what we did -\n\nDon’t specify output-dir in _quarto.yml. The output directory default is _site/, which is what we’d like.\nIf you currently have a docs/ folder (like we did as we were experimenting), delete it.\nUpdate .gitignore to ignore _site/. At the same time, we have it ignore caches and a .quarto file:\n/.quarto/\n*_cache/\n_site/\nPush these changes, merge into main.\nOn GitHub.com, in your repo, set up GitHub publishing\nFollow instructions from the explore and setup chapter."
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html#troubleshooting",
+    "href": "transition-from-rmarkdown.html#troubleshooting",
+    "title": "Transition from RMarkdown",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nGitHub Action fails, says you need RMarkdown but you don’t have R code!\nAnd you changed all .Rmds to .qmds!\nYou likely have a few setup code chunks from RMarkdown, that look like this:\n{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = FALSE)\nYou can find them by opening each of your files and having a look, or use GitHub’s search for the keyword knitr"
+  },
+  {
+    "objectID": "models-monitoring/KS-PSI_ENTROPY.html",
+    "href": "models-monitoring/KS-PSI_ENTROPY.html",
+    "title": "Giám sát độ ổn định của mô hình",
+    "section": "",
+    "text": "Chỉ số Ổn định tổng thể (PSI - Population Stability Index) là một phép đo thường được sử dụng trong ngành ngân hàng, đặc biệt trong việc xếp hạng tín dụng, để giám sát sự ổn định và hiệu suất của các mô hình xếp hạng theo thời gian. Đây là cách để định lượng sự thay đổi trong phân phối tổng thể, điều này có thể ảnh hưởng đến sức mạnh dự đoán của một mô hình.\n\n\n\nPSI\n\n\nPSI được tính như sau:\n\\[ PSI = \\sum_{i=1}^{N} (Actual_{i} - Expected_{i}) \\log \\left( \\frac{Actual_{i}}{Expected_{i}} \\right) \\]\nTrong đó:\n\n\\(Actual_{i}\\) và \\(Expected_{i}\\) là tỷ lệ quan sát rơi vào bin (i) cho dữ liệu thực tế (mới hoặc kiểm tra) và dữ liệu mong đợi (cũ hoặc đào tạo), tương ứng. - (N) là tổng số bins.\n\nCách giải thích thông thường về các giá trị PSI như sau:\n\nPSI &lt; 0.1: Không có sự thay đổi đáng kể về tổng thể. Mô hình thường được coi là ổn định.\n0.1 ≤ PSI &lt; 0.25: Có một số thay đổi nhỏ trong tổng thể, có thể cần được điều tra thêm.\nPSI ≥ 0.25: Sự thay đổi đáng kể về tổng thể. Mô hình có thể không còn phù hợp và cần được cập nhật hoặc xây dựng lại.\n\nLưu ý rằng những ngưỡng này không phải là cố định và có thể thay đổi tùy thuộc vào đặc điểm cụ thể của tình huống và mức độ rủi ro bạn sẵn sàng chấp nhận."
+  },
+  {
+    "objectID": "models-monitoring/KS-PSI_ENTROPY.html#psi",
+    "href": "models-monitoring/KS-PSI_ENTROPY.html#psi",
+    "title": "Giám sát độ ổn định của mô hình",
+    "section": "",
+    "text": "Chỉ số Ổn định tổng thể (PSI - Population Stability Index) là một phép đo thường được sử dụng trong ngành ngân hàng, đặc biệt trong việc xếp hạng tín dụng, để giám sát sự ổn định và hiệu suất của các mô hình xếp hạng theo thời gian. Đây là cách để định lượng sự thay đổi trong phân phối tổng thể, điều này có thể ảnh hưởng đến sức mạnh dự đoán của một mô hình.\n\n\n\nPSI\n\n\nPSI được tính như sau:\n\\[ PSI = \\sum_{i=1}^{N} (Actual_{i} - Expected_{i}) \\log \\left( \\frac{Actual_{i}}{Expected_{i}} \\right) \\]\nTrong đó:\n\n\\(Actual_{i}\\) và \\(Expected_{i}\\) là tỷ lệ quan sát rơi vào bin (i) cho dữ liệu thực tế (mới hoặc kiểm tra) và dữ liệu mong đợi (cũ hoặc đào tạo), tương ứng. - (N) là tổng số bins.\n\nCách giải thích thông thường về các giá trị PSI như sau:\n\nPSI &lt; 0.1: Không có sự thay đổi đáng kể về tổng thể. Mô hình thường được coi là ổn định.\n0.1 ≤ PSI &lt; 0.25: Có một số thay đổi nhỏ trong tổng thể, có thể cần được điều tra thêm.\nPSI ≥ 0.25: Sự thay đổi đáng kể về tổng thể. Mô hình có thể không còn phù hợp và cần được cập nhật hoặc xây dựng lại.\n\nLưu ý rằng những ngưỡng này không phải là cố định và có thể thay đổi tùy thuộc vào đặc điểm cụ thể của tình huống và mức độ rủi ro bạn sẵn sàng chấp nhận."
+  },
+  {
+    "objectID": "models-monitoring/KS-PSI_ENTROPY.html#ks-kolmogorov-smirnov",
+    "href": "models-monitoring/KS-PSI_ENTROPY.html#ks-kolmogorov-smirnov",
+    "title": "Giám sát độ ổn định của mô hình",
+    "section": "KS (Kolmogorov-Smirnov)",
+    "text": "KS (Kolmogorov-Smirnov)\n\n\n\nKolmogorov-Smirnov\n\n\nKiểm định KS (Kolmogorov-Smirnov) là một kiểm định thống kê phi tham số dùng để so sánh hai phân phối tích lũy (CDFs) hoặc một mẫu dữ liệu với một phân phối lý thuyết. Nó có hai ứng dụng chính:\n\nKiểm tra sự phù hợp của mẫu: Được sử dụng để kiểm tra xem một tập dữ liệu có tuân theo một phân phối lý thuyết cụ thể (như phân phối chuẩn, phân phối đều, v.v.) hay không.\nSo sánh hai mẫu dữ liệu: Được sử dụng để kiểm tra xem hai tập dữ liệu có xuất phát từ cùng một phân phối gốc hay không.\n\nCông thức tính toán cho chỉ số KS là:\n\\[ D = \\max |F_1(x) - F_2(x)| \\]\nTrong đó: - ( F_1(x) ) và ( F_2(x) ) là hai hàm phân phối tích lũy cần so sánh. - ( D ) là giá trị lớn nhất của sự khác biệt tuyệt đối giữa hai hàm phân phối tích lũy trên toàn bộ phạm vi x.\nMột đặc điểm quan trọng của kiểm định KS là nó không yêu cầu giả định về dạng của phân phối, làm cho nó trở thành một công cụ mạnh mẽ và linh hoạt khi so sánh phân phối.\n\n\n(0.201, 4.4050768771360105e-18)"
+  },
+  {
+    "objectID": "models-monitoring/KS-PSI_ENTROPY.html#divergence-test-cross-entropy",
+    "href": "models-monitoring/KS-PSI_ENTROPY.html#divergence-test-cross-entropy",
+    "title": "Giám sát độ ổn định của mô hình",
+    "section": "Divergence Test (cross-entropy)",
+    "text": "Divergence Test (cross-entropy)\n\n\n\ncross-entropy\n\n\nKiểm định Divergence, thường được gọi là Divergence Kullback-Leibler (KL), là một chỉ số đo sự khác biệt giữa một phân phối xác suất so với một phân phối xác suất thứ hai mong đợi. Nó được sử dụng để so sánh hai phân phối xác suất cho cùng một sự kiện.\nCho hai phân phối xác suất, (P) và (Q), Divergence Kullback-Leibler của (Q) so với (P) được định nghĩa như sau:\n\\[ D_{KL}(P||Q) = \\sum_{i} P(i) \\log \\left( \\frac{P(i)}{Q(i)} \\right)\\]\nTrong đó: - (P(i)) là xác suất của sự kiện (i) theo phân phối (P), - (Q(i)) là xác suất của sự kiện (i) theo phân phối (Q), - Tổng được tính trên tất cả các sự kiện (i) có thể xảy ra.\nMột số điểm quan trọng về KL Divergence:\n\nKhông đối xứng: (D_{KL}(P||Q)) không bằng (D_{KL}(Q||P)). Điều này có nghĩa là Divergence KL của (Q) so với (P) không giống như Divergence KL của (P) so với (Q).\nKhông âm: Divergence KL luôn không âm, và nó bằng không chỉ khi (P) và (Q) là cùng một phân phối.\nĐơn vị: Divergence KL được đo bằng bit nếu logarithm có cơ số 2 (log2), hoặc bằng nats nếu logarithm có cơ số (e) (logarithm tự nhiên).\n\nTrên thực tế, KL Divergence có thể được sử dụng để đo sự khác biệt giữa phân phối thực tế và dự đoán, hoặc giữa một phân phối quan sát và một phân phối lý thuyết. Nó đặc biệt phổ biến trong các lĩnh vực như lý thuyết thông tin và học máy.\n\n\nKL Divergence between p and q: 0.1168\n\n\n\n\nKL Divergence from p to q: 0.1168"
+  },
+  {
+    "objectID": "models-monitoring/KS-PSI_ENTROPY.html#so-sánh-ks-và-divergence",
+    "href": "models-monitoring/KS-PSI_ENTROPY.html#so-sánh-ks-và-divergence",
+    "title": "Giám sát độ ổn định của mô hình",
+    "section": "So sánh KS và Divergence",
+    "text": "So sánh KS và Divergence\n\nMục đích:\n\nKiểm định KS: Đây là một kiểm định phi tham số được sử dụng để xác định xem hai mẫu có xuất phát từ cùng một phân phối hay không. Thống kê KS đo sự khác biệt lớn nhất giữa các hàm phân phối tích lũy (CDFs) của hai mẫu.\nKiểm định Divergence (KL Divergence): Nó đo cách một phân phối xác suất khác biệt so với một phân phối xác suất thứ hai mong đợi. Nó thường được sử dụng trong lý thuyết thông tin để đo “khoảng cách” giữa hai phân phối.\n\nKết quả:\n\nKiểm định KS: Kết quả là một chỉ số (D) đại diện cho sự khác biệt lớn nhất giữa hai CDFs và một giá trị p kiểm tra giả thuyết rằng hai mẫu được rút ra từ cùng một phân phối.\nKiểm định Divergence (KL Divergence): Kết quả là một giá trị không âm, trong đó giá trị 0 chỉ ra rằng hai phân phối là giống nhau. Lưu ý rằng KL Divergence không đối xứng, tức là (D_{KL}(P||Q) D_{KL}(Q||P)).\n\nGiả định:\n\nKiểm định KS: Không giả định về phân phối của dữ liệu.\nKiểm định Divergence (KL Divergence): Giả định (Q(i) &gt; 0) cho bất kỳ (i) nào sao cho (P(i) &gt; 0), nếu không sự khác biệt sẽ vô cùng.\n\nỨng dụng:\n\nKiểm định KS: Thường được sử dụng trong kiểm định giả thuyết để xác định xem một mẫu dữ liệu có tuân theo một phân phối cụ thể hay không.\nKiểm định Divergence (KL Divergence): Rộng rãi được sử dụng trong lý thuyết thông tin, học máy và thống kê, đặc biệt khi so sánh một phân phối thực nghiệm với một phân phối lý thuyết.\n\nGiải thích:\n\nKiểm định KS: Một giá trị p nhỏ cho thấy rằng hai mẫu đến từ các phân phối khác nhau.\nKiểm định Divergence (KL Divergence): Một Divergence KL lớn hơn chỉ ra rằng hai phân phối khác biệt hơn so với nhau.\n\n\nTóm lại, mặc dù cả Kiểm định KS và KL Divergence đều được sử dụng để so sánh các phân phối, nhưng chúng có các phương pháp, giải thích và ứng dụng khác nhau. Sự lựa chọn giữa chúng phụ thuộc vào vấn đề cụ thể và bản chất của dữ liệu."
   },
   {
     "objectID": "quarto-workflows/rstudio.html",

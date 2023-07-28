@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nguyễn Ngọc Bình">
 
-<title>Making sharable documents with Quarto - Quarto workflows</title>
+<title>Making sharable documents with Quarto - Giám sát độ ổn định của mô hình</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -63,8 +30,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../quarto-workflows/browser.html" rel="next">
-<link href="../explore.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -97,6 +62,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -109,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto-workflows/index.html">Quarto workflows</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Giám sát độ ổn định của mô hình</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -188,13 +155,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../quarto-workflows/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../quarto-workflows/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quarto workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../quarto-workflows/browser.html" class="sidebar-item-text sidebar-link">
@@ -237,25 +204,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#basic-workflow" id="toc-basic-workflow" class="nav-link active" data-scroll-target="#basic-workflow">Basic Workflow</a></li>
-  <li><a href="#authoring" id="toc-authoring" class="nav-link" data-scroll-target="#authoring">Authoring</a></li>
-  <li><a href="#update-_quarto.yml" id="toc-update-_quarto.yml" class="nav-link" data-scroll-target="#update-_quarto.yml">Update <code>_quarto.yml</code></a></li>
-  <li><a href="#install-quarto" id="toc-install-quarto" class="nav-link" data-scroll-target="#install-quarto">Install Quarto</a></li>
+  <li><a href="#psi" id="toc-psi" class="nav-link active" data-scroll-target="#psi">PSI</a></li>
+  <li><a href="#ks-kolmogorov-smirnov" id="toc-ks-kolmogorov-smirnov" class="nav-link" data-scroll-target="#ks-kolmogorov-smirnov">KS (Kolmogorov-Smirnov)</a></li>
+  <li><a href="#divergence-test-cross-entropy" id="toc-divergence-test-cross-entropy" class="nav-link" data-scroll-target="#divergence-test-cross-entropy">Divergence Test (cross-entropy)</a></li>
+  <li><a href="#so-sánh-ks-và-divergence" id="toc-so-sánh-ks-và-divergence" class="nav-link" data-scroll-target="#so-sánh-ks-và-divergence">So sánh KS và Divergence</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nguyenngocbinh/papers/edit/main/quarto-workflows/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nguyenngocbinh/papers/edit/main/models-monitoring/KS-PSI_ENTROPY.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quarto workflows</h1>
+<h1 class="title">Giám sát độ ổn định của mô hình</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nguyễn Ngọc Bình </p>
+          </div>
+  </div>
     
   
     
@@ -264,70 +237,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<!---
-## Why am I here?
-
-## Stuff from Alison Hill chat
-
-### what do code chunks look like,
-
-### Can you open slide decks within here
-
-
-## What's Freeze?
-
-JJ: You can put it in the project root or at a a file level, OR at a directory level (if there is a _metadata.yml file in a directory then documents within it will merge that metadata -- this applies to docs in subdirectories as well). So if you have mostly frozen stuff you can set it at the project level then disable on a per-file or per-directory basis. If frozen stuff is more the exception then you can use directory or file level enablement
---->
-<section id="basic-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="basic-workflow">Basic Workflow</h2>
-<p>How do you work in Quarto? You can use whichever tool you’re comfortable with (RStudio, Jupyter, GitHub, VS Code, etc). Developing your quarto site will have the same basic workflow, no matter which tool you use. It is very iterative, and each is explored more below.</p>
-<ol type="1">
-<li>Authoring: write text, code, images, etc in a file. Supported files include <code>.md</code>, <code>.Rmd</code>, <code>.qmd</code>, <code>.ipynb</code>…</li>
-<li>Update <code>_quarto.yml</code> as needed (for example, if you’ve created a new file you’d like included in your site)</li>
-<li>Render individual files and/or the whole website</li>
-<li>Repeat, repeat, repeat</li>
-<li>Commit and push your website to GitHub, your updates will publish automatically!</li>
-<li>Repeat all of the above to make the website as you’d like!</li>
-</ol>
-<p>Note: if editing from your internet browser we won’t render in Step 3. That step will not be separate, but combined with Step 5, which will only require a commit, not a push.</p>
-</section>
-<section id="authoring" class="level2">
-<h2 class="anchored" data-anchor-id="authoring">Authoring</h2>
-<p>As an author, you have a lot of options of how your text will be formatted, arranged, and interlinked. You will be writing in Markdown, which is a lightweight text formatting language. The Quarto documentation about authoring introduces <a href="https://quarto.org/docs/authoring/markdown-basics.html">markdown-basics</a> that will get you started. Also see Mine Çetinkaya-Rundel’s <a href="https://mine-cetinkaya-rundel.github.io/quarto-tip-a-day/">A Quarto tip a day</a>.</p>
-<p>Each page of our site has a similar first few lines - this YAML, like we saw in our <code>_quarto.yml</code> and it is indicated by two sets of 3 dashes <code>---</code> :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">title:</span> My title</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You’re able to add more features to individual pages by including it in the YAML, which for the most part here only includes a title. See <a href="https://quarto.org/docs/computations/execution-options.html">Quarto excecution options</a> for more information of what you can include in the YAML.</p>
-</section>
-<section id="update-_quarto.yml" class="level2">
-<h2 class="anchored" data-anchor-id="update-_quarto.yml">Update <code>_quarto.yml</code></h2>
-<p>Let’s have a closer look at the <code>_quarto.yml</code> file.</p>
-<p>This type of file (<code>.yml</code> or <code>.yaml</code>) is written in YAML (“Yet Another Markup Language”). You’ll be able to shift the arrangement of webpages by reordering/adding/deleting them in the <code>_quarto.yml</code> file following the patterns you see in this example.</p>
+<section id="psi" class="level2">
+<h2 class="anchored" data-anchor-id="psi">PSI</h2>
+<p>Chỉ số Ổn định tổng thể (PSI - Population Stability Index) là một phép đo thường được sử dụng trong ngành ngân hàng, đặc biệt trong việc xếp hạng tín dụng, để giám sát sự ổn định và hiệu suất của các mô hình xếp hạng theo thời gian. Đây là cách để định lượng sự thay đổi trong phân phối tổng thể, điều này có thể ảnh hưởng đến sức mạnh dự đoán của một mô hình.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/quarto-yml-site-side-by-side3.png" class="img-fluid figure-img" style="width:95.0%"></p>
-<figcaption class="figure-caption">_quarto.yml and website side-by-side</figcaption>
+<p><img src="https://i0.wp.com/ucanalytics.com/blogs/wp-content/uploads/2014/04/PSI-Chart.jpg?w=752" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">PSI</figcaption>
 </figure>
 </div>
-<p>Notice that there are multiple ways in the <code>_quarto.yml</code> for you to include a file in your website. For example, in the above image, the “First Observations” we see in the left sidebar of the published website (right image) is represented in <code>_quarto.yml</code> (left image) over two lines, with line 36 indicating the file reference and line 37 indicating the text to show up in the left sidebar. However, “From RStudio” is only represented in one line of <code>_quarto.yml</code>, on line 43. This represents two strategies for including a file in your website. By default, the title of a specified file will show up in the website’s sidebar, which is what is happening with the “From RStudio” example. If you would like more control over what is written in the sidebar vs the title of your files, then the approach we took with “First Observations” is what you’ll want to do: you’ll see that only “First Observations” shows up in the sidebar as we specified in <code>_quarto.yml</code>, but the page’s title says “First Observations &amp; Setup” (which in our preference was too long for the sidebar).</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>PSI được tính như sau:</p>
+<p><span class="math display">\[ PSI = \sum_{i=1}^{N} (Actual_{i} - Expected_{i}) \log \left( \frac{Actual_{i}}{Expected_{i}} \right) \]</span></p>
+<p>Trong đó:</p>
+<ul>
+<li><span class="math inline">\(Actual_{i}\)</span> và <span class="math inline">\(Expected_{i}\)</span> là tỷ lệ quan sát rơi vào bin (i) cho dữ liệu thực tế (mới hoặc kiểm tra) và dữ liệu mong đợi (cũ hoặc đào tạo), tương ứng. - (N) là tổng số bins.</li>
+</ul>
+<p>Cách giải thích thông thường về các giá trị PSI như sau:</p>
+<ul>
+<li><strong>PSI &lt; 0.1</strong>: Không có sự thay đổi đáng kể về tổng thể. Mô hình thường được coi là ổn định.</li>
+<li><strong>0.1 ≤ PSI &lt; 0.25</strong>: Có một số thay đổi nhỏ trong tổng thể, có thể cần được điều tra thêm.</li>
+<li><strong>PSI ≥ 0.25</strong>: Sự thay đổi đáng kể về tổng thể. Mô hình có thể không còn phù hợp và cần được cập nhật hoặc xây dựng lại.</li>
+</ul>
+<p>Lưu ý rằng những ngưỡng này không phải là cố định và có thể thay đổi tùy thuộc vào đặc điểm cụ thể của tình huống và mức độ rủi ro bạn sẵn sàng chấp nhận.</p>
+</section>
+<section id="ks-kolmogorov-smirnov" class="level2">
+<h2 class="anchored" data-anchor-id="ks-kolmogorov-smirnov">KS (Kolmogorov-Smirnov)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/KS_Example.png/300px-KS_Example.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Kolmogorov-Smirnov</figcaption>
+</figure>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>As you modify <code>_quarto.yml</code>, the most important thing to know is that <strong>spacing matters</strong>. Pay attention to whether text is indented by one, two, four, or other spaces, and make sure you follow it; if your site is not looking as expected it is likely a silent error in your YAML. Some text editors like RStudio provide debugging support for YAML and are highly recommended to save you time and heartache.</p>
+<p>Kiểm định KS (Kolmogorov-Smirnov) là một kiểm định thống kê phi tham số dùng để so sánh hai phân phối tích lũy (CDFs) hoặc một mẫu dữ liệu với một phân phối lý thuyết. Nó có hai ứng dụng chính:</p>
+<ol type="1">
+<li><p><strong>Kiểm tra sự phù hợp của mẫu</strong>: Được sử dụng để kiểm tra xem một tập dữ liệu có tuân theo một phân phối lý thuyết cụ thể (như phân phối chuẩn, phân phối đều, v.v.) hay không.</p></li>
+<li><p><strong>So sánh hai mẫu dữ liệu</strong>: Được sử dụng để kiểm tra xem hai tập dữ liệu có xuất phát từ cùng một phân phối gốc hay không.</p></li>
+</ol>
+<p>Công thức tính toán cho chỉ số KS là:</p>
+<p><span class="math display">\[ D = \max |F_1(x) - F_2(x)| \]</span></p>
+<p>Trong đó: - ( F_1(x) ) và ( F_2(x) ) là hai hàm phân phối tích lũy cần so sánh. - ( D ) là giá trị lớn nhất của sự khác biệt tuyệt đối giữa hai hàm phân phối tích lũy trên toàn bộ phạm vi x.</p>
+<p>Một đặc điểm quan trọng của kiểm định KS là nó không yêu cầu giả định về dạng của phân phối, làm cho nó trở thành một công cụ mạnh mẽ và linh hoạt khi so sánh phân phối.</p>
+<div class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>(0.201, 4.4050768771360105e-18)</code></pre>
 </div>
 </div>
 </section>
-<section id="install-quarto" class="level2">
-<h2 class="anchored" data-anchor-id="install-quarto">Install Quarto</h2>
-<p><strong><a href="https://quarto.org/docs/get-started/" class="uri">https://quarto.org/docs/get-started/</a></strong> describes how to install Quarto, which will depend on your operating system. We’ll walk through installation for each tool in the next chapters.</p>
+<section id="divergence-test-cross-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="divergence-test-cross-entropy">Divergence Test (cross-entropy)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://i.stack.imgur.com/deT2L.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">cross-entropy</figcaption>
+</figure>
+</div>
+<p>Kiểm định Divergence, thường được gọi là Divergence Kullback-Leibler (KL), là một chỉ số đo sự khác biệt giữa một phân phối xác suất so với một phân phối xác suất thứ hai mong đợi. Nó được sử dụng để so sánh hai phân phối xác suất cho cùng một sự kiện.</p>
+<p>Cho hai phân phối xác suất, (P) và (Q), Divergence Kullback-Leibler của (Q) so với (P) được định nghĩa như sau:</p>
+<p><span class="math display">\[ D_{KL}(P||Q) = \sum_{i} P(i) \log \left( \frac{P(i)}{Q(i)} \right)\]</span></p>
+<p>Trong đó: - (P(i)) là xác suất của sự kiện (i) theo phân phối (P), - (Q(i)) là xác suất của sự kiện (i) theo phân phối (Q), - Tổng được tính trên tất cả các sự kiện (i) có thể xảy ra.</p>
+<p>Một số điểm quan trọng về KL Divergence:</p>
+<ol type="1">
+<li><p><strong>Không đối xứng</strong>: (D_{KL}(P||Q)) không bằng (D_{KL}(Q||P)). Điều này có nghĩa là Divergence KL của (Q) so với (P) không giống như Divergence KL của (P) so với (Q).</p></li>
+<li><p><strong>Không âm</strong>: Divergence KL luôn không âm, và nó bằng không chỉ khi (P) và (Q) là cùng một phân phối.</p></li>
+<li><p><strong>Đơn vị</strong>: Divergence KL được đo bằng bit nếu logarithm có cơ số 2 (log2), hoặc bằng nats nếu logarithm có cơ số (e) (logarithm tự nhiên).</p></li>
+</ol>
+<p>Trên thực tế, KL Divergence có thể được sử dụng để đo sự khác biệt giữa phân phối thực tế và dự đoán, hoặc giữa một phân phối quan sát và một phân phối lý thuyết. Nó đặc biệt phổ biến trong các lĩnh vực như lý thuyết thông tin và học máy.</p>
+<div class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>KL Divergence between p and q: 0.1168</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="cell-output cell-output-stdout">
+<pre><code>KL Divergence from p to q: 0.1168</code></pre>
+</div>
+</div>
+</section>
+<section id="so-sánh-ks-và-divergence" class="level2">
+<h2 class="anchored" data-anchor-id="so-sánh-ks-và-divergence">So sánh KS và Divergence</h2>
+<ol type="1">
+<li><strong>Mục đích</strong>:
+<ul>
+<li><strong>Kiểm định KS</strong>: Đây là một kiểm định phi tham số được sử dụng để xác định xem hai mẫu có xuất phát từ cùng một phân phối hay không. Thống kê KS đo sự khác biệt lớn nhất giữa các hàm phân phối tích lũy (CDFs) của hai mẫu.</li>
+<li><strong>Kiểm định Divergence (KL Divergence)</strong>: Nó đo cách một phân phối xác suất khác biệt so với một phân phối xác suất thứ hai mong đợi. Nó thường được sử dụng trong lý thuyết thông tin để đo “khoảng cách” giữa hai phân phối.</li>
+</ul></li>
+<li><strong>Kết quả</strong>:
+<ul>
+<li><strong>Kiểm định KS</strong>: Kết quả là một chỉ số (D) đại diện cho sự khác biệt lớn nhất giữa hai CDFs và một giá trị p kiểm tra giả thuyết rằng hai mẫu được rút ra từ cùng một phân phối.</li>
+<li><strong>Kiểm định Divergence (KL Divergence)</strong>: Kết quả là một giá trị không âm, trong đó giá trị 0 chỉ ra rằng hai phân phối là giống nhau. Lưu ý rằng KL Divergence không đối xứng, tức là (D_{KL}(P||Q) D_{KL}(Q||P)).</li>
+</ul></li>
+<li><strong>Giả định</strong>:
+<ul>
+<li><strong>Kiểm định KS</strong>: Không giả định về phân phối của dữ liệu.</li>
+<li><strong>Kiểm định Divergence (KL Divergence)</strong>: Giả định (Q(i) &gt; 0) cho bất kỳ (i) nào sao cho (P(i) &gt; 0), nếu không sự khác biệt sẽ vô cùng.</li>
+</ul></li>
+<li><strong>Ứng dụng</strong>:
+<ul>
+<li><strong>Kiểm định KS</strong>: Thường được sử dụng trong kiểm định giả thuyết để xác định xem một mẫu dữ liệu có tuân theo một phân phối cụ thể hay không.</li>
+<li><strong>Kiểm định Divergence (KL Divergence)</strong>: Rộng rãi được sử dụng trong lý thuyết thông tin, học máy và thống kê, đặc biệt khi so sánh một phân phối thực nghiệm với một phân phối lý thuyết.</li>
+</ul></li>
+<li><strong>Giải thích</strong>:
+<ul>
+<li><strong>Kiểm định KS</strong>: Một giá trị p nhỏ cho thấy rằng hai mẫu đến từ các phân phối khác nhau.</li>
+<li><strong>Kiểm định Divergence (KL Divergence)</strong>: Một Divergence KL lớn hơn chỉ ra rằng hai phân phối khác biệt hơn so với nhau.</li>
+</ul></li>
+</ol>
+<p>Tóm lại, mặc dù cả Kiểm định KS và KL Divergence đều được sử dụng để so sánh các phân phối, nhưng chúng có các phương pháp, giải thích và ứng dụng khác nhau. Sự lựa chọn giữa chúng phụ thuộc vào vấn đề cụ thể và bản chất của dữ liệu.</p>
 
 
 </section>
@@ -681,18 +696,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../explore.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Explore and setup</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../quarto-workflows/browser.html" class="pagination-link">
-        <span class="nav-page-text">From the Browser</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
