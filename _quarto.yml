@@ -37,9 +37,11 @@ website:
         contents:
           - irb/ModelGuideline.qmd
       - section: machine-learning/transformer.md
-      - section: models-monitoring/KS-PSI_ENTROPY.qmd
         contents:
           - machine-learning/transformer.md
+      - section: models-monitoring/KS-PSI_ENTROPY.qmd
+        contents:
+          - models-monitoring/KS-PSI_ENTROPY.qmd
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
