@@ -33,6 +33,12 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
+      - section: irb/ModelGuideline.qmd
+        contents:
+          - irb/ModelGuideline.qmd
+      - section: machine-learning/transformer.md
+        contents:
+          - machine-learning/transformer.md
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
@@ -42,13 +48,6 @@ website:
       - learning-more.qmd
       - href: transition-from-rmarkdown.qmd
         text: Transition from Rmd
-      - section: irb/ModelGuideline.qmd
-        contents:
-          - irb/ModelGuideline.qmd
-      - section: machine-learning/transformer.md
-        contents:
-          - machine-learning/transformer.md
-
 
 format:
   html:
