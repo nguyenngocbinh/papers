@@ -1,12 +1,16 @@
 ---
 title: "Giám sát độ ổn định của mô hình"
 author: "Nguyễn Ngọc Bình"
+execute:
+  echo: false
 format: html
 ---
 
 ## PSI
 
 Chỉ số Ổn định tổng thể (PSI - Population Stability Index) là một phép đo thường được sử dụng trong ngành ngân hàng, đặc biệt trong việc xếp hạng tín dụng, để giám sát sự ổn định và hiệu suất của các mô hình xếp hạng theo thời gian. Đây là cách để định lượng sự thay đổi trong phân phối tổng thể, điều này có thể ảnh hưởng đến sức mạnh dự đoán của một mô hình.
+
+![PSI](https://i0.wp.com/ucanalytics.com/blogs/wp-content/uploads/2014/04/PSI-Chart.jpg?w=752)
 
 PSI được tính như sau:
 
@@ -85,6 +89,8 @@ def calculate_psi(expected, actual, bins=10, categorical=False):
 
 ## KS (Kolmogorov-Smirnov)
 
+![Kolmogorov-Smirnov](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/KS_Example.png/300px-KS_Example.png)
+
 Kiểm định KS (Kolmogorov-Smirnov) là một kiểm định thống kê phi tham số dùng để so sánh hai phân phối tích lũy (CDFs) hoặc một mẫu dữ liệu với một phân phối lý thuyết. Nó có hai ứng dụng chính:
 
 1.  **Kiểm tra sự phù hợp của mẫu**: Được sử dụng để kiểm tra xem một tập dữ liệu có tuân theo một phân phối lý thuyết cụ thể (như phân phối chuẩn, phân phối đều, v.v.) hay không.
@@ -113,7 +119,9 @@ ks_statistic, p_value
 
 ```
 
-## Divergence Test (entropy)
+## Divergence Test (cross-entropy)
+
+![cross-entropy](https://i.stack.imgur.com/deT2L.png)
 
 Kiểm định Divergence, thường được gọi là Divergence Kullback-Leibler (KL), là một chỉ số đo sự khác biệt giữa một phân phối xác suất so với một phân phối xác suất thứ hai mong đợi. Nó được sử dụng để so sánh hai phân phối xác suất cho cùng một sự kiện.
 
