@@ -1,8 +1,6 @@
 ---
 title: "Giám sát độ ổn định của mô hình"
 author: "Nguyễn Ngọc Bình"
-execute:
-  echo: false
 format: html
 ---
 
@@ -10,7 +8,7 @@ format: html
 
 Chỉ số Ổn định tổng thể (PSI - Population Stability Index) là một phép đo thường được sử dụng trong ngành ngân hàng, đặc biệt trong việc xếp hạng tín dụng, để giám sát sự ổn định và hiệu suất của các mô hình xếp hạng theo thời gian. Đây là cách để định lượng sự thay đổi trong phân phối tổng thể, điều này có thể ảnh hưởng đến sức mạnh dự đoán của một mô hình.
 
-![PSI](https://i0.wp.com/ucanalytics.com/blogs/wp-content/uploads/2014/04/PSI-Chart.jpg?w=752)
+![](https://i0.wp.com/ucanalytics.com/blogs/wp-content/uploads/2014/04/PSI-Chart.jpg?w=752)
 
 PSI được tính như sau:
 
@@ -89,7 +87,7 @@ def calculate_psi(expected, actual, bins=10, categorical=False):
 
 ## KS (Kolmogorov-Smirnov)
 
-![Kolmogorov-Smirnov](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/KS_Example.png/300px-KS_Example.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/KS_Example.png/300px-KS_Example.png)
 
 Kiểm định KS (Kolmogorov-Smirnov) là một kiểm định thống kê phi tham số dùng để so sánh hai phân phối tích lũy (CDFs) hoặc một mẫu dữ liệu với một phân phối lý thuyết. Nó có hai ứng dụng chính:
 
@@ -101,7 +99,10 @@ Công thức tính toán cho chỉ số KS là:
 
 $$ D = \max |F_1(x) - F_2(x)| $$
 
-Trong đó: - ( F_1(x) ) và ( F_2(x) ) là hai hàm phân phối tích lũy cần so sánh. - ( D ) là giá trị lớn nhất của sự khác biệt tuyệt đối giữa hai hàm phân phối tích lũy trên toàn bộ phạm vi x.
+Trong đó: 
+
+- $ F_1(x) $ và $F_2(x) $ là hai hàm phân phối tích lũy cần so sánh. 
+- `D` là giá trị lớn nhất của sự khác biệt tuyệt đối giữa hai hàm phân phối tích lũy trên toàn bộ phạm vi x.
 
 Một đặc điểm quan trọng của kiểm định KS là nó không yêu cầu giả định về dạng của phân phối, làm cho nó trở thành một công cụ mạnh mẽ và linh hoạt khi so sánh phân phối.
 
@@ -121,26 +122,27 @@ ks_statistic, p_value
 
 ## Divergence Test (cross-entropy)
 
-![cross-entropy](https://i.stack.imgur.com/deT2L.png)
+![](https://i.stack.imgur.com/deT2L.png)
 
 Kiểm định Divergence, thường được gọi là Divergence Kullback-Leibler (KL), là một chỉ số đo sự khác biệt giữa một phân phối xác suất so với một phân phối xác suất thứ hai mong đợi. Nó được sử dụng để so sánh hai phân phối xác suất cho cùng một sự kiện.
 
-Cho hai phân phối xác suất, \(P\) và \(Q\), Divergence Kullback-Leibler của \(Q\) so với \(P\) được định nghĩa như sau:
+Cho hai phân phối xác suất, `P` và `Q`, Divergence Kullback-Leibler của `Q` so với `P` được định nghĩa như sau:
 
 $$ D_{KL}(P||Q) = \sum_{i} P(i) \log \left( \frac{P(i)}{Q(i)} \right)$$
 
 Trong đó:
-- \(P(i)\) là xác suất của sự kiện \(i\) theo phân phối \(P\),
-- \(Q(i)\) là xác suất của sự kiện \(i\) theo phân phối \(Q\),
-- Tổng được tính trên tất cả các sự kiện \(i\) có thể xảy ra.
+
+- $P(i)$ là xác suất của sự kiện `i` theo phân phối `P`,
+- $Q(i)$ là xác suất của sự kiện `i` theo phân phối `Q`,
+- Tổng được tính trên tất cả các sự kiện `i` có thể xảy ra.
 
 Một số điểm quan trọng về KL Divergence:
 
-1. **Không đối xứng**: \(D_{KL}(P||Q)\) không bằng \(D_{KL}(Q||P)\). Điều này có nghĩa là Divergence KL của \(Q\) so với \(P\) không giống như Divergence KL của \(P\) so với \(Q\).
+1. **Không đối xứng**: $D_{KL}(P||Q)$ không bằng $D_{KL}(Q||P)$. Điều này có nghĩa là Divergence KL của `Q` so với `P` không giống như Divergence KL của `P` so với `Q`.
 
-2. **Không âm**: Divergence KL luôn không âm, và nó bằng không chỉ khi \(P\) và \(Q\) là cùng một phân phối.
+2. **Không âm**: Divergence KL luôn không âm, và nó bằng không chỉ khi `P` và `Q` là cùng một phân phối.
 
-3. **Đơn vị**: Divergence KL được đo bằng bit nếu logarithm có cơ số 2 (log2), hoặc bằng nats nếu logarithm có cơ số \(e\) (logarithm tự nhiên).
+3. **Đơn vị**: Divergence KL được đo bằng bit nếu logarithm có cơ số 2 (log2), hoặc bằng nats nếu logarithm có cơ số `e` (logarithm tự nhiên).
 
 Trên thực tế, KL Divergence có thể được sử dụng để đo sự khác biệt giữa phân phối thực tế và dự đoán, hoặc giữa một phân phối quan sát và một phân phối lý thuyết. Nó đặc biệt phổ biến trong các lĩnh vực như lý thuyết thông tin và học máy.
 
@@ -180,7 +182,7 @@ q = np.array([0.3, 0.4, 0.3])
 # Calculate KL Divergence from p to q
 divergence_value = kl_divergence(p, q)
 
-print(f"KL Divergence from p to q: {divergence_value:.4f}")
+print(f"Cross entropy: {divergence_value:.4f}")
 
 ```
 ## So sánh KS và Divergence
@@ -192,11 +194,11 @@ print(f"KL Divergence from p to q: {divergence_value:.4f}")
 
 2. **Kết quả**:
    - **Kiểm định KS**: Kết quả là một chỉ số (D) đại diện cho sự khác biệt lớn nhất giữa hai CDFs và một giá trị p kiểm tra giả thuyết rằng hai mẫu được rút ra từ cùng một phân phối.
-   - **Kiểm định Divergence (KL Divergence)**: Kết quả là một giá trị không âm, trong đó giá trị 0 chỉ ra rằng hai phân phối là giống nhau. Lưu ý rằng KL Divergence không đối xứng, tức là \(D_{KL}(P||Q) \neq D_{KL}(Q||P)\).
+   - **Kiểm định Divergence (KL Divergence)**: Kết quả là một giá trị không âm, trong đó giá trị 0 chỉ ra rằng hai phân phối là giống nhau. Lưu ý rằng KL Divergence không đối xứng, tức là $D_{KL}(P||Q) \neq D_{KL}(Q||P)$.
 
 3. **Giả định**:
    - **Kiểm định KS**: Không giả định về phân phối của dữ liệu.
-   - **Kiểm định Divergence (KL Divergence)**: Giả định \(Q(i) > 0\) cho bất kỳ \(i\) nào sao cho \(P(i) > 0\), nếu không sự khác biệt sẽ vô cùng.
+   - **Kiểm định Divergence (KL Divergence)**: Giả định $Q(i) > 0$ cho bất kỳ `i` nào sao cho $P(i) > 0$, nếu không sự khác biệt sẽ vô cùng.
 
 4. **Ứng dụng**:
    - **Kiểm định KS**: Thường được sử dụng trong kiểm định giả thuyết để xác định xem một mẫu dữ liệu có tuân theo một phân phối cụ thể hay không.
