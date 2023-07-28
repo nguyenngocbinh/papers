@@ -38,6 +38,7 @@ website:
           - irb/ModelGuideline.qmd
       - section: machine-learning/transformer.md
         contents:
+          - machine-learning/focal-loss.ipynb
           - machine-learning/transformer.md
       - section: models-monitoring/KS-PSI_ENTROPY.qmd
         contents:
