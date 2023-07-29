@@ -268,7 +268,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tham-số-trong-hàm-focal-loss" id="toc-tham-số-trong-hàm-focal-loss" class="nav-link" data-scroll-target="#tham-số-trong-hàm-focal-loss">Tham số $ $ trong hàm Focal-loss</a></li>
   <li><a href="#tham-số-trong-hàm-focal-loss-1" id="toc-tham-số-trong-hàm-focal-loss-1" class="nav-link" data-scroll-target="#tham-số-trong-hàm-focal-loss-1">Tham số $ $ trong hàm Focal-loss</a></li>
   </ul></li>
-  <li><a href="#ví-dụ" id="toc-ví-dụ" class="nav-link" data-scroll-target="#ví-dụ">Ví dụ</a></li>
+  <li><a href="#ví-dụ" id="toc-ví-dụ" class="nav-link" data-scroll-target="#ví-dụ">Ví dụ</a>
+  <ul class="collapse">
+  <li><a href="#tunning-alpha-and-gamma" id="toc-tunning-alpha-and-gamma" class="nav-link" data-scroll-target="#tunning-alpha-and-gamma">Tunning alpha and gamma</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/focal-loss.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -304,7 +307,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Ý chính đằng sau hàm mất mát Focal là giảm trọng số đóng góp của các ví dụ dễ dàng và tập trung vào những ví dụ khó. Điều này giúp ngăn chặn số lượng lớn các ví dụ tiêu cực dễ dàng từ việc áp đặt lên bộ phát hiện trong quá trình đào tạo.</p>
 <p>Công thức cho hàm mất mát Focal cho phân loại nhị phân là:</p>
 <p><span class="math display">\[ \text{FL}(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t) \]</span></p>
-<p>Trong đó: - $ p_t $ là xác suất của lớp đúng (<code>true class</code>). Nếu nhãn lớp đúng là 1, thì $ p_t $ là xác suất dự đoán của mô hình cho lớp 1; nếu nhãn lớp đúng là 0, thì $ p_t = 1 - $ xác suất dự đoán của mô hình cho lớp 1. - $ _t $ là một yếu tố cân bằng. Thông thường đặt nằm giữa 0 và 1. Số này được sử dụng để xử lý mất cân bằng lớp. - $ $ là tham số tập trung (<code>focusing parameter</code>) mục đích điều chỉnh mức độ tập trung vào lớp dễ dàng phân loại. Khi $ = 0 $, hàm mất mát Focal tương đương với hàm mất mát cross-entropy. Khi $ $ tăng, hiệu ứng của yếu tố điều chỉnh trở nên rõ ràng hơn.</p>
+<p>Trong đó:</p>
+<ul>
+<li><p>$ p_t $ là xác suất của lớp đúng (<code>true class</code>). Nếu nhãn lớp đúng là 1, thì $ p_t $ là xác suất dự đoán của mô hình cho lớp 1; nếu nhãn lớp đúng là 0, thì $ p_t = 1 - $ xác suất dự đoán của mô hình cho lớp 1.</p></li>
+<li><p>$ _t $ là một yếu tố cân bằng. Thông thường đặt nằm giữa 0 và 1. Số này được sử dụng để xử lý mất cân bằng lớp.</p></li>
+<li><p>$ $ là tham số tập trung (<code>focusing parameter</code>) mục đích điều chỉnh mức độ tập trung vào lớp dễ dàng phân loại. Khi $ = 0 $, hàm mất mát Focal tương đương với hàm mất mát cross-entropy. Khi $ $ tăng, hiệu ứng của yếu tố điều chỉnh trở nên rõ ràng hơn.</p></li>
+</ul>
 <p>Lợi thế chính của hàm mất mát Focal là nó đưa ra nhiều trọng số hơn cho các ví dụ bị phân loại sai và ít trọng số hơn cho các ví dụ được phân loại tốt. Điều này giúp trong các tình huống mà một số lớp bị đại diện ít hơn hoặc khi mô hình có khả năng bị áp đặt bởi các ví dụ tiêu cực dễ dàng.</p>
 <section id="tham-số-trong-hàm-focal-loss" class="level3">
 <h3 class="anchored" data-anchor-id="tham-số-trong-hàm-focal-loss">Tham số $ $ trong hàm Focal-loss</h3>
@@ -312,24 +320,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Mục đích</strong>: $ $ được sử dụng trong hàm mất mát Focal để xử lý sự mất cân bằng lớp bằng cách điều chỉnh mất mát cho các lớp dương và âm một cách khác nhau. Nó cung cấp một sự cân bằng giữa tầm quan trọng của lớp dương và lớp âm trong việc tính toán mất mát.</p></li>
 <li><p><strong>Ảnh hưởng lên Giá trị Mất mát</strong>:</p>
 <ul>
-<li>Đối với lớp dương (tức là khi nhãn thực $ y = 1 $): Giá trị mất mát được nhân với hệ số $ $.</li>
-<li>Đối với lớp âm (tức là khi nhãn thực $ y = 0 $): Giá trị mất mát được nhân với hệ số $ 1 - $.</li>
+<li><p>Đối với lớp dương (tức là khi nhãn thực $ y = 1 $): Giá trị mất mát được nhân với hệ số $ $.</p></li>
+<li><p>Đối với lớp âm (tức là khi nhãn thực $ y = 0 $): Giá trị mất mát được nhân với hệ số $ 1 - $.</p></li>
 </ul></li>
 <li><p><strong>Phạm vi Giá trị</strong>:</p>
 <ul>
-<li>Thông thường, $ $ nằm trong khoảng [0, 1].</li>
-<li>Giá trị $ $ càng gần 1 càng làm cho mất mát lớp dương được tăng cường và mất mát cho lớp âm được giảm đi.</li>
-<li>Ngược lại, một giá trị $ $ gần 0 sẽ nhấn mạnh hơn đến lớp âm.</li>
+<li><p>Thông thường, $ $ nằm trong khoảng [0, 1].</p></li>
+<li><p>Giá trị $ $ càng gần 1 càng làm cho mất mát lớp dương được tăng cường và mất mát cho lớp âm được giảm đi.</p></li>
+<li><p>Ngược lại, một giá trị $ $ gần 0 sẽ nhấn mạnh hơn đến lớp âm.</p></li>
 </ul></li>
 <li><p><strong>Lợi ích</strong>:</p>
 <ul>
-<li>Bằng cách điều chỉnh $ $, người ta có thể cung cấp trọng số nhiều hơn cho các lớp được đại diện ít hơn. Điều này có thể đặc biệt hữu ích trong các tình huống có sự mất cân bằng lớp nghiêm trọng, như trong các nhiệm vụ phát hiện đối tượng khi số lượng các ví dụ âm vượt trội so với các ví dụ dương.</li>
-<li>Nó đảm bảo rằng mô hình không thiên vị về lớp có nhiều quan sát hơn và xem xét cả hai lớp khi cập nhật trọng số trong quá trình huấn luyện.</li>
+<li><p>Bằng cách điều chỉnh $ $, người ta có thể cung cấp trọng số nhiều hơn cho các lớp được đại diện ít hơn. Điều này có thể đặc biệt hữu ích trong các tình huống có sự mất cân bằng lớp nghiêm trọng, như trong các nhiệm vụ phát hiện đối tượng khi số lượng các ví dụ âm vượt trội so với các ví dụ dương.</p></li>
+<li><p>Nó đảm bảo rằng mô hình không thiên vị về lớp có nhiều quan sát hơn và xem xét cả hai lớp khi cập nhật trọng số trong quá trình huấn luyện.</p></li>
 </ul></li>
 <li><p><strong>Thiết lập $ $</strong>:</p>
 <ul>
-<li>Trong một số trường hợp, $ $ có thể được thiết lập dựa trên phân phối lớp nghịch đảo. Ví dụ, nếu 80% các ví dụ là âm và 20% là dương, người ta có thể đặt $ $ thành 0,2 cho lớp âm và 0,8 cho lớp dương.</li>
-<li>Trong những trường hợp khác, giá trị của $ $ có thể được xác định thông qua kiểm định chéo (cross-validation) hoặc các phương pháp điều chỉnh tham số khác.</li>
+<li><p>Trong một số trường hợp, $ $ có thể được thiết lập dựa trên phân phối lớp nghịch đảo. Ví dụ, nếu 80% các ví dụ là âm và 20% là dương, người ta có thể đặt $ $ thành 0,2 cho lớp âm và 0,8 cho lớp dương.</p></li>
+<li><p>Trong những trường hợp khác, giá trị của $ $ có thể được xác định thông qua kiểm định chéo (cross-validation) hoặc các phương pháp điều chỉnh tham số khác.</p></li>
 </ul></li>
 </ol>
 <p>Tóm lại, tham số $ $ trong hàm mất mát Focal cung cấp một cơ chế để xử lý sự mất cân bằng lớp bằng cách điều chỉnh mất mát cho các ví dụ dương và âm một cách khác nhau. Nó đảm bảo rằng cả hai lớp chính và phụ đều được đại diện đầy đủ trong quá trình đào tạo của mô hình.</p>
@@ -342,10 +350,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Mục đích</strong>: Mục đích chính của tham số $ $ trong hàm mất mát Focal là giảm ảnh hưởng của các lớp dễ phân loại và tăng tầm quan trọng của việc hiệu chỉnh các lớp bị phân loại sai. Điều này đặc biệt hữu ích trong các tình huống mà tập dữ liệu có sự mất cân bằng giữa các lớp.</p></li>
 <li><p><strong>Tác động của việc Thay đổi $ $</strong>: Thuật ngữ $ (1 - p_t)^$ trong hàm mất mát Focal là yếu tố điều chỉnh. Ở đây, $ p_t $ đại diện cho xác suất dự đoán của lớp đúng.</p>
 <ul>
-<li>Nếu $ p_t $ gần bằng 1, nghĩa là ví dụ dễ dàng được phân loại, và $ (1 - p_t)^$ sẽ gần bằng 0, đặc biệt khi $ &gt; 0 $.</li>
-<li>Nếu $ p_t $ xa 1 (tức là dự đoán là không chính xác hoặc không chắc chắn), thì $ (1 - p_t)^$ sẽ lớn hơn, tăng ảnh hưởng của ví dụ đó lên hàm mất mát.</li>
-<li>$ = 0 $: Hàm mất mát Focal giảm xuống còn bằng hàm mất mát cross-entropy tiêu chuẩn, vì yếu tố điều chỉnh trở thành 1 cho tất cả các ví dụ.</li>
-<li>$ &gt; 0 $: Tăng trọng số của các lớp khó phân loại và giảm trọng số của những lớp dễ phân loại. $ $ càng lớn, mô hình càng tập trung nhiều vào các lớp khó.</li>
+<li><p>Nếu $ p_t $ gần bằng 1, nghĩa là ví dụ dễ dàng được phân loại, và $ (1 - p_t)^$ sẽ gần bằng 0, đặc biệt khi $ &gt; 0 $.</p></li>
+<li><p>Nếu $ p_t $ xa 1 (tức là dự đoán là không chính xác hoặc không chắc chắn), thì $ (1 - p_t)^$ sẽ lớn hơn, tăng ảnh hưởng của ví dụ đó lên hàm mất mát.</p></li>
+<li><p>$ = 0 $: Hàm mất mát Focal giảm xuống còn bằng hàm mất mát cross-entropy tiêu chuẩn, vì yếu tố điều chỉnh trở thành 1 cho tất cả các ví dụ.</p></li>
+<li><p>$ &gt; 0 $: Tăng trọng số của các lớp khó phân loại và giảm trọng số của những lớp dễ phân loại. $ $ càng lớn, mô hình càng tập trung nhiều vào các lớp khó.</p></li>
 </ul></li>
 <li><p><strong>Lợi ích</strong>: Bằng cách điều chỉnh $ $, hàm mất mát Focal cho phép các mô hình, đặc biệt trong các nhiệm vụ phát hiện đối tượng, trở nên mạnh mẽ hơn trước số lượng lớn các lớp dễ. Thay vì tiêu tốn tài nguyên tính toán cho các lớp dễ dàng, mô hình tập trung nhiều hơn vào các lớp khó, thường chứa nhiều thông tin hơn.</p></li>
 </ol>
@@ -354,596 +362,548 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ví-dụ" class="level2">
 <h2 class="anchored" data-anchor-id="ví-dụ">Ví dụ</h2>
-<div class="cell" data-execution_count="11">
+<section id="tunning-alpha-and-gamma" class="level3">
+<h3 class="anchored" data-anchor-id="tunning-alpha-and-gamma">Tunning alpha and gamma</h3>
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> optuna</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the breast cancer dataset from sklearn (binary classification)</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> datasets.load_breast_cancer()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.data</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data.target</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X_train, X_val, y_train, y_val <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Define Focal Loss for LightGBM</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># def focal_loss_lgb(y_pred, dtrain, alpha=0.25, gamma=2.0):</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     a,g = alpha, gamma</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     y_true = dtrain.get_label()</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     p = 1/(1+np.exp(-y_pred))</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     loss = -( a*y_true + (1-a)*(1-y_true) ) * (( 1 - ( y_true*p + (1-y_true)*(1-p)) )**g) * ( y_true*np.log(p)+(1-y_true)*np.log(1-p) )</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     grad = p * (y_true - 1) + y_true</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     hess = p * (1-p)</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     return grad, hess</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Optuna Study</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(trial):</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># LightGBM hyperparameters</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    param <span class="op">=</span> {</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">'objective'</span>: <span class="st">'binary'</span>,</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">'metric'</span>: <span class="st">'binary_logloss'</span>,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">'verbosity'</span>: <span class="op">-</span><span class="dv">1</span>,</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">'boosting_type'</span>: <span class="st">'gbdt'</span>,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_l1'</span>: trial.suggest_float(<span class="st">'lambda_l1'</span>, <span class="fl">1e-8</span>, <span class="fl">10.0</span>),</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_l2'</span>: trial.suggest_float(<span class="st">'lambda_l2'</span>, <span class="fl">1e-8</span>, <span class="fl">10.0</span>),</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">'num_leaves'</span>: trial.suggest_int(<span class="st">'num_leaves'</span>, <span class="dv">2</span>, <span class="dv">256</span>),</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">'feature_fraction'</span>: trial.suggest_float (<span class="st">'feature_fraction'</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span>),</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">'bagging_fraction'</span>: trial.suggest_float (<span class="st">'bagging_fraction'</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span>),</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">'bagging_freq'</span>: trial.suggest_int(<span class="st">'bagging_freq'</span>, <span class="dv">1</span>, <span class="dv">7</span>),</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">'min_child_samples'</span>: trial.suggest_int(<span class="st">'min_child_samples'</span>, <span class="dv">5</span>, <span class="dv">100</span>),</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Focal Loss hyperparameters</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> trial.suggest_float (<span class="st">'alpha'</span>, <span class="fl">0.01</span>, <span class="dv">1</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    gamma <span class="op">=</span> trial.suggest_float (<span class="st">'gamma'</span>, <span class="fl">0.1</span>, <span class="dv">5</span>)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> focal_loss_lgb_eval_error(y_pred, dtrain, alpha<span class="op">=</span>alpha, gamma<span class="op">=</span>gamma):</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        a,g <span class="op">=</span> alpha, gamma</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        y_true <span class="op">=</span> dtrain.get_label()</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>np.exp(<span class="op">-</span>y_pred))</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="op">-</span>( a<span class="op">*</span>y_true <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>a)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>y_true) ) <span class="op">*</span> (( <span class="dv">1</span> <span class="op">-</span> ( y_true<span class="op">*</span>p <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>y_true)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)) )<span class="op">**</span>g) <span class="op">*</span> ( y_true<span class="op">*</span>np.log(p)<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>y_true)<span class="op">*</span>np.log(<span class="dv">1</span><span class="op">-</span>p) )</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'focal_loss'</span>, np.mean(loss), <span class="va">False</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    train_set <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    val_set <span class="op">=</span> lgb.Dataset(X_val, y_val, reference<span class="op">=</span>train_set)</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> lgb.train(param, train_set, valid_sets<span class="op">=</span>[val_set], callbacks<span class="op">=</span>[lgb.log_evaluation(<span class="dv">2</span>)], feval<span class="op">=</span>focal_loss_lgb_eval_error)</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> model.predict(X_val, num_iteration<span class="op">=</span>model.best_iteration)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    pred_labels <span class="op">=</span> np.rint(preds)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    accuracy <span class="op">=</span> accuracy_score(y_val, pred_labels)</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accuracy</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>study <span class="op">=</span> optuna.create_study(direction<span class="op">=</span><span class="st">'maximize'</span>)</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>study.optimize(objective, n_trials<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>results_optuna <span class="op">=</span> {</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Number of finished trials'</span>: <span class="bu">len</span>(study.trials),</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Best trial value'</span>: study.best_trial.value,</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Best trial params'</span>: study.best_trial.params</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co"># results_optuna</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>[I 2023-07-28 17:34:49,580] A new study created in memory with name: no-name-fc716844-ca6c-4e10-a029-eb8062c4f249
-[I 2023-07-28 17:34:49,617] Trial 0 finished with value: 0.9649122807017544 and parameters: {'lambda_l1': 3.3418514275590367, 'lambda_l2': 1.5027218058168852, 'num_leaves': 82, 'feature_fraction': 0.6017421406885948, 'bagging_fraction': 0.513781493351129, 'bagging_freq': 7, 'min_child_samples': 86, 'alpha': 0.06866799414757477, 'gamma': 3.146149738108615}. Best is trial 0 with value: 0.9649122807017544.
-[I 2023-07-28 17:34:49,657] Trial 1 finished with value: 0.9649122807017544 and parameters: {'lambda_l1': 4.962718089772645, 'lambda_l2': 5.74630711096055, 'num_leaves': 255, 'feature_fraction': 0.8804203477262255, 'bagging_fraction': 0.42228685198590676, 'bagging_freq': 1, 'min_child_samples': 69, 'alpha': 0.8238339251870125, 'gamma': 3.245518942939893}. Best is trial 0 with value: 0.9649122807017544.
-[I 2023-07-28 17:34:49,694] Trial 2 finished with value: 0.9736842105263158 and parameters: {'lambda_l1': 4.307243572947573, 'lambda_l2': 2.2250556089185225, 'num_leaves': 43, 'feature_fraction': 0.9598486938310843, 'bagging_fraction': 0.6894904587206225, 'bagging_freq': 5, 'min_child_samples': 79, 'alpha': 0.3741807021091689, 'gamma': 1.4184592099048048}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,733] Trial 3 finished with value: 0.9736842105263158 and parameters: {'lambda_l1': 3.503090968356255, 'lambda_l2': 3.264582823650357, 'num_leaves': 40, 'feature_fraction': 0.6720233258411741, 'bagging_fraction': 0.9029144715730204, 'bagging_freq': 2, 'min_child_samples': 79, 'alpha': 0.9562420630069108, 'gamma': 3.8756203912317404}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,772] Trial 4 finished with value: 0.956140350877193 and parameters: {'lambda_l1': 8.630499902145496, 'lambda_l2': 7.41192614416353, 'num_leaves': 256, 'feature_fraction': 0.5254979252279472, 'bagging_fraction': 0.6426540334151232, 'bagging_freq': 3, 'min_child_samples': 42, 'alpha': 0.8462630373061462, 'gamma': 2.135505038872999}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,814] Trial 5 finished with value: 0.9649122807017544 and parameters: {'lambda_l1': 4.308894330147343, 'lambda_l2': 7.612636971420471, 'num_leaves': 36, 'feature_fraction': 0.892944131200536, 'bagging_fraction': 0.5633338766409516, 'bagging_freq': 2, 'min_child_samples': 11, 'alpha': 0.8615309698863295, 'gamma': 3.109970592184184}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,856] Trial 6 finished with value: 0.956140350877193 and parameters: {'lambda_l1': 6.862723440308688, 'lambda_l2': 7.906618548903391, 'num_leaves': 127, 'feature_fraction': 0.9843827542708213, 'bagging_fraction': 0.8935045465903533, 'bagging_freq': 6, 'min_child_samples': 28, 'alpha': 0.3396204633001546, 'gamma': 4.458412266184998}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,892] Trial 7 finished with value: 0.9649122807017544 and parameters: {'lambda_l1': 7.025334327888933, 'lambda_l2': 0.7347888615502999, 'num_leaves': 7, 'feature_fraction': 0.5014267101734751, 'bagging_fraction': 0.9283992249382309, 'bagging_freq': 2, 'min_child_samples': 56, 'alpha': 0.8177062553552072, 'gamma': 2.9426091914152934}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,929] Trial 8 finished with value: 0.956140350877193 and parameters: {'lambda_l1': 8.021549172756893, 'lambda_l2': 7.763329199753512, 'num_leaves': 120, 'feature_fraction': 0.8314239424326968, 'bagging_fraction': 0.8876019386014385, 'bagging_freq': 4, 'min_child_samples': 54, 'alpha': 0.7654074149799746, 'gamma': 4.834546135186227}. Best is trial 2 with value: 0.9736842105263158.
-[I 2023-07-28 17:34:49,965] Trial 9 finished with value: 0.956140350877193 and parameters: {'lambda_l1': 9.534223575446893, 'lambda_l2': 2.420659870933128, 'num_leaves': 9, 'feature_fraction': 0.9521838167768742, 'bagging_fraction': 0.6422744472093436, 'bagging_freq': 7, 'min_child_samples': 34, 'alpha': 0.06431302298203147, 'gamma': 0.8544879746856866}. Best is trial 2 with value: 0.9736842105263158.</code></pre>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm.callback <span class="im">import</span> record_evaluation</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>optuna.logging.set_verbosity(optuna.logging.WARNING)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate imbalanced data using make_classification</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(n_samples<span class="op">=</span><span class="dv">1000</span>, n_features<span class="op">=</span><span class="dv">20</span>, n_informative<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">10</span>, weights<span class="op">=</span>[<span class="fl">0.99</span>, <span class="fl">0.01</span>], random_state<span class="op">=</span><span class="dv">42</span>)  <span class="co"># 99% of class 0 and 1% of class 1</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>X_train, X_val, y_train, y_val <span class="op">=</span> train_test_split(X, y, stratify<span class="op">=</span>y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Focal Loss for LightGBM</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> focal_loss_lgb(y_pred, dtrain, alpha, gamma):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    a, g <span class="op">=</span> alpha, gamma</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    y_true <span class="op">=</span> dtrain.get_label()</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>y_pred))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> <span class="op">-</span>(a <span class="op">*</span> y_true <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> a) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> y_true)) <span class="op">*</span> ((<span class="dv">1</span> <span class="op">-</span> (y_true <span class="op">*</span> p <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> y_true) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> p))) <span class="op">**</span> g) <span class="op">*</span> (y_true <span class="op">*</span> np.log(p) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> y_true) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> p))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'focal_loss'</span>, np.mean(loss), <span class="va">False</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Gini coefficient</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gini(y_true, y_pred):</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> roc_auc_score(y_true, y_pred) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Optuna study for tuning alpha and gamma</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(trial):</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Parameters to be tuned</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> trial.suggest_float(<span class="st">'alpha'</span>, <span class="fl">0.01</span>, <span class="dv">1</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    gamma <span class="op">=</span> trial.suggest_float(<span class="st">'gamma'</span>, <span class="fl">0.1</span>, <span class="dv">5</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    train_set <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    val_set <span class="op">=</span> lgb.Dataset(X_val, y_val, reference<span class="op">=</span>train_set)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    param <span class="op">=</span> {</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">'objective'</span>: <span class="st">'binary'</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">'metric'</span>: <span class="st">'custom'</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">'verbosity'</span>: <span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">'boosting_type'</span>: <span class="st">'gbdt'</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_l1'</span>: trial.suggest_float(<span class="st">'lambda_l1'</span>, <span class="fl">1e-8</span>, <span class="fl">10.0</span>),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_l2'</span>: trial.suggest_float(<span class="st">'lambda_l2'</span>, <span class="fl">1e-8</span>, <span class="fl">10.0</span>),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">'num_leaves'</span>: trial.suggest_int(<span class="st">'num_leaves'</span>, <span class="dv">2</span>, <span class="dv">256</span>),</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">'feature_fraction'</span>: trial.suggest_float(<span class="st">'feature_fraction'</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span>),</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">'bagging_fraction'</span>: trial.suggest_float(<span class="st">'bagging_fraction'</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span>),</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">'bagging_freq'</span>: trial.suggest_int(<span class="st">'bagging_freq'</span>, <span class="dv">1</span>, <span class="dv">7</span>),</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">'min_child_samples'</span>: trial.suggest_int(<span class="st">'min_child_samples'</span>, <span class="dv">5</span>, <span class="dv">100</span>),</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Using record_evaluation to capture validation results without printing</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    evals_result <span class="op">=</span> {}</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> lgb.train(param, </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                      train_set, </span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                      valid_sets<span class="op">=</span>[val_set], </span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                      feval<span class="op">=</span><span class="kw">lambda</span> preds, dtrain: focal_loss_lgb(preds, dtrain, alpha, gamma), </span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                      callbacks<span class="op">=</span>[record_evaluation(evals_result)])</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> model.predict(X_val)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gini(y_val, preds)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>study <span class="op">=</span> optuna.create_study(direction<span class="op">=</span><span class="st">'maximize'</span>)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>study.optimize(objective, n_trials<span class="op">=</span><span class="dv">100</span>) </span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Results</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> study.best_params</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>best_score <span class="op">=</span> study.best_value</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [trial.params[<span class="st">'alpha'</span>] <span class="cf">for</span> trial <span class="kw">in</span> study.trials]</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>gammas <span class="op">=</span> [trial.params[<span class="st">'gamma'</span>] <span class="cf">for</span> trial <span class="kw">in</span> study.trials]</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>scores_focal <span class="op">=</span> [trial.value <span class="cf">for</span> trial <span class="kw">in</span> study.trials]</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>plt.scatter(alphas, scores_focal, color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'Alpha'</span>)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>plt.scatter(gammas, scores_focal, color<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'Gamma'</span>)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Parameter Value'</span>)</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Gini Score'</span>)</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Effect of Alpha and Gamma on Gini Score'</span>)</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best Gini score: </span><span class="sc">{</span>best_score<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best parameters: </span><span class="sc">{</span>best_params<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="focal-loss_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[2] valid_0's binary_logloss: 0.556328  valid_0's focal_loss: 0.0854965
-[4] valid_0's binary_logloss: 0.477191  valid_0's focal_loss: 0.0768443
-[6] valid_0's binary_logloss: 0.419844  valid_0's focal_loss: 0.0703484
-[8] valid_0's binary_logloss: 0.367666  valid_0's focal_loss: 0.0645085
-[10]    valid_0's binary_logloss: 0.328572  valid_0's focal_loss: 0.0600815
-[12]    valid_0's binary_logloss: 0.301224  valid_0's focal_loss: 0.0568992
-[14]    valid_0's binary_logloss: 0.274757  valid_0's focal_loss: 0.0539797
-[16]    valid_0's binary_logloss: 0.25231   valid_0's focal_loss: 0.0522293
-[18]    valid_0's binary_logloss: 0.237393  valid_0's focal_loss: 0.0509419
-[20]    valid_0's binary_logloss: 0.222643  valid_0's focal_loss: 0.0498397
-[22]    valid_0's binary_logloss: 0.209508  valid_0's focal_loss: 0.0485011
-[24]    valid_0's binary_logloss: 0.199834  valid_0's focal_loss: 0.0471112
-[26]    valid_0's binary_logloss: 0.188935  valid_0's focal_loss: 0.0459167
-[28]    valid_0's binary_logloss: 0.182575  valid_0's focal_loss: 0.0450914
-[30]    valid_0's binary_logloss: 0.171042  valid_0's focal_loss: 0.0446125
-[32]    valid_0's binary_logloss: 0.161961  valid_0's focal_loss: 0.0441587
-[34]    valid_0's binary_logloss: 0.155942  valid_0's focal_loss: 0.0439414
-[36]    valid_0's binary_logloss: 0.149313  valid_0's focal_loss: 0.0434008
-[38]    valid_0's binary_logloss: 0.143682  valid_0's focal_loss: 0.0426728
-[40]    valid_0's binary_logloss: 0.138864  valid_0's focal_loss: 0.0420436
-[42]    valid_0's binary_logloss: 0.134744  valid_0's focal_loss: 0.0415001
-[44]    valid_0's binary_logloss: 0.130762  valid_0's focal_loss: 0.0408369
-[46]    valid_0's binary_logloss: 0.129235  valid_0's focal_loss: 0.0404514
-[48]    valid_0's binary_logloss: 0.126517  valid_0's focal_loss: 0.0399953
-[50]    valid_0's binary_logloss: 0.123462  valid_0's focal_loss: 0.039785
-[52]    valid_0's binary_logloss: 0.120755  valid_0's focal_loss: 0.0397893
-[54]    valid_0's binary_logloss: 0.118358  valid_0's focal_loss: 0.0397511
-[56]    valid_0's binary_logloss: 0.116426  valid_0's focal_loss: 0.0397664
-[58]    valid_0's binary_logloss: 0.114908  valid_0's focal_loss: 0.0397029
-[60]    valid_0's binary_logloss: 0.113899  valid_0's focal_loss: 0.0396943
-[62]    valid_0's binary_logloss: 0.112887  valid_0's focal_loss: 0.0397069
-[64]    valid_0's binary_logloss: 0.110468  valid_0's focal_loss: 0.0395059
-[66]    valid_0's binary_logloss: 0.108477  valid_0's focal_loss: 0.0393901
-[68]    valid_0's binary_logloss: 0.106076  valid_0's focal_loss: 0.0392383
-[70]    valid_0's binary_logloss: 0.104494  valid_0's focal_loss: 0.0391541
-[72]    valid_0's binary_logloss: 0.103635  valid_0's focal_loss: 0.0389719
-[74]    valid_0's binary_logloss: 0.102798  valid_0's focal_loss: 0.0388129
-[76]    valid_0's binary_logloss: 0.102236  valid_0's focal_loss: 0.0386977
-[78]    valid_0's binary_logloss: 0.101333  valid_0's focal_loss: 0.0384847
-[80]    valid_0's binary_logloss: 0.100697  valid_0's focal_loss: 0.0382766
-[82]    valid_0's binary_logloss: 0.100108  valid_0's focal_loss: 0.038091
-[84]    valid_0's binary_logloss: 0.0996289 valid_0's focal_loss: 0.0379373
-[86]    valid_0's binary_logloss: 0.098612  valid_0's focal_loss: 0.0376542
-[88]    valid_0's binary_logloss: 0.0977303 valid_0's focal_loss: 0.0374021
-[90]    valid_0's binary_logloss: 0.0971213 valid_0's focal_loss: 0.0371877
-[92]    valid_0's binary_logloss: 0.0966123 valid_0's focal_loss: 0.0371106
-[94]    valid_0's binary_logloss: 0.0962066 valid_0's focal_loss: 0.0371712
-[96]    valid_0's binary_logloss: 0.0959725 valid_0's focal_loss: 0.0372656
-[98]    valid_0's binary_logloss: 0.095436  valid_0's focal_loss: 0.0372959
-[100]   valid_0's binary_logloss: 0.0953363 valid_0's focal_loss: 0.0372274
-[2] valid_0's binary_logloss: 0.578122  valid_0's focal_loss: 0.0223396
-[4] valid_0's binary_logloss: 0.507121  valid_0's focal_loss: 0.0203967
-[6] valid_0's binary_logloss: 0.452663  valid_0's focal_loss: 0.0188935
-[8] valid_0's binary_logloss: 0.409843  valid_0's focal_loss: 0.0177092
-[10]    valid_0's binary_logloss: 0.36822   valid_0's focal_loss: 0.0165731
-[12]    valid_0's binary_logloss: 0.341034  valid_0's focal_loss: 0.0157941
-[14]    valid_0's binary_logloss: 0.313535  valid_0's focal_loss: 0.0150649
-[16]    valid_0's binary_logloss: 0.291346  valid_0's focal_loss: 0.0144651
-[18]    valid_0's binary_logloss: 0.275779  valid_0's focal_loss: 0.0140574
-[20]    valid_0's binary_logloss: 0.260409  valid_0's focal_loss: 0.0136448
-[22]    valid_0's binary_logloss: 0.248433  valid_0's focal_loss: 0.0133237
-[24]    valid_0's binary_logloss: 0.237045  valid_0's focal_loss: 0.0130326
-[26]    valid_0's binary_logloss: 0.228475  valid_0's focal_loss: 0.012808
-[28]    valid_0's binary_logloss: 0.218282  valid_0's focal_loss: 0.0125445
-[30]    valid_0's binary_logloss: 0.20985   valid_0's focal_loss: 0.0123261
-[32]    valid_0's binary_logloss: 0.201816  valid_0's focal_loss: 0.0121364
-[34]    valid_0's binary_logloss: 0.197474  valid_0's focal_loss: 0.012051
-[36]    valid_0's binary_logloss: 0.190594  valid_0's focal_loss: 0.0118542
-[38]    valid_0's binary_logloss: 0.185578  valid_0's focal_loss: 0.0117283
-[40]    valid_0's binary_logloss: 0.181987  valid_0's focal_loss: 0.0116604
-[42]    valid_0's binary_logloss: 0.176949  valid_0's focal_loss: 0.0115403
-[44]    valid_0's binary_logloss: 0.172631  valid_0's focal_loss: 0.0114437
-[46]    valid_0's binary_logloss: 0.168876  valid_0's focal_loss: 0.0113475
-[48]    valid_0's binary_logloss: 0.165617  valid_0's focal_loss: 0.0112733
-[50]    valid_0's binary_logloss: 0.162139  valid_0's focal_loss: 0.0111725
-[52]    valid_0's binary_logloss: 0.160474  valid_0's focal_loss: 0.0111356
-[54]    valid_0's binary_logloss: 0.15834   valid_0's focal_loss: 0.0110829
-[56]    valid_0's binary_logloss: 0.155841  valid_0's focal_loss: 0.0110238
-[58]    valid_0's binary_logloss: 0.153872  valid_0's focal_loss: 0.0109681
-[60]    valid_0's binary_logloss: 0.150929  valid_0's focal_loss: 0.0109049
-[62]    valid_0's binary_logloss: 0.149382  valid_0's focal_loss: 0.0108626
-[64]    valid_0's binary_logloss: 0.147667  valid_0's focal_loss: 0.0108285
-[66]    valid_0's binary_logloss: 0.146909  valid_0's focal_loss: 0.0108247
-[68]    valid_0's binary_logloss: 0.145012  valid_0's focal_loss: 0.010774
-[70]    valid_0's binary_logloss: 0.144234  valid_0's focal_loss: 0.010744
-[72]    valid_0's binary_logloss: 0.142441  valid_0's focal_loss: 0.0106938
-[74]    valid_0's binary_logloss: 0.141545  valid_0's focal_loss: 0.0106831
-[76]    valid_0's binary_logloss: 0.139854  valid_0's focal_loss: 0.0106393
-[78]    valid_0's binary_logloss: 0.138833  valid_0's focal_loss: 0.010607
-[80]    valid_0's binary_logloss: 0.13773   valid_0's focal_loss: 0.0105697
-[82]    valid_0's binary_logloss: 0.136836  valid_0's focal_loss: 0.0105534
-[84]    valid_0's binary_logloss: 0.135274  valid_0's focal_loss: 0.0105114
-[86]    valid_0's binary_logloss: 0.134713  valid_0's focal_loss: 0.0105033
-[88]    valid_0's binary_logloss: 0.133428  valid_0's focal_loss: 0.0104636
-[90]    valid_0's binary_logloss: 0.13229   valid_0's focal_loss: 0.0104288
-[92]    valid_0's binary_logloss: 0.131852  valid_0's focal_loss: 0.0104152
-[94]    valid_0's binary_logloss: 0.130759  valid_0's focal_loss: 0.0104046
-[96]    valid_0's binary_logloss: 0.129761  valid_0's focal_loss: 0.01038
-[98]    valid_0's binary_logloss: 0.129282  valid_0's focal_loss: 0.0103665
-[100]   valid_0's binary_logloss: 0.128823  valid_0's focal_loss: 0.0103599
-[2] valid_0's binary_logloss: 0.564654  valid_0's focal_loss: 0.146531
-[4] valid_0's binary_logloss: 0.475755  valid_0's focal_loss: 0.1357
-[6] valid_0's binary_logloss: 0.417293  valid_0's focal_loss: 0.127725
-[8] valid_0's binary_logloss: 0.370254  valid_0's focal_loss: 0.12115
-[10]    valid_0's binary_logloss: 0.331279  valid_0's focal_loss: 0.115926
-[12]    valid_0's binary_logloss: 0.302992  valid_0's focal_loss: 0.111855
-[14]    valid_0's binary_logloss: 0.278646  valid_0's focal_loss: 0.108453
-[16]    valid_0's binary_logloss: 0.25543   valid_0's focal_loss: 0.10529
-[18]    valid_0's binary_logloss: 0.239757  valid_0's focal_loss: 0.10286
-[20]    valid_0's binary_logloss: 0.224291  valid_0's focal_loss: 0.100813
-[22]    valid_0's binary_logloss: 0.207888  valid_0's focal_loss: 0.0988522
-[24]    valid_0's binary_logloss: 0.194842  valid_0's focal_loss: 0.0973727
-[26]    valid_0's binary_logloss: 0.184647  valid_0's focal_loss: 0.0961458
-[28]    valid_0's binary_logloss: 0.178383  valid_0's focal_loss: 0.0952888
-[30]    valid_0's binary_logloss: 0.170989  valid_0's focal_loss: 0.094352
-[32]    valid_0's binary_logloss: 0.164484  valid_0's focal_loss: 0.0934537
-[34]    valid_0's binary_logloss: 0.158602  valid_0's focal_loss: 0.0926391
-[36]    valid_0's binary_logloss: 0.152423  valid_0's focal_loss: 0.0918983
-[38]    valid_0's binary_logloss: 0.145933  valid_0's focal_loss: 0.0911964
-[40]    valid_0's binary_logloss: 0.140781  valid_0's focal_loss: 0.0906355
-[42]    valid_0's binary_logloss: 0.137272  valid_0's focal_loss: 0.0901865
-[44]    valid_0's binary_logloss: 0.13351   valid_0's focal_loss: 0.0897233
-[46]    valid_0's binary_logloss: 0.130475  valid_0's focal_loss: 0.0892796
-[48]    valid_0's binary_logloss: 0.127297  valid_0's focal_loss: 0.0887906
-[50]    valid_0's binary_logloss: 0.124653  valid_0's focal_loss: 0.0883841
-[52]    valid_0's binary_logloss: 0.122237  valid_0's focal_loss: 0.0879608
-[54]    valid_0's binary_logloss: 0.119922  valid_0's focal_loss: 0.0875338
-[56]    valid_0's binary_logloss: 0.117424  valid_0's focal_loss: 0.0870896
-[58]    valid_0's binary_logloss: 0.115107  valid_0's focal_loss: 0.0867485
-[60]    valid_0's binary_logloss: 0.11329   valid_0's focal_loss: 0.0865252
-[62]    valid_0's binary_logloss: 0.111721  valid_0's focal_loss: 0.0863854
-[64]    valid_0's binary_logloss: 0.110982  valid_0's focal_loss: 0.0862708
-[66]    valid_0's binary_logloss: 0.109546  valid_0's focal_loss: 0.0861025
-[68]    valid_0's binary_logloss: 0.10832   valid_0's focal_loss: 0.0859133
-[70]    valid_0's binary_logloss: 0.107351  valid_0's focal_loss: 0.0857584
-[72]    valid_0's binary_logloss: 0.106577  valid_0's focal_loss: 0.0856892
-[74]    valid_0's binary_logloss: 0.105922  valid_0's focal_loss: 0.0856255
-[76]    valid_0's binary_logloss: 0.105426  valid_0's focal_loss: 0.0855798
-[78]    valid_0's binary_logloss: 0.104485  valid_0's focal_loss: 0.0854758
-[80]    valid_0's binary_logloss: 0.10373   valid_0's focal_loss: 0.0853926
-[82]    valid_0's binary_logloss: 0.10298   valid_0's focal_loss: 0.0853959
-[84]    valid_0's binary_logloss: 0.102355  valid_0's focal_loss: 0.0854005
-[86]    valid_0's binary_logloss: 0.102083  valid_0's focal_loss: 0.0854032
-[88]    valid_0's binary_logloss: 0.101762  valid_0's focal_loss: 0.0853126
-[90]    valid_0's binary_logloss: 0.101497  valid_0's focal_loss: 0.0852358
-[92]    valid_0's binary_logloss: 0.101032  valid_0's focal_loss: 0.0851248
-[94]    valid_0's binary_logloss: 0.10047   valid_0's focal_loss: 0.0850072
-[96]    valid_0's binary_logloss: 0.10013   valid_0's focal_loss: 0.0849251
-[98]    valid_0's binary_logloss: 0.100105  valid_0's focal_loss: 0.0849158
-[100]   valid_0's binary_logloss: 0.100113  valid_0's focal_loss: 0.0849089
-[2] valid_0's binary_logloss: 0.554269  valid_0's focal_loss: 0.0065575
-[4] valid_0's binary_logloss: 0.469505  valid_0's focal_loss: 0.0057703
-[6] valid_0's binary_logloss: 0.405526  valid_0's focal_loss: 0.00518568
-[8] valid_0's binary_logloss: 0.357613  valid_0's focal_loss: 0.00476298
-[10]    valid_0's binary_logloss: 0.316531  valid_0's focal_loss: 0.00439798
-[12]    valid_0's binary_logloss: 0.286152  valid_0's focal_loss: 0.00413969
-[14]    valid_0's binary_logloss: 0.259542  valid_0's focal_loss: 0.00393882
-[16]    valid_0's binary_logloss: 0.234227  valid_0's focal_loss: 0.00371386
-[18]    valid_0's binary_logloss: 0.218998  valid_0's focal_loss: 0.00359641
-[20]    valid_0's binary_logloss: 0.202291  valid_0's focal_loss: 0.00344593
-[22]    valid_0's binary_logloss: 0.18977   valid_0's focal_loss: 0.00335816
-[24]    valid_0's binary_logloss: 0.182619  valid_0's focal_loss: 0.00331531
-[26]    valid_0's binary_logloss: 0.173543  valid_0's focal_loss: 0.00324051
-[28]    valid_0's binary_logloss: 0.166387  valid_0's focal_loss: 0.00318666
-[30]    valid_0's binary_logloss: 0.15726   valid_0's focal_loss: 0.00311402
-[32]    valid_0's binary_logloss: 0.15037   valid_0's focal_loss: 0.00305358
-[34]    valid_0's binary_logloss: 0.14363   valid_0's focal_loss: 0.00300167
-[36]    valid_0's binary_logloss: 0.138205  valid_0's focal_loss: 0.00294754
-[38]    valid_0's binary_logloss: 0.133787  valid_0's focal_loss: 0.00291441
-[40]    valid_0's binary_logloss: 0.130975  valid_0's focal_loss: 0.00289739
-[42]    valid_0's binary_logloss: 0.12761   valid_0's focal_loss: 0.00287734
-[44]    valid_0's binary_logloss: 0.125304  valid_0's focal_loss: 0.00285915
-[46]    valid_0's binary_logloss: 0.12253   valid_0's focal_loss: 0.00283167
-[48]    valid_0's binary_logloss: 0.120191  valid_0's focal_loss: 0.00281645
-[50]    valid_0's binary_logloss: 0.118327  valid_0's focal_loss: 0.00280532
-[52]    valid_0's binary_logloss: 0.116013  valid_0's focal_loss: 0.00278404
-[54]    valid_0's binary_logloss: 0.113414  valid_0's focal_loss: 0.00276427
-[56]    valid_0's binary_logloss: 0.111578  valid_0's focal_loss: 0.00274784
-[58]    valid_0's binary_logloss: 0.108423  valid_0's focal_loss: 0.00272179
-[60]    valid_0's binary_logloss: 0.108013  valid_0's focal_loss: 0.00271963
-[62]    valid_0's binary_logloss: 0.106619  valid_0's focal_loss: 0.00271133
-[64]    valid_0's binary_logloss: 0.106298  valid_0's focal_loss: 0.00270647
-[66]    valid_0's binary_logloss: 0.106497  valid_0's focal_loss: 0.00270912
-[68]    valid_0's binary_logloss: 0.105446  valid_0's focal_loss: 0.00269752
-[70]    valid_0's binary_logloss: 0.105251  valid_0's focal_loss: 0.00269698
-[72]    valid_0's binary_logloss: 0.103119  valid_0's focal_loss: 0.00267879
-[74]    valid_0's binary_logloss: 0.101327  valid_0's focal_loss: 0.00266716
-[76]    valid_0's binary_logloss: 0.100764  valid_0's focal_loss: 0.00266141
-[78]    valid_0's binary_logloss: 0.0998153 valid_0's focal_loss: 0.00265381
-[80]    valid_0's binary_logloss: 0.0994233 valid_0's focal_loss: 0.00265254
-[82]    valid_0's binary_logloss: 0.0984295 valid_0's focal_loss: 0.00264829
-[84]    valid_0's binary_logloss: 0.0984803 valid_0's focal_loss: 0.00264578
-[86]    valid_0's binary_logloss: 0.0977826 valid_0's focal_loss: 0.00264046
-[88]    valid_0's binary_logloss: 0.0981278 valid_0's focal_loss: 0.0026408
-[90]    valid_0's binary_logloss: 0.0972525 valid_0's focal_loss: 0.00263304
-[92]    valid_0's binary_logloss: 0.096385  valid_0's focal_loss: 0.00262592
-[94]    valid_0's binary_logloss: 0.095812  valid_0's focal_loss: 0.00261897
-[96]    valid_0's binary_logloss: 0.0954771 valid_0's focal_loss: 0.00261811
-[98]    valid_0's binary_logloss: 0.0950782 valid_0's focal_loss: 0.00261547
-[100]   valid_0's binary_logloss: 0.0952538 valid_0's focal_loss: 0.00262088
-[2] valid_0's binary_logloss: 0.574565  valid_0's focal_loss: 0.0445592
-[4] valid_0's binary_logloss: 0.506589  valid_0's focal_loss: 0.041599
-[6] valid_0's binary_logloss: 0.452481  valid_0's focal_loss: 0.0392329
-[8] valid_0's binary_logloss: 0.410756  valid_0's focal_loss: 0.0373681
-[10]    valid_0's binary_logloss: 0.377663  valid_0's focal_loss: 0.0358924
-[12]    valid_0's binary_logloss: 0.349527  valid_0's focal_loss: 0.0346274
-[14]    valid_0's binary_logloss: 0.325488  valid_0's focal_loss: 0.0335194
-[16]    valid_0's binary_logloss: 0.302715  valid_0's focal_loss: 0.0324683
-[18]    valid_0's binary_logloss: 0.283891  valid_0's focal_loss: 0.0316093
-[20]    valid_0's binary_logloss: 0.27037   valid_0's focal_loss: 0.0310085
-[22]    valid_0's binary_logloss: 0.255143  valid_0's focal_loss: 0.0303199
-[24]    valid_0's binary_logloss: 0.241158  valid_0's focal_loss: 0.0296558
-[26]    valid_0's binary_logloss: 0.234172  valid_0's focal_loss: 0.0293348
-[28]    valid_0's binary_logloss: 0.222832  valid_0's focal_loss: 0.0288156
-[30]    valid_0's binary_logloss: 0.213251  valid_0's focal_loss: 0.0283844
-[32]    valid_0's binary_logloss: 0.206282  valid_0's focal_loss: 0.028089
-[34]    valid_0's binary_logloss: 0.199678  valid_0's focal_loss: 0.0277934
-[36]    valid_0's binary_logloss: 0.193772  valid_0's focal_loss: 0.0275166
-[38]    valid_0's binary_logloss: 0.190225  valid_0's focal_loss: 0.0273665
-[40]    valid_0's binary_logloss: 0.186544  valid_0's focal_loss: 0.0272037
-[42]    valid_0's binary_logloss: 0.182926  valid_0's focal_loss: 0.0270329
-[44]    valid_0's binary_logloss: 0.179888  valid_0's focal_loss: 0.0269008
-[46]    valid_0's binary_logloss: 0.17663   valid_0's focal_loss: 0.0267565
-[48]    valid_0's binary_logloss: 0.173477  valid_0's focal_loss: 0.0266004
-[50]    valid_0's binary_logloss: 0.170566  valid_0's focal_loss: 0.0264765
-[52]    valid_0's binary_logloss: 0.16807   valid_0's focal_loss: 0.0263603
-[54]    valid_0's binary_logloss: 0.165897  valid_0's focal_loss: 0.0262534
-[56]    valid_0's binary_logloss: 0.163738  valid_0's focal_loss: 0.0261426
-[58]    valid_0's binary_logloss: 0.161387  valid_0's focal_loss: 0.0260352
-[60]    valid_0's binary_logloss: 0.159258  valid_0's focal_loss: 0.025944
-[62]    valid_0's binary_logloss: 0.157766  valid_0's focal_loss: 0.0258809
-[64]    valid_0's binary_logloss: 0.156142  valid_0's focal_loss: 0.025807
-[66]    valid_0's binary_logloss: 0.155132  valid_0's focal_loss: 0.0257579
-[68]    valid_0's binary_logloss: 0.154371  valid_0's focal_loss: 0.0257206
-[70]    valid_0's binary_logloss: 0.152976  valid_0's focal_loss: 0.0256573
-[72]    valid_0's binary_logloss: 0.151465  valid_0's focal_loss: 0.0255895
-[74]    valid_0's binary_logloss: 0.150384  valid_0's focal_loss: 0.0255487
-[76]    valid_0's binary_logloss: 0.149519  valid_0's focal_loss: 0.0255105
-[78]    valid_0's binary_logloss: 0.149173  valid_0's focal_loss: 0.0254921
-[80]    valid_0's binary_logloss: 0.14839   valid_0's focal_loss: 0.0254659
-[82]    valid_0's binary_logloss: 0.147747  valid_0's focal_loss: 0.0254429
-[84]    valid_0's binary_logloss: 0.147646  valid_0's focal_loss: 0.0254387
-[86]    valid_0's binary_logloss: 0.14578   valid_0's focal_loss: 0.0253531
-[88]    valid_0's binary_logloss: 0.145251  valid_0's focal_loss: 0.0253308
-[90]    valid_0's binary_logloss: 0.144587  valid_0's focal_loss: 0.0253027
-[92]    valid_0's binary_logloss: 0.144485  valid_0's focal_loss: 0.0252982
-[94]    valid_0's binary_logloss: 0.143795  valid_0's focal_loss: 0.0252674
-[96]    valid_0's binary_logloss: 0.143183  valid_0's focal_loss: 0.0252339
-[98]    valid_0's binary_logloss: 0.142147  valid_0's focal_loss: 0.0251788
-[100]   valid_0's binary_logloss: 0.141959  valid_0's focal_loss: 0.0251697
-[2] valid_0's binary_logloss: 0.562495  valid_0's focal_loss: 0.0206781
-[4] valid_0's binary_logloss: 0.486601  valid_0's focal_loss: 0.0187397
-[6] valid_0's binary_logloss: 0.435064  valid_0's focal_loss: 0.0174048
-[8] valid_0's binary_logloss: 0.387971  valid_0's focal_loss: 0.0161998
-[10]    valid_0's binary_logloss: 0.350017  valid_0's focal_loss: 0.0152461
-[12]    valid_0's binary_logloss: 0.314349  valid_0's focal_loss: 0.0143589
-[14]    valid_0's binary_logloss: 0.286507  valid_0's focal_loss: 0.0136739
-[16]    valid_0's binary_logloss: 0.264687  valid_0's focal_loss: 0.0131462
-[18]    valid_0's binary_logloss: 0.244388  valid_0's focal_loss: 0.0126582
-[20]    valid_0's binary_logloss: 0.224548  valid_0's focal_loss: 0.0121845
-[22]    valid_0's binary_logloss: 0.209308  valid_0's focal_loss: 0.011819
-[24]    valid_0's binary_logloss: 0.196312  valid_0's focal_loss: 0.0115142
-[26]    valid_0's binary_logloss: 0.18999   valid_0's focal_loss: 0.0113554
-[28]    valid_0's binary_logloss: 0.18119   valid_0's focal_loss: 0.0111456
-[30]    valid_0's binary_logloss: 0.175242  valid_0's focal_loss: 0.011003
-[32]    valid_0's binary_logloss: 0.167062  valid_0's focal_loss: 0.0108065
-[34]    valid_0's binary_logloss: 0.159657  valid_0's focal_loss: 0.0106378
-[36]    valid_0's binary_logloss: 0.155446  valid_0's focal_loss: 0.0105487
-[38]    valid_0's binary_logloss: 0.151366  valid_0's focal_loss: 0.0104584
-[40]    valid_0's binary_logloss: 0.144785  valid_0's focal_loss: 0.0103024
-[42]    valid_0's binary_logloss: 0.142838  valid_0's focal_loss: 0.0102537
-[44]    valid_0's binary_logloss: 0.139997  valid_0's focal_loss: 0.0101942
-[46]    valid_0's binary_logloss: 0.137691  valid_0's focal_loss: 0.0101287
-[48]    valid_0's binary_logloss: 0.134322  valid_0's focal_loss: 0.0100457
-[50]    valid_0's binary_logloss: 0.130698  valid_0's focal_loss: 0.00997214
-[52]    valid_0's binary_logloss: 0.129351  valid_0's focal_loss: 0.00994529
-[54]    valid_0's binary_logloss: 0.126276  valid_0's focal_loss: 0.00986413
-[56]    valid_0's binary_logloss: 0.124446  valid_0's focal_loss: 0.00981825
-[58]    valid_0's binary_logloss: 0.122098  valid_0's focal_loss: 0.00975485
-[60]    valid_0's binary_logloss: 0.119773  valid_0's focal_loss: 0.00969676
-[62]    valid_0's binary_logloss: 0.118259  valid_0's focal_loss: 0.00965693
-[64]    valid_0's binary_logloss: 0.116042  valid_0's focal_loss: 0.0095997
-[66]    valid_0's binary_logloss: 0.114508  valid_0's focal_loss: 0.0095725
-[68]    valid_0's binary_logloss: 0.113344  valid_0's focal_loss: 0.00954891
-[70]    valid_0's binary_logloss: 0.112083  valid_0's focal_loss: 0.00951156
-[72]    valid_0's binary_logloss: 0.110674  valid_0's focal_loss: 0.00947663
-[74]    valid_0's binary_logloss: 0.109098  valid_0's focal_loss: 0.00943491
-[76]    valid_0's binary_logloss: 0.108024  valid_0's focal_loss: 0.00940399
-[78]    valid_0's binary_logloss: 0.107537  valid_0's focal_loss: 0.00939339
-[80]    valid_0's binary_logloss: 0.106896  valid_0's focal_loss: 0.00937475
-[82]    valid_0's binary_logloss: 0.106097  valid_0's focal_loss: 0.00935944
-[84]    valid_0's binary_logloss: 0.105331  valid_0's focal_loss: 0.00933519
-[86]    valid_0's binary_logloss: 0.104739  valid_0's focal_loss: 0.00932264
-[88]    valid_0's binary_logloss: 0.104268  valid_0's focal_loss: 0.00931729
-[90]    valid_0's binary_logloss: 0.104236  valid_0's focal_loss: 0.00931197
-[92]    valid_0's binary_logloss: 0.103452  valid_0's focal_loss: 0.00929481
-[94]    valid_0's binary_logloss: 0.102924  valid_0's focal_loss: 0.00928181
-[96]    valid_0's binary_logloss: 0.10288   valid_0's focal_loss: 0.00928078
-[98]    valid_0's binary_logloss: 0.102312  valid_0's focal_loss: 0.00926544
-[100]   valid_0's binary_logloss: 0.10172   valid_0's focal_loss: 0.00924922
-[2] valid_0's binary_logloss: 0.558033  valid_0's focal_loss: 0.0344067
-[4] valid_0's binary_logloss: 0.480847  valid_0's focal_loss: 0.030286
-[6] valid_0's binary_logloss: 0.421934  valid_0's focal_loss: 0.0271422
-[8] valid_0's binary_logloss: 0.369056  valid_0's focal_loss: 0.0246033
-[10]    valid_0's binary_logloss: 0.329405  valid_0's focal_loss: 0.0227483
-[12]    valid_0's binary_logloss: 0.295796  valid_0's focal_loss: 0.0211021
-[14]    valid_0's binary_logloss: 0.270145  valid_0's focal_loss: 0.0198335
-[16]    valid_0's binary_logloss: 0.249797  valid_0's focal_loss: 0.018846
-[18]    valid_0's binary_logloss: 0.232356  valid_0's focal_loss: 0.0180667
-[20]    valid_0's binary_logloss: 0.219142  valid_0's focal_loss: 0.0174907
-[22]    valid_0's binary_logloss: 0.206815  valid_0's focal_loss: 0.0169259
-[24]    valid_0's binary_logloss: 0.19631   valid_0's focal_loss: 0.0164884
-[26]    valid_0's binary_logloss: 0.187318  valid_0's focal_loss: 0.0160536
-[28]    valid_0's binary_logloss: 0.179701  valid_0's focal_loss: 0.0157006
-[30]    valid_0's binary_logloss: 0.173449  valid_0's focal_loss: 0.0154196
-[32]    valid_0's binary_logloss: 0.167678  valid_0's focal_loss: 0.0152706
-[34]    valid_0's binary_logloss: 0.162701  valid_0's focal_loss: 0.0151394
-[36]    valid_0's binary_logloss: 0.157395  valid_0's focal_loss: 0.0149222
-[38]    valid_0's binary_logloss: 0.15171   valid_0's focal_loss: 0.0146761
-[40]    valid_0's binary_logloss: 0.146453  valid_0's focal_loss: 0.0144336
-[42]    valid_0's binary_logloss: 0.14218   valid_0's focal_loss: 0.0142271
-[44]    valid_0's binary_logloss: 0.136746  valid_0's focal_loss: 0.0139512
-[46]    valid_0's binary_logloss: 0.133177  valid_0's focal_loss: 0.0138298
-[48]    valid_0's binary_logloss: 0.130063  valid_0's focal_loss: 0.0137244
-[50]    valid_0's binary_logloss: 0.128264  valid_0's focal_loss: 0.0136715
-[52]    valid_0's binary_logloss: 0.126688  valid_0's focal_loss: 0.0136248
-[54]    valid_0's binary_logloss: 0.125302  valid_0's focal_loss: 0.0135836
-[56]    valid_0's binary_logloss: 0.123401  valid_0's focal_loss: 0.0135289
-[58]    valid_0's binary_logloss: 0.121281  valid_0's focal_loss: 0.0134497
-[60]    valid_0's binary_logloss: 0.119772  valid_0's focal_loss: 0.0134085
-[62]    valid_0's binary_logloss: 0.117235  valid_0's focal_loss: 0.0132452
-[64]    valid_0's binary_logloss: 0.116183  valid_0's focal_loss: 0.0131642
-[66]    valid_0's binary_logloss: 0.114816  valid_0's focal_loss: 0.0130635
-[68]    valid_0's binary_logloss: 0.114434  valid_0's focal_loss: 0.0130127
-[70]    valid_0's binary_logloss: 0.114022  valid_0's focal_loss: 0.0129729
-[72]    valid_0's binary_logloss: 0.113668  valid_0's focal_loss: 0.0129383
-[74]    valid_0's binary_logloss: 0.113083  valid_0's focal_loss: 0.0129461
-[76]    valid_0's binary_logloss: 0.112865  valid_0's focal_loss: 0.0129303
-[78]    valid_0's binary_logloss: 0.112865  valid_0's focal_loss: 0.0129302
-[80]    valid_0's binary_logloss: 0.112399  valid_0's focal_loss: 0.0129209
-[82]    valid_0's binary_logloss: 0.112033  valid_0's focal_loss: 0.0129155
-[84]    valid_0's binary_logloss: 0.111646  valid_0's focal_loss: 0.0129102
-[86]    valid_0's binary_logloss: 0.111234  valid_0's focal_loss: 0.0129065
-[88]    valid_0's binary_logloss: 0.110891  valid_0's focal_loss: 0.0128973
-[90]    valid_0's binary_logloss: 0.110664  valid_0's focal_loss: 0.0128785
-[92]    valid_0's binary_logloss: 0.110238  valid_0's focal_loss: 0.0128395
-[94]    valid_0's binary_logloss: 0.109871  valid_0's focal_loss: 0.0128054
-[96]    valid_0's binary_logloss: 0.109554  valid_0's focal_loss: 0.0127756
-[98]    valid_0's binary_logloss: 0.109154  valid_0's focal_loss: 0.0127861
-[100]   valid_0's binary_logloss: 0.108868  valid_0's focal_loss: 0.0127926
-[2] valid_0's binary_logloss: 0.548565  valid_0's focal_loss: 0.0267303
-[4] valid_0's binary_logloss: 0.461034  valid_0's focal_loss: 0.0238552
-[6] valid_0's binary_logloss: 0.400399  valid_0's focal_loss: 0.02184
-[8] valid_0's binary_logloss: 0.347656  valid_0's focal_loss: 0.0201184
-[10]    valid_0's binary_logloss: 0.309792  valid_0's focal_loss: 0.0188869
-[12]    valid_0's binary_logloss: 0.278772  valid_0's focal_loss: 0.0179062
-[14]    valid_0's binary_logloss: 0.252454  valid_0's focal_loss: 0.0170795
-[16]    valid_0's binary_logloss: 0.22884   valid_0's focal_loss: 0.0163567
-[18]    valid_0's binary_logloss: 0.213306  valid_0's focal_loss: 0.0158693
-[20]    valid_0's binary_logloss: 0.197918  valid_0's focal_loss: 0.0154087
-[22]    valid_0's binary_logloss: 0.186426  valid_0's focal_loss: 0.0150574
-[24]    valid_0's binary_logloss: 0.175736  valid_0's focal_loss: 0.0147221
-[26]    valid_0's binary_logloss: 0.166902  valid_0's focal_loss: 0.0144448
-[28]    valid_0's binary_logloss: 0.158762  valid_0's focal_loss: 0.0142048
-[30]    valid_0's binary_logloss: 0.150588  valid_0's focal_loss: 0.0139449
-[32]    valid_0's binary_logloss: 0.144891  valid_0's focal_loss: 0.0137788
-[34]    valid_0's binary_logloss: 0.140274  valid_0's focal_loss: 0.0136338
-[36]    valid_0's binary_logloss: 0.136141  valid_0's focal_loss: 0.0135022
-[38]    valid_0's binary_logloss: 0.132974  valid_0's focal_loss: 0.0133996
-[40]    valid_0's binary_logloss: 0.129431  valid_0's focal_loss: 0.0132998
-[42]    valid_0's binary_logloss: 0.127153  valid_0's focal_loss: 0.0132376
-[44]    valid_0's binary_logloss: 0.124049  valid_0's focal_loss: 0.0131421
-[46]    valid_0's binary_logloss: 0.121926  valid_0's focal_loss: 0.013065
-[48]    valid_0's binary_logloss: 0.120461  valid_0's focal_loss: 0.0130211
-[50]    valid_0's binary_logloss: 0.119199  valid_0's focal_loss: 0.0129845
-[52]    valid_0's binary_logloss: 0.117476  valid_0's focal_loss: 0.0129312
-[54]    valid_0's binary_logloss: 0.116447  valid_0's focal_loss: 0.0128954
-[56]    valid_0's binary_logloss: 0.115294  valid_0's focal_loss: 0.0128646
-[58]    valid_0's binary_logloss: 0.113519  valid_0's focal_loss: 0.0128138
-[60]    valid_0's binary_logloss: 0.112923  valid_0's focal_loss: 0.0127867
-[62]    valid_0's binary_logloss: 0.112281  valid_0's focal_loss: 0.0127653
-[64]    valid_0's binary_logloss: 0.11141   valid_0's focal_loss: 0.0127412
-[66]    valid_0's binary_logloss: 0.111082  valid_0's focal_loss: 0.0127206
-[68]    valid_0's binary_logloss: 0.110702  valid_0's focal_loss: 0.0127123
-[70]    valid_0's binary_logloss: 0.110259  valid_0's focal_loss: 0.0127014
-[72]    valid_0's binary_logloss: 0.10987   valid_0's focal_loss: 0.0126867
-[74]    valid_0's binary_logloss: 0.109217  valid_0's focal_loss: 0.0126528
-[76]    valid_0's binary_logloss: 0.109125  valid_0's focal_loss: 0.012649
-[78]    valid_0's binary_logloss: 0.108635  valid_0's focal_loss: 0.0126408
-[80]    valid_0's binary_logloss: 0.107911  valid_0's focal_loss: 0.012608
-[82]    valid_0's binary_logloss: 0.107856  valid_0's focal_loss: 0.0126094
-[84]    valid_0's binary_logloss: 0.107847  valid_0's focal_loss: 0.0126084
-[86]    valid_0's binary_logloss: 0.107847  valid_0's focal_loss: 0.0126084
-[88]    valid_0's binary_logloss: 0.107847  valid_0's focal_loss: 0.0126084
-[90]    valid_0's binary_logloss: 0.107847  valid_0's focal_loss: 0.0126084
-[92]    valid_0's binary_logloss: 0.107847  valid_0's focal_loss: 0.0126084
-[94]    valid_0's binary_logloss: 0.107847  valid_0's focal_loss: 0.0126084
-[96]    valid_0's binary_logloss: 0.107651  valid_0's focal_loss: 0.0126028
-[98]    valid_0's binary_logloss: 0.107143  valid_0's focal_loss: 0.0125868
-[100]   valid_0's binary_logloss: 0.106592  valid_0's focal_loss: 0.0125707
-[2] valid_0's binary_logloss: 0.577451  valid_0's focal_loss: 0.0114469
-[4] valid_0's binary_logloss: 0.498434  valid_0's focal_loss: 0.00999739
-[6] valid_0's binary_logloss: 0.431917  valid_0's focal_loss: 0.00879309
-[8] valid_0's binary_logloss: 0.380725  valid_0's focal_loss: 0.00791292
-[10]    valid_0's binary_logloss: 0.340199  valid_0's focal_loss: 0.00722688
-[12]    valid_0's binary_logloss: 0.308152  valid_0's focal_loss: 0.00671158
-[14]    valid_0's binary_logloss: 0.282191  valid_0's focal_loss: 0.0063057
-[16]    valid_0's binary_logloss: 0.264157  valid_0's focal_loss: 0.00601118
-[18]    valid_0's binary_logloss: 0.24671   valid_0's focal_loss: 0.00573431
-[20]    valid_0's binary_logloss: 0.233339  valid_0's focal_loss: 0.00553858
-[22]    valid_0's binary_logloss: 0.219778  valid_0's focal_loss: 0.0053628
-[24]    valid_0's binary_logloss: 0.209496  valid_0's focal_loss: 0.00524811
-[26]    valid_0's binary_logloss: 0.199978  valid_0's focal_loss: 0.00512162
-[28]    valid_0's binary_logloss: 0.191667  valid_0's focal_loss: 0.0049956
-[30]    valid_0's binary_logloss: 0.182067  valid_0's focal_loss: 0.00486123
-[32]    valid_0's binary_logloss: 0.173166  valid_0's focal_loss: 0.00472755
-[34]    valid_0's binary_logloss: 0.168166  valid_0's focal_loss: 0.00464967
-[36]    valid_0's binary_logloss: 0.164001  valid_0's focal_loss: 0.00459117
-[38]    valid_0's binary_logloss: 0.158308  valid_0's focal_loss: 0.00453113
-[40]    valid_0's binary_logloss: 0.153467  valid_0's focal_loss: 0.00448632
-[42]    valid_0's binary_logloss: 0.150375  valid_0's focal_loss: 0.00443399
-[44]    valid_0's binary_logloss: 0.147712  valid_0's focal_loss: 0.00438906
-[46]    valid_0's binary_logloss: 0.14543   valid_0's focal_loss: 0.00434998
-[48]    valid_0's binary_logloss: 0.143482  valid_0's focal_loss: 0.00431496
-[50]    valid_0's binary_logloss: 0.141119  valid_0's focal_loss: 0.00430488
-[52]    valid_0's binary_logloss: 0.13908   valid_0's focal_loss: 0.0042963
-[54]    valid_0's binary_logloss: 0.137502  valid_0's focal_loss: 0.00426002
-[56]    valid_0's binary_logloss: 0.135326  valid_0's focal_loss: 0.00423668
-[58]    valid_0's binary_logloss: 0.134021  valid_0's focal_loss: 0.00423291
-[60]    valid_0's binary_logloss: 0.131981  valid_0's focal_loss: 0.00419512
-[62]    valid_0's binary_logloss: 0.130353  valid_0's focal_loss: 0.00416512
-[64]    valid_0's binary_logloss: 0.128876  valid_0's focal_loss: 0.00415068
-[66]    valid_0's binary_logloss: 0.127874  valid_0's focal_loss: 0.00414502
-[68]    valid_0's binary_logloss: 0.126717  valid_0's focal_loss: 0.00412815
-[70]    valid_0's binary_logloss: 0.12568   valid_0's focal_loss: 0.00411073
-[72]    valid_0's binary_logloss: 0.124844  valid_0's focal_loss: 0.00408761
-[74]    valid_0's binary_logloss: 0.124006  valid_0's focal_loss: 0.00409582
-[76]    valid_0's binary_logloss: 0.123344  valid_0's focal_loss: 0.00410583
-[78]    valid_0's binary_logloss: 0.122564  valid_0's focal_loss: 0.00407526
-[80]    valid_0's binary_logloss: 0.122164  valid_0's focal_loss: 0.00405561
-[82]    valid_0's binary_logloss: 0.121172  valid_0's focal_loss: 0.00405379
-[84]    valid_0's binary_logloss: 0.12053   valid_0's focal_loss: 0.00405965
-[86]    valid_0's binary_logloss: 0.120357  valid_0's focal_loss: 0.00405978
-[88]    valid_0's binary_logloss: 0.120183  valid_0's focal_loss: 0.00405906
-[90]    valid_0's binary_logloss: 0.119756  valid_0's focal_loss: 0.00404769
-[92]    valid_0's binary_logloss: 0.119532  valid_0's focal_loss: 0.00404183
-[94]    valid_0's binary_logloss: 0.119489  valid_0's focal_loss: 0.00404044
-[96]    valid_0's binary_logloss: 0.119424  valid_0's focal_loss: 0.00403836
-[98]    valid_0's binary_logloss: 0.119409  valid_0's focal_loss: 0.00403774
-[100]   valid_0's binary_logloss: 0.118909  valid_0's focal_loss: 0.0040228
-[2] valid_0's binary_logloss: 0.57444   valid_0's focal_loss: 0.250846
-[4] valid_0's binary_logloss: 0.489687  valid_0's focal_loss: 0.236764
-[6] valid_0's binary_logloss: 0.43287   valid_0's focal_loss: 0.226193
-[8] valid_0's binary_logloss: 0.390653  valid_0's focal_loss: 0.217843
-[10]    valid_0's binary_logloss: 0.348762  valid_0's focal_loss: 0.210179
-[12]    valid_0's binary_logloss: 0.317537  valid_0's focal_loss: 0.203714
-[14]    valid_0's binary_logloss: 0.290432  valid_0's focal_loss: 0.198468
-[16]    valid_0's binary_logloss: 0.272751  valid_0's focal_loss: 0.194758
-[18]    valid_0's binary_logloss: 0.258957  valid_0's focal_loss: 0.191779
-[20]    valid_0's binary_logloss: 0.246423  valid_0's focal_loss: 0.189325
-[22]    valid_0's binary_logloss: 0.23322   valid_0's focal_loss: 0.186559
-[24]    valid_0's binary_logloss: 0.222325  valid_0's focal_loss: 0.184064
-[26]    valid_0's binary_logloss: 0.212935  valid_0's focal_loss: 0.181766
-[28]    valid_0's binary_logloss: 0.205371  valid_0's focal_loss: 0.179971
-[30]    valid_0's binary_logloss: 0.19922   valid_0's focal_loss: 0.179064
-[32]    valid_0's binary_logloss: 0.1939    valid_0's focal_loss: 0.178409
-[34]    valid_0's binary_logloss: 0.189168  valid_0's focal_loss: 0.177808
-[36]    valid_0's binary_logloss: 0.185299  valid_0's focal_loss: 0.177119
-[38]    valid_0's binary_logloss: 0.181256  valid_0's focal_loss: 0.176316
-[40]    valid_0's binary_logloss: 0.177527  valid_0's focal_loss: 0.175601
-[42]    valid_0's binary_logloss: 0.174818  valid_0's focal_loss: 0.174945
-[44]    valid_0's binary_logloss: 0.171723  valid_0's focal_loss: 0.173944
-[46]    valid_0's binary_logloss: 0.169181  valid_0's focal_loss: 0.173118
-[48]    valid_0's binary_logloss: 0.167175  valid_0's focal_loss: 0.172485
-[50]    valid_0's binary_logloss: 0.164783  valid_0's focal_loss: 0.171992
-[52]    valid_0's binary_logloss: 0.162234  valid_0's focal_loss: 0.171642
-[54]    valid_0's binary_logloss: 0.160145  valid_0's focal_loss: 0.171353
-[56]    valid_0's binary_logloss: 0.158428  valid_0's focal_loss: 0.171113
-[58]    valid_0's binary_logloss: 0.157872  valid_0's focal_loss: 0.170912
-[60]    valid_0's binary_logloss: 0.157399  valid_0's focal_loss: 0.17074
-[62]    valid_0's binary_logloss: 0.157119  valid_0's focal_loss: 0.170599
-[64]    valid_0's binary_logloss: 0.155919  valid_0's focal_loss: 0.170349
-[66]    valid_0's binary_logloss: 0.154179  valid_0's focal_loss: 0.170034
-[68]    valid_0's binary_logloss: 0.152796  valid_0's focal_loss: 0.169785
-[70]    valid_0's binary_logloss: 0.151642  valid_0's focal_loss: 0.169577
-[72]    valid_0's binary_logloss: 0.151472  valid_0's focal_loss: 0.169508
-[74]    valid_0's binary_logloss: 0.151331  valid_0's focal_loss: 0.169451
-[76]    valid_0's binary_logloss: 0.151213  valid_0's focal_loss: 0.169403
-[78]    valid_0's binary_logloss: 0.150199  valid_0's focal_loss: 0.169151
-[80]    valid_0's binary_logloss: 0.148627  valid_0's focal_loss: 0.168852
-[82]    valid_0's binary_logloss: 0.147428  valid_0's focal_loss: 0.168729
-[84]    valid_0's binary_logloss: 0.146344  valid_0's focal_loss: 0.168625
-[86]    valid_0's binary_logloss: 0.146023  valid_0's focal_loss: 0.168396
-[88]    valid_0's binary_logloss: 0.145761  valid_0's focal_loss: 0.168204
-[90]    valid_0's binary_logloss: 0.145546  valid_0's focal_loss: 0.168044
-[92]    valid_0's binary_logloss: 0.145453  valid_0's focal_loss: 0.167974
-[94]    valid_0's binary_logloss: 0.145453  valid_0's focal_loss: 0.167974
-[96]    valid_0's binary_logloss: 0.145344  valid_0's focal_loss: 0.167978
-[98]    valid_0's binary_logloss: 0.145252  valid_0's focal_loss: 0.167982
-[100]   valid_0's binary_logloss: 0.145173  valid_0's focal_loss: 0.167985</code></pre>
+<pre><code>Best Gini score: 0.7631133671742809
+Best parameters: {'alpha': 0.45019195857112326, 'gamma': 0.4919531053413074, 'lambda_l1': 6.640753524365382, 'lambda_l2': 9.081726977645413, 'num_leaves': 21, 'feature_fraction': 0.9362220967011345, 'bagging_fraction': 0.4744110361566192, 'bagging_freq': 2, 'min_child_samples': 12}</code></pre>
 </div>
 </div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optuna study for tuning alpha and gamma</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(trial):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    train_set <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    val_set <span class="op">=</span> lgb.Dataset(X_val, y_val, reference<span class="op">=</span>train_set)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    params_ce <span class="op">=</span> {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'objective'</span>: <span class="st">'binary'</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'metric'</span>: <span class="st">'binary_logloss'</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'verbosity'</span>: <span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'boosting_type'</span>: <span class="st">'gbdt'</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_l1'</span>: trial.suggest_float(<span class="st">'lambda_l1'</span>, <span class="fl">1e-8</span>, <span class="fl">10.0</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'lambda_l2'</span>: trial.suggest_float(<span class="st">'lambda_l2'</span>, <span class="fl">1e-8</span>, <span class="fl">10.0</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'num_leaves'</span>: trial.suggest_int(<span class="st">'num_leaves'</span>, <span class="dv">2</span>, <span class="dv">256</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'feature_fraction'</span>: trial.suggest_float(<span class="st">'feature_fraction'</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span>),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'bagging_fraction'</span>: trial.suggest_float(<span class="st">'bagging_fraction'</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span>),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'bagging_freq'</span>: trial.suggest_int(<span class="st">'bagging_freq'</span>, <span class="dv">1</span>, <span class="dv">7</span>),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'min_child_samples'</span>: trial.suggest_int(<span class="st">'min_child_samples'</span>, <span class="dv">5</span>, <span class="dv">100</span>),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Using record_evaluation to capture validation results without printing</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    evals_result_ce <span class="op">=</span> {}</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    model_ce <span class="op">=</span> lgb.train(params_ce, train_set, valid_sets<span class="op">=</span>[val_set], callbacks<span class="op">=</span>[record_evaluation(evals_result_ce)])</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    preds_ce <span class="op">=</span> model_ce.predict(X_val)    </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gini(y_val, preds_ce)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>study <span class="op">=</span> optuna.create_study(direction<span class="op">=</span><span class="st">'maximize'</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>study.optimize(objective, n_trials<span class="op">=</span><span class="dv">100</span>) </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Results</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> study.best_params</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>best_score <span class="op">=</span> study.best_value</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>scores_ce <span class="op">=</span> [trial.value <span class="cf">for</span> trial <span class="kw">in</span> study.trials]</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best Gini score: </span><span class="sc">{</span>best_score<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best parameters: </span><span class="sc">{</span>best_params<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best Gini score: 0.7445008460236886
+Best parameters: {'lambda_l1': 5.045686905737897, 'lambda_l2': 8.682377409692112, 'num_leaves': 158, 'feature_fraction': 0.7953399252370615, 'bagging_fraction': 0.43225443468376873, 'bagging_freq': 3, 'min_child_samples': 16}</code></pre>
+</div>
+</div>
+<p>==&gt; Sử dụng focal loss sau 100 lần thử thì tìm được mô hình có gini tốt hơn so với sử dụng cross entropy</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(scores_ce, label<span class="op">=</span><span class="st">'Cross-Entropy'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.plot(scores_focal, label<span class="op">=</span><span class="st">'Focal Loss'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Trial'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'ROC AUC Score'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Comparison of Focal Loss and Cross-Entropy over Trials'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="focal-loss_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize lists to store results</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>focal_scores <span class="op">=</span> []</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ce_scores <span class="op">=</span> []</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>imbalance_ratios <span class="op">=</span> [<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ratio <span class="kw">in</span> imbalance_ratios:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate imbalanced data</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    X, y <span class="op">=</span> make_classification(n_samples<span class="op">=</span><span class="dv">1000</span>, n_features<span class="op">=</span><span class="dv">20</span>, n_informative<span class="op">=</span><span class="dv">2</span>, n_redundant<span class="op">=</span><span class="dv">10</span>, weights<span class="op">=</span>[<span class="dv">1</span><span class="op">-</span>ratio, ratio], random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    X_train, X_val, y_train, y_val <span class="op">=</span> train_test_split(X, y, stratify<span class="op">=</span>y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    train_set <span class="op">=</span> lgb.Dataset(X_train, y_train)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    val_set <span class="op">=</span> lgb.Dataset(X_val, y_val, reference<span class="op">=</span>train_set)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train with Focal Loss</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    params_focal <span class="op">=</span> {</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'objective'</span>: <span class="st">'binary'</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'metric'</span>: <span class="st">'custom'</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'boosting_type'</span>: <span class="st">'gbdt'</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    alpha_value <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    gamma_value <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    evals_result_focal <span class="op">=</span> {}    </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    model_focal <span class="op">=</span> lgb.train(params_focal, train_set, valid_sets<span class="op">=</span>[val_set], </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                        feval<span class="op">=</span><span class="kw">lambda</span> preds, dtrain: focal_loss_lgb(preds, dtrain, alpha_value, gamma_value), </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>                        callbacks<span class="op">=</span>[record_evaluation(evals_result_focal)])</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    preds_focal <span class="op">=</span> model_focal.predict(X_val)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    roc_focal <span class="op">=</span> roc_auc_score(y_val, preds_focal)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train with Cross-Entropy</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    params_ce <span class="op">=</span> {</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">'objective'</span>: <span class="st">'binary'</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">'metric'</span>: <span class="st">'binary_logloss'</span>,</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">'boosting_type'</span>: <span class="st">'gbdt'</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    evals_result_ce <span class="op">=</span> {} </span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    model_ce <span class="op">=</span> lgb.train(params_ce, train_set, valid_sets<span class="op">=</span>[val_set], callbacks<span class="op">=</span>[record_evaluation(evals_result_ce)])</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    preds_ce <span class="op">=</span> model_ce.predict(X_val)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    roc_ce <span class="op">=</span> roc_auc_score(y_val, preds_ce)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store results</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    focal_scores.append(roc_focal)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    ce_scores.append(roc_ce)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>plt.plot(imbalance_ratios, focal_scores, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'Focal Loss'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>plt.plot(imbalance_ratios, ce_scores, marker<span class="op">=</span><span class="st">'x'</span>, label<span class="op">=</span><span class="st">'Cross-Entropy Loss'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Imbalance Ratio'</span>)</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'ROC AUC Score'</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Effect of Loss Type on Imbalanced Data'</span>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[LightGBM] [Info] Number of positive: 11, number of negative: 789
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000295 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.013750 -&gt; initscore=-4.272871
+[LightGBM] [Info] Start training from score -4.272871
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 11, number of negative: 789
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000266 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.013750 -&gt; initscore=-4.272871
+[LightGBM] [Info] Start training from score -4.272871
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 43, number of negative: 757
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000278 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.053750 -&gt; initscore=-2.868163
+[LightGBM] [Info] Start training from score -2.868163
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 43, number of negative: 757
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000278 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.053750 -&gt; initscore=-2.868163
+[LightGBM] [Info] Start training from score -2.868163
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 82, number of negative: 718
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000270 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.102500 -&gt; initscore=-2.169750
+[LightGBM] [Info] Start training from score -2.169750
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 82, number of negative: 718
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000299 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.102500 -&gt; initscore=-2.169750
+[LightGBM] [Info] Start training from score -2.169750
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 161, number of negative: 639
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000311 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.201250 -&gt; initscore=-1.378500
+[LightGBM] [Info] Start training from score -1.378500
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 161, number of negative: 639
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000302 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.201250 -&gt; initscore=-1.378500
+[LightGBM] [Info] Start training from score -1.378500
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 239, number of negative: 561
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000269 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.298750 -&gt; initscore=-0.853257
+[LightGBM] [Info] Start training from score -0.853257
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 239, number of negative: 561
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000259 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.298750 -&gt; initscore=-0.853257
+[LightGBM] [Info] Start training from score -0.853257
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 318, number of negative: 482
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000269 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.397500 -&gt; initscore=-0.415893
+[LightGBM] [Info] Start training from score -0.415893
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 318, number of negative: 482
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000370 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.397500 -&gt; initscore=-0.415893
+[LightGBM] [Info] Start training from score -0.415893
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 396, number of negative: 404
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000252 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.495000 -&gt; initscore=-0.020001
+[LightGBM] [Info] Start training from score -0.020001
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Info] Number of positive: 396, number of negative: 404
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000258 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 5100
+[LightGBM] [Info] Number of data points in the train set: 800, number of used features: 20
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.495000 -&gt; initscore=-0.020001
+[LightGBM] [Info] Start training from score -0.020001
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="focal-loss_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>==&gt; Sử dụng <span class="math inline">\(\alpha\)</span> và <span class="math inline">\(\gamma\)</span> chưa tunning trên nhiều kịch bản imbalance khác nhau, gini không có sự khác biệt</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
