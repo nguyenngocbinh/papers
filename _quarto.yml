@@ -41,6 +41,7 @@ website:
           - machine-learning/focal-loss.ipynb
           - machine-learning/transformer.md
           - machine-learning/delong_test.ipynb
+          - machine-learning/CohortFitDistribution.ipynb
       - section: models-monitoring/KS-PSI_ENTROPY.qmd
         contents:
           - models-monitoring/KS-PSI_ENTROPY.qmd
