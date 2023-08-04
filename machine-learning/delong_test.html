@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nguyễn Ngọc Bình">
 
-<title>Making sharable documents with Quarto - AUC</title>
+<title>Making sharable documents with Quarto - Delong for Estimate AUC</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -111,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/transformer.html">Transformer</a></li><li class="breadcrumb-item"><a href="../machine-learning/delong_test.html">AUC</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/transformer.html">Transformer</a></li><li class="breadcrumb-item"><a href="../machine-learning/delong_test.html">Delong for Estimate AUC</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -189,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../machine-learning/delong_test.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">AUC</span></a>
+ <span class="menu-text">Delong for Estimate AUC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -274,7 +275,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#liên-hệ-auc-và-thống-kê-mann-whitney" id="toc-liên-hệ-auc-và-thống-kê-mann-whitney" class="nav-link active" data-scroll-target="#liên-hệ-auc-và-thống-kê-mann-whitney">Liên hệ AUC và thống kê Mann-Whitney</a></li>
+  <li><a href="#auc" id="toc-auc" class="nav-link active" data-scroll-target="#auc">AUC</a></li>
+  <li><a href="#liên-hệ-auc-và-thống-kê-mann-whitney" id="toc-liên-hệ-auc-và-thống-kê-mann-whitney" class="nav-link" data-scroll-target="#liên-hệ-auc-và-thống-kê-mann-whitney">Liên hệ AUC và thống kê Mann-Whitney</a></li>
   <li><a href="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong" id="toc-tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong" class="nav-link" data-scroll-target="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong">Tính khoảng tin cậy AUC sử dụng phương pháp <code>Delong</code></a></li>
   <li><a href="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap" id="toc-tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap" class="nav-link" data-scroll-target="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap">Tính khoảng tin cậy AUC sử dụng phương pháp <code>Bootstrap</code></a></li>
   <li><a href="#so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong" id="toc-so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong" class="nav-link" data-scroll-target="#so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong">So sánh AUC của hai mô hình máy học sử dụng kiểm định thống kê DeLong</a></li>
@@ -287,13 +289,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AUC</h1>
+<h1 class="title">Delong for Estimate AUC</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nguyễn Ngọc Bình </p>
+          </div>
+  </div>
     
   
     
@@ -302,13 +310,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<table class="table">
-<tbody>
-<tr class="odd">
-<td>title: Delong test</td>
-</tr>
-</tbody>
-</table>
+<section id="auc" class="level2">
+<h2 class="anchored" data-anchor-id="auc">AUC</h2>
 <p>AUC là viết tắt của “Area Under the ROC Curve” trong tiếng Anh, dịch sang tiếng Việt là “Diện tích dưới đường cong ROC”. Đây là một phép đo quan trọng trong đánh giá hiệu suất của mô hình phân loại (classifier) trong trường hợp binary classification (phân loại nhị phân).</p>
 <p>Để hiểu AUC, hãy cùng nhau xem xét đến đường cong ROC (Receiver Operating Characteristic curve). ROC curve biểu diễn sự tương quan giữa tỷ lệ True Positive Rate (TPR) và tỷ lệ False Positive Rate (FPR) của mô hình phân loại, khi ngưỡng phân loại thay đổi từ 0 đến 1.</p>
 <ul>
@@ -357,6 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="delong_test_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+</section>
 <section id="liên-hệ-auc-và-thống-kê-mann-whitney" class="level2">
 <h2 class="anchored" data-anchor-id="liên-hệ-auc-và-thống-kê-mann-whitney">Liên hệ AUC và thống kê Mann-Whitney</h2>
 <ol type="1">
