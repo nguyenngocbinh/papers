@@ -277,8 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#focal-loss" id="toc-focal-loss" class="nav-link active" data-scroll-target="#focal-loss">Focal Loss</a>
   <ul class="collapse">
-  <li><a href="#tham-số-trong-hàm-focal-loss" id="toc-tham-số-trong-hàm-focal-loss" class="nav-link" data-scroll-target="#tham-số-trong-hàm-focal-loss">Tham số $ $ trong hàm Focal-loss</a></li>
-  <li><a href="#tham-số-trong-hàm-focal-loss-1" id="toc-tham-số-trong-hàm-focal-loss-1" class="nav-link" data-scroll-target="#tham-số-trong-hàm-focal-loss-1">Tham số $ $ trong hàm Focal-loss</a></li>
+  <li><a href="#tham-số-alpha-trong-hàm-focal-loss" id="toc-tham-số-alpha-trong-hàm-focal-loss" class="nav-link" data-scroll-target="#tham-số-alpha-trong-hàm-focal-loss">Tham số <span class="math inline">\(\alpha\)</span> trong hàm Focal-loss</a></li>
+  <li><a href="#tham-số-gamma-trong-hàm-focal-loss" id="toc-tham-số-gamma-trong-hàm-focal-loss" class="nav-link" data-scroll-target="#tham-số-gamma-trong-hàm-focal-loss">Tham số <span class="math inline">\(\gamma\)</span> trong hàm Focal-loss</a></li>
   </ul></li>
   <li><a href="#ví-dụ" id="toc-ví-dụ" class="nav-link" data-scroll-target="#ví-dụ">Ví dụ</a>
   <ul class="collapse">
@@ -321,55 +321,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math display">\[ \text{FL}(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t) \]</span></p>
 <p>Trong đó:</p>
 <ul>
-<li><p>$ p_t $ là xác suất của lớp đúng (<code>true class</code>). Nếu nhãn lớp đúng là 1, thì $ p_t $ là xác suất dự đoán của mô hình cho lớp 1; nếu nhãn lớp đúng là 0, thì $ p_t = 1 - $ xác suất dự đoán của mô hình cho lớp 1.</p></li>
-<li><p>$ _t $ là một yếu tố cân bằng. Thông thường đặt nằm giữa 0 và 1. Số này được sử dụng để xử lý mất cân bằng lớp.</p></li>
-<li><p>$ $ là tham số tập trung (<code>focusing parameter</code>) mục đích điều chỉnh mức độ tập trung vào lớp dễ dàng phân loại. Khi $ = 0 $, hàm mất mát Focal tương đương với hàm mất mát cross-entropy. Khi $ $ tăng, hiệu ứng của yếu tố điều chỉnh trở nên rõ ràng hơn.</p></li>
+<li><p><span class="math inline">\(p_t\)</span> là xác suất của lớp đúng (<code>true class</code>). Nếu nhãn lớp đúng là 1, thì <span class="math inline">\(p_t\)</span> là xác suất dự đoán của mô hình cho lớp 1; nếu nhãn lớp đúng là 0, thì $p_t = 1 - $ xác suất dự đoán của mô hình cho lớp 1.</p></li>
+<li><p><span class="math inline">\(\alpha_t\)</span> là một yếu tố cân bằng. Thông thường đặt nằm giữa 0 và 1. Số này được sử dụng để xử lý mất cân bằng lớp.</p></li>
+<li><p><span class="math inline">\(\gamma\)</span> là tham số tập trung (<code>focusing parameter</code>) mục đích điều chỉnh mức độ tập trung vào lớp dễ dàng phân loại. Khi <span class="math inline">\(\gamma = 0\)</span>, hàm mất mát Focal tương đương với hàm mất mát cross-entropy. Khi <span class="math inline">\(\gamma\)</span> tăng, hiệu ứng của yếu tố điều chỉnh trở nên rõ ràng hơn.</p></li>
 </ul>
 <p>Lợi thế chính của hàm mất mát Focal là nó đưa ra nhiều trọng số hơn cho các ví dụ bị phân loại sai và ít trọng số hơn cho các ví dụ được phân loại tốt. Điều này giúp trong các tình huống mà một số lớp bị đại diện ít hơn hoặc khi mô hình có khả năng bị áp đặt bởi các ví dụ tiêu cực dễ dàng.</p>
-<section id="tham-số-trong-hàm-focal-loss" class="level3">
-<h3 class="anchored" data-anchor-id="tham-số-trong-hàm-focal-loss">Tham số $ $ trong hàm Focal-loss</h3>
+<section id="tham-số-alpha-trong-hàm-focal-loss" class="level3">
+<h3 class="anchored" data-anchor-id="tham-số-alpha-trong-hàm-focal-loss">Tham số <span class="math inline">\(\alpha\)</span> trong hàm Focal-loss</h3>
 <ol type="1">
-<li><p><strong>Mục đích</strong>: $ $ được sử dụng trong hàm mất mát Focal để xử lý sự mất cân bằng lớp bằng cách điều chỉnh mất mát cho các lớp dương và âm một cách khác nhau. Nó cung cấp một sự cân bằng giữa tầm quan trọng của lớp dương và lớp âm trong việc tính toán mất mát.</p></li>
+<li><p><strong>Mục đích</strong>: <span class="math inline">\(\alpha\)</span> được sử dụng trong hàm mất mát Focal để xử lý sự mất cân bằng lớp bằng cách điều chỉnh mất mát cho các lớp dương và âm một cách khác nhau. Nó cung cấp một sự cân bằng giữa tầm quan trọng của lớp dương và lớp âm trong việc tính toán mất mát.</p></li>
 <li><p><strong>Ảnh hưởng lên Giá trị Mất mát</strong>:</p>
 <ul>
-<li><p>Đối với lớp dương (tức là khi nhãn thực $ y = 1 $): Giá trị mất mát được nhân với hệ số $ $.</p></li>
-<li><p>Đối với lớp âm (tức là khi nhãn thực $ y = 0 $): Giá trị mất mát được nhân với hệ số $ 1 - $.</p></li>
+<li><p>Đối với lớp dương (tức là khi nhãn thực <span class="math inline">\(y = 1\)</span>): Giá trị mất mát được nhân với hệ số <span class="math inline">\(\alpha\)</span>.</p></li>
+<li><p>Đối với lớp âm (tức là khi nhãn thực <span class="math inline">\(y = 0\)</span>): Giá trị mất mát được nhân với hệ số <span class="math inline">\(1 - \alpha\)</span>.</p></li>
 </ul></li>
 <li><p><strong>Phạm vi Giá trị</strong>:</p>
 <ul>
-<li><p>Thông thường, $ $ nằm trong khoảng [0, 1].</p></li>
-<li><p>Giá trị $ $ càng gần 1 càng làm cho mất mát lớp dương được tăng cường và mất mát cho lớp âm được giảm đi.</p></li>
-<li><p>Ngược lại, một giá trị $ $ gần 0 sẽ nhấn mạnh hơn đến lớp âm.</p></li>
+<li><p>Thông thường, <span class="math inline">\(\alpha\)</span> nằm trong khoảng [0, 1].</p></li>
+<li><p>Giá trị <span class="math inline">\(\alpha\)</span> càng gần 1 càng làm cho mất mát lớp dương được tăng cường và mất mát cho lớp âm được giảm đi.</p></li>
+<li><p>Ngược lại, một giá trị <span class="math inline">\(\alpha\)</span> gần 0 sẽ nhấn mạnh hơn đến lớp âm.</p></li>
 </ul></li>
 <li><p><strong>Lợi ích</strong>:</p>
 <ul>
-<li><p>Bằng cách điều chỉnh $ $, người ta có thể cung cấp trọng số nhiều hơn cho các lớp được đại diện ít hơn. Điều này có thể đặc biệt hữu ích trong các tình huống có sự mất cân bằng lớp nghiêm trọng, như trong các nhiệm vụ phát hiện đối tượng khi số lượng các ví dụ âm vượt trội so với các ví dụ dương.</p></li>
+<li><p>Bằng cách điều chỉnh <span class="math inline">\(\alpha\)</span>, người ta có thể cung cấp trọng số nhiều hơn cho các lớp được đại diện ít hơn. Điều này có thể đặc biệt hữu ích trong các tình huống có sự mất cân bằng lớp nghiêm trọng, như trong các nhiệm vụ phát hiện đối tượng khi số lượng các ví dụ âm vượt trội so với các ví dụ dương.</p></li>
 <li><p>Nó đảm bảo rằng mô hình không thiên vị về lớp có nhiều quan sát hơn và xem xét cả hai lớp khi cập nhật trọng số trong quá trình huấn luyện.</p></li>
 </ul></li>
-<li><p><strong>Thiết lập $ $</strong>:</p>
+<li><p><strong>Thiết lập <span class="math inline">\(\alpha\)</span></strong>:</p>
 <ul>
-<li><p>Trong một số trường hợp, $ $ có thể được thiết lập dựa trên phân phối lớp nghịch đảo. Ví dụ, nếu 80% các ví dụ là âm và 20% là dương, người ta có thể đặt $ $ thành 0,2 cho lớp âm và 0,8 cho lớp dương.</p></li>
-<li><p>Trong những trường hợp khác, giá trị của $ $ có thể được xác định thông qua kiểm định chéo (cross-validation) hoặc các phương pháp điều chỉnh tham số khác.</p></li>
+<li><p>Trong một số trường hợp, <span class="math inline">\(\alpha\)</span> có thể được thiết lập dựa trên phân phối lớp nghịch đảo. Ví dụ, nếu 80% các ví dụ là âm và 20% là dương, người ta có thể đặt <span class="math inline">\(\alpha\)</span> thành 0,2 cho lớp âm và 0,8 cho lớp dương.</p></li>
+<li><p>Trong những trường hợp khác, giá trị của <span class="math inline">\(\alpha\)</span> có thể được xác định thông qua kiểm định chéo (cross-validation) hoặc các phương pháp điều chỉnh tham số khác.</p></li>
 </ul></li>
 </ol>
-<p>Tóm lại, tham số $ $ trong hàm mất mát Focal cung cấp một cơ chế để xử lý sự mất cân bằng lớp bằng cách điều chỉnh mất mát cho các ví dụ dương và âm một cách khác nhau. Nó đảm bảo rằng cả hai lớp chính và phụ đều được đại diện đầy đủ trong quá trình đào tạo của mô hình.</p>
+<p>Tóm lại, tham số <span class="math inline">\(\alpha\)</span> trong hàm mất mát Focal cung cấp một cơ chế để xử lý sự mất cân bằng lớp bằng cách điều chỉnh mất mát cho các ví dụ dương và âm một cách khác nhau. Nó đảm bảo rằng cả hai lớp chính và phụ đều được đại diện đầy đủ trong quá trình đào tạo của mô hình.</p>
 </section>
-<section id="tham-số-trong-hàm-focal-loss-1" class="level3">
-<h3 class="anchored" data-anchor-id="tham-số-trong-hàm-focal-loss-1">Tham số $ $ trong hàm Focal-loss</h3>
-<p>$ $ được gọi là “tham số tập trung”. Nó đóng một vai trò quan trọng trong việc xác định mức độ mà mô hình nên tập trung vào các lớp bị phân loại sai so với những lớp được phân loại đúng.</p>
+<section id="tham-số-gamma-trong-hàm-focal-loss" class="level3">
+<h3 class="anchored" data-anchor-id="tham-số-gamma-trong-hàm-focal-loss">Tham số <span class="math inline">\(\gamma\)</span> trong hàm Focal-loss</h3>
+<p><span class="math inline">\(\gamma\)</span> được gọi là “tham số tập trung”. Nó đóng một vai trò quan trọng trong việc xác định mức độ mà mô hình nên tập trung vào các lớp bị phân loại sai so với những lớp được phân loại đúng.</p>
 <p>Tác động của nó:</p>
 <ol type="1">
-<li><p><strong>Mục đích</strong>: Mục đích chính của tham số $ $ trong hàm mất mát Focal là giảm ảnh hưởng của các lớp dễ phân loại và tăng tầm quan trọng của việc hiệu chỉnh các lớp bị phân loại sai. Điều này đặc biệt hữu ích trong các tình huống mà tập dữ liệu có sự mất cân bằng giữa các lớp.</p></li>
-<li><p><strong>Tác động của việc Thay đổi $ $</strong>: Thuật ngữ $ (1 - p_t)^$ trong hàm mất mát Focal là yếu tố điều chỉnh. Ở đây, $ p_t $ đại diện cho xác suất dự đoán của lớp đúng.</p>
+<li><p><strong>Mục đích</strong>: Mục đích chính của tham số <span class="math inline">\(\gamma\)</span> trong hàm mất mát Focal là giảm ảnh hưởng của các lớp dễ phân loại và tăng tầm quan trọng của việc hiệu chỉnh các lớp bị phân loại sai. Điều này đặc biệt hữu ích trong các tình huống mà tập dữ liệu có sự mất cân bằng giữa các lớp.</p></li>
+<li><p><strong>Tác động của việc Thay đổi <span class="math inline">\(\gamma\)</span></strong>: Thuật ngữ <span class="math inline">\((1 - p_t)^\gamma\)</span> trong hàm mất mát Focal là yếu tố điều chỉnh. Ở đây, <span class="math inline">\(p_t\)</span> đại diện cho xác suất dự đoán của lớp đúng.</p>
 <ul>
-<li><p>Nếu $ p_t $ gần bằng 1, nghĩa là ví dụ dễ dàng được phân loại, và $ (1 - p_t)^$ sẽ gần bằng 0, đặc biệt khi $ &gt; 0 $.</p></li>
-<li><p>Nếu $ p_t $ xa 1 (tức là dự đoán là không chính xác hoặc không chắc chắn), thì $ (1 - p_t)^$ sẽ lớn hơn, tăng ảnh hưởng của ví dụ đó lên hàm mất mát.</p></li>
-<li><p>$ = 0 $: Hàm mất mát Focal giảm xuống còn bằng hàm mất mát cross-entropy tiêu chuẩn, vì yếu tố điều chỉnh trở thành 1 cho tất cả các ví dụ.</p></li>
-<li><p>$ &gt; 0 $: Tăng trọng số của các lớp khó phân loại và giảm trọng số của những lớp dễ phân loại. $ $ càng lớn, mô hình càng tập trung nhiều vào các lớp khó.</p></li>
+<li><p>Nếu <span class="math inline">\(p_t\)</span> gần bằng 1, nghĩa là ví dụ dễ dàng được phân loại, và <span class="math inline">\((1 - p_t)^\gamma\)</span> sẽ gần bằng 0, đặc biệt khi <span class="math inline">\(\gamma &gt; 0\)</span>.</p></li>
+<li><p>Nếu <span class="math inline">\(p_t\)</span> xa 1 (tức là dự đoán là không chính xác hoặc không chắc chắn), thì <span class="math inline">\((1 - p_t)^\gamma\)</span> sẽ lớn hơn, tăng ảnh hưởng của ví dụ đó lên hàm mất mát.</p></li>
+<li><p><span class="math inline">\(\gamma = 0\)</span>: Hàm mất mát Focal giảm xuống còn bằng hàm mất mát cross-entropy tiêu chuẩn, vì yếu tố điều chỉnh trở thành 1 cho tất cả các ví dụ.</p></li>
+<li><p><span class="math inline">\(\gamma &gt; 0\)</span>: Tăng trọng số của các lớp khó phân loại và giảm trọng số của những lớp dễ phân loại. <span class="math inline">\(\gamma\)</span> càng lớn, mô hình càng tập trung nhiều vào các lớp khó.</p></li>
 </ul></li>
-<li><p><strong>Lợi ích</strong>: Bằng cách điều chỉnh $ $, hàm mất mát Focal cho phép các mô hình, đặc biệt trong các nhiệm vụ phát hiện đối tượng, trở nên mạnh mẽ hơn trước số lượng lớn các lớp dễ. Thay vì tiêu tốn tài nguyên tính toán cho các lớp dễ dàng, mô hình tập trung nhiều hơn vào các lớp khó, thường chứa nhiều thông tin hơn.</p></li>
+<li><p><strong>Lợi ích</strong>: Bằng cách điều chỉnh <span class="math inline">\(\gamma\)</span>, hàm mất mát Focal cho phép các mô hình, đặc biệt trong các nhiệm vụ phát hiện đối tượng, trở nên mạnh mẽ hơn trước số lượng lớn các lớp dễ. Thay vì tiêu tốn tài nguyên tính toán cho các lớp dễ dàng, mô hình tập trung nhiều hơn vào các lớp khó, thường chứa nhiều thông tin hơn.</p></li>
 </ol>
-<p>Tóm lại, tham số $ $ trong hàm mất mát Focal cung cấp một cơ chế để nhấn mạnh việc học từ các lớp bị phân loại sai so với những lớp dễ phân loại. Đó là một công cụ để xử lý sự mất cân bằng lớp và đảm bảo rằng mô hình chú ý nhiều hơn đến các lớp mà nó phân loại sai.</p>
+<p>Tóm lại, tham số <span class="math inline">\(\gamma\)</span> trong hàm mất mát Focal cung cấp một cơ chế để nhấn mạnh việc học từ các lớp bị phân loại sai so với những lớp dễ phân loại. Đó là một công cụ để xử lý sự mất cân bằng lớp và đảm bảo rằng mô hình chú ý nhiều hơn đến các lớp mà nó phân loại sai.</p>
 </section>
 </section>
 <section id="ví-dụ" class="level2">

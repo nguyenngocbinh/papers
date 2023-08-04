@@ -365,13 +365,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="liên-hệ-auc-và-thống-kê-mann-whitney">Liên hệ AUC và thống kê Mann-Whitney</h2>
 <ol type="1">
 <li><p>Thống kê Mann-Whitney (U-test):</p>
-<p>Giả sử bạn có hai nhóm dữ liệu độc lập, (X) và (Y), với kích thước lần lượt là (n_x) và (n_y). Để tính U-statistic, bạn cần xếp hạng dữ liệu trong mỗi nhóm và tính tổng các xếp hạng trong nhóm (X), ký hiệu là (R_X). Sau đó, U-statistic được tính bằng công thức:</p>
+<p>Giả sử bạn có hai nhóm dữ liệu độc lập, <span class="math inline">\(X\)</span> và <span class="math inline">\(Y\)</span>, với kích thước lần lượt là <span class="math inline">\(n_x\)</span> và <span class="math inline">\(n_y\)</span>. Để tính U-statistic, bạn cần xếp hạng dữ liệu trong mỗi nhóm và tính tổng các xếp hạng trong nhóm <span class="math inline">\(X\)</span>, ký hiệu là <span class="math inline">\(R_X\)</span>. Sau đó, U-statistic được tính bằng công thức:</p>
 <p><span class="math display">\[ U = n_x \cdot n_y + \frac{n_x \cdot (n_x + 1)}{2} - R_X \]</span></p></li>
-<li><p>Nếu (U) là giá trị U-statistic (thống kê Mann-Whitney), thì AUC được tính như sau:</p>
+<li><p>Nếu <span class="math inline">\(U\)</span> là giá trị U-statistic (thống kê Mann-Whitney), thì AUC được tính như sau:</p>
 <p><span class="math display">\[ AUC = \frac{U - \frac{n_x \cdot (n_x + 1)}{2}}{n_x \cdot n_y} \]</span></p></li>
 <li><p>DeLong’s test:</p>
 <p>Giả sử bạn có hai mô hình phân loại và đã tính được các xác suất dự đoán của chúng trên tập dữ liệu kiểm tra. Để thực hiện kiểm định DeLong, bạn cần tính U-statistic và phương sai của U-statistic (Var(U)) như đã giải thích trước đó.</p>
-<p>Tiếp theo, để tính Z-score, bạn cần có AUC của hai mô hình ((AUC_1) và (AUC_2)) và Var(U) như sau:</p>
+<p>Tiếp theo, để tính Z-score, bạn cần có AUC của hai mô hình (<span class="math inline">\(AUC_1\)</span> và <span class="math inline">\(AUC_2\)</span>) và Var(U) như sau:</p>
 <p><span class="math display">\[ Z = \frac{AUC_1 - AUC_2}{\sqrt{\text{Var}(U)}} \]</span></p>
 <p>Sau đó, sử dụng Z-score để tính p-value, và nếu p-value nhỏ hơn mức ý nghĩa đã chọn (thường là 0.05), bạn có thể kết luận rằng có sự khác biệt đáng kể giữa AUC của hai mô hình.</p></li>
 <li><p>Công thức tính khoảng tin cậy (confidence interval) cho AUC dựa trên phương pháp DeLong như sau:</p>
@@ -382,15 +382,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>AUC là diện tích dưới đường cong ROC đã tính từ mô hình phân loại và tập dữ liệu.</li>
 <li>Var(U) là phương sai của U-statistic, tính từ kiểm định DeLong.</li>
-<li>( z_{/2} ) là giá trị thống kê từ phân phối chuẩn tương ứng với mức đáng tin cậy 95%. Với mức đáng tin cậy 95%, ( = 0.05 ), nên ( z_{/2} ) tương ứng với giá trị thống kê 1.96.</li>
+<li><span class="math inline">\(z_{\alpha/2}\)</span> là giá trị thống kê từ phân phối chuẩn tương ứng với mức đáng tin cậy 95%. Với mức đáng tin cậy 95%, <span class="math inline">\(\alpha = 0.05\)</span>, nên <span class="math inline">\(z_{\alpha/2}\)</span> tương ứng với giá trị thống kê 1.96.</li>
 </ul>
 <p>Khoảng tin cậy này sẽ cho phép bạn ước tính khoảng giá trị mà AUC có thể nằm trong với mức đáng tin cậy 95%.</p>
 <p><span class="math display">\[ \text{var(U)} = \frac{U \cdot (n_{\text{positives}} + n_{\text{negatives}} + 1) \cdot (n_{\text{positives}} + n_{\text{negatives}} - U)}{12} \]</span></p>
 <p>Trong đó:</p>
 <ul>
-<li>( U ) là giá trị U-statistic đã tính trước đó.</li>
-<li>( n_{} ) là số lượng điểm dữ liệu positive (nhãn dương) trong tập dữ liệu.</li>
-<li>( n_{} ) là số lượng điểm dữ liệu negative (nhãn âm) trong tập dữ liệu.</li>
+<li><span class="math inline">\(U\)</span> là giá trị U-statistic đã tính trước đó.</li>
+<li><span class="math inline">\(n_{\text{positives}}\)</span> là số lượng điểm dữ liệu positive (nhãn dương) trong tập dữ liệu.</li>
+<li><span class="math inline">\(n_{\text{negatives}}\)</span> là số lượng điểm dữ liệu negative (nhãn âm) trong tập dữ liệu.</li>
 </ul></li>
 </ol>
 </section>
@@ -475,10 +475,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong" class="level2">
 <h2 class="anchored" data-anchor-id="so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong">So sánh AUC của hai mô hình máy học sử dụng kiểm định thống kê DeLong</h2>
-<p>Giả sử AUC của mô hình thứ nhất là (_1) và AUC của mô hình thứ hai là (_2).</p>
+<p>Giả sử AUC của mô hình thứ nhất là <span class="math inline">\(\text{AUC}_1\)</span> và AUC của mô hình thứ hai là <span class="math inline">\(\text{AUC}_2\)</span>.</p>
 <p>Công thức kiểm định DeLong để so sánh AUC của hai mô hình như sau:</p>
 <p><span class="math display">\[ U = \frac{\text{AUC}_1 - \text{AUC}_2}{\sqrt{\text{Var}(\text{AUC}_1) + \text{Var}(\text{AUC}_2) - 2 \cdot \text{Cov}(\text{AUC}_1, \text{AUC}_2)}} \]</span></p>
-<p>Trong đó: - ((_1)) là phương sai của AUC của mô hình thứ nhất. - ((_2)) là phương sai của AUC của mô hình thứ hai. - ((_1, _2)) là hiệp phương sai giữa AUC của hai mô hình.</p>
+<p>Trong đó: - <span class="math inline">\(\text{Var}(\text{AUC}_1)\)</span> là phương sai của AUC của mô hình thứ nhất. - <span class="math inline">\(\text{Var}(\text{AUC}_2)\)</span> là phương sai của AUC của mô hình thứ hai. - <span class="math inline">\(\text{Cov}(\text{AUC}_1, \text{AUC}_2)\)</span> là hiệp phương sai giữa AUC của hai mô hình.</p>
 <div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
