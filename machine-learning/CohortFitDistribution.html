@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -362,94 +362,107 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 \left.S S E=\sum \text { (Giá trị thực tế - Giá trị được tính ra từ mô hình phân phối }\right)^{2}
 \]</span></p>
 <p>Cuối cùng, từ mô hình phân phối vừa được lựa chọn (là mô hình có SSE nhỏ nhất).</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> cauchy, gamma, expon, lognorm, loglaplace</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the x range for the plot</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">1000</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a single row with 5 subplots</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Cauchy Distribution</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>cauchy_pdf <span class="op">=</span> cauchy.pdf(x)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(x, cauchy_pdf)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Cauchy"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Gamma Distribution</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>gamma_pdf <span class="op">=</span> gamma.pdf(x, a<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(x, gamma_pdf)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Gamma"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Exponential Distribution</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>exponential_pdf <span class="op">=</span> expon.pdf(x)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(x, exponential_pdf)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="st">"Exponential"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Log Normal Distribution</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>log_normal_pdf <span class="op">=</span> lognorm.pdf(x, s<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">3</span>].plot(x, log_normal_pdf)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">3</span>].set_title(<span class="st">"Log Normal"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Log Logistic Distribution</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>log_logistic_pdf <span class="op">=</span> loglaplace.pdf(x, c<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">4</span>].plot(x, log_logistic_pdf)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">4</span>].set_title(<span class="st">"Log Logistic"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust layout</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="CohortFitDistribution_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
 <section id="python-example" class="level2">
 <h2 class="anchored" data-anchor-id="python-example">Python Example</h2>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy  </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.optimize <span class="im">as</span> optimize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.optimize <span class="im">as</span> optimize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="các-hàm-liên-quan" class="level3">
 <h3 class="anchored" data-anchor-id="các-hàm-liên-quan">1. Các hàm liên quan</h3>
 <section id="hàm-phân-phối-gamma" class="level4">
 <h4 class="anchored" data-anchor-id="hàm-phân-phối-gamma">1.1 Hàm phân phối gamma</h4>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_gamma:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, actual_pd):</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actual_pd <span class="op">=</span> actual_pd</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x_input <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(actual_pd) <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a, b):        </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> stats.gamma.pdf(x, a <span class="op">=</span> a, scale <span class="op">=</span> b) <span class="op">*</span> scale</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> predict</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        ynew <span class="op">=</span> <span class="va">self</span>.func(xobs, <span class="op">*</span>params)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        mse <span class="op">=</span> np.<span class="bu">sum</span>((ynew <span class="op">-</span> yobs) <span class="op">**</span> <span class="dv">2</span>)        </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mse</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>)]</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds<span class="op">=</span> bounds)       </span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># res = scipy.optimize.minimize(self.sse, p0, args=(self.x_input, self.actual_pd), method='Nelder-Mead')        </span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, t<span class="op">=</span><span class="dv">30</span>):</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">self</span>.solver()</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        ypred <span class="op">=</span> <span class="va">self</span>.func(<span class="bu">range</span>(<span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>), <span class="op">*</span>res.x)        </span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="hàm-phân-phối-mũ-exponential" class="level4">
-<h4 class="anchored" data-anchor-id="hàm-phân-phối-mũ-exponential">1.2 Hàm Phân phối mũ Exponential</h4>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_exponential:</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_gamma:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, actual_pd):</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actual_pd <span class="op">=</span> actual_pd</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x_input <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(actual_pd) <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a):        </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change function here        </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> stats.expon.pdf(x, scale <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>a) <span class="op">*</span> scale</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pred</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        ynew <span class="op">=</span> <span class="va">self</span>.func(xobs, <span class="op">*</span>params)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        mse <span class="op">=</span> np.<span class="bu">sum</span>((ynew <span class="op">-</span> yobs) <span class="op">**</span> <span class="dv">2</span>)        </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mse</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change initial guess here</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="fl">0.5</span>)]           </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds <span class="op">=</span> bounds)             </span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, t<span class="op">=</span><span class="dv">30</span>):</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">self</span>.solver()</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        ypred <span class="op">=</span> <span class="va">self</span>.func(<span class="bu">range</span>(<span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>), <span class="op">*</span>res.x)        </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a, b):        </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> stats.gamma.pdf(x, a <span class="op">=</span> a, scale <span class="op">=</span> b) <span class="op">*</span> scale</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> predict</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        ynew <span class="op">=</span> <span class="va">self</span>.func(xobs, <span class="op">*</span>params)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        mse <span class="op">=</span> np.<span class="bu">sum</span>((ynew <span class="op">-</span> yobs) <span class="op">**</span> <span class="dv">2</span>)        </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mse</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>)]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds<span class="op">=</span> bounds)       </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># res = scipy.optimize.minimize(self.sse, p0, args=(self.x_input, self.actual_pd), method='Nelder-Mead')        </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, t<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">self</span>.solver()</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        ypred <span class="op">=</span> <span class="va">self</span>.func(<span class="bu">range</span>(<span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>), <span class="op">*</span>res.x)        </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="hàm-phân-phối-cauchy" class="level4">
-<h4 class="anchored" data-anchor-id="hàm-phân-phối-cauchy">1.3 Hàm phân phối Cauchy</h4>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_cauchy:</span>
+<section id="hàm-phân-phối-mũ-exponential" class="level4">
+<h4 class="anchored" data-anchor-id="hàm-phân-phối-mũ-exponential">1.2 Hàm Phân phối mũ Exponential</h4>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_exponential:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, actual_pd):</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actual_pd <span class="op">=</span> actual_pd</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x_input <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(actual_pd) <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a, b):        </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a):        </span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change function here        </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> stats.cauchy.pdf(x, loc <span class="op">=</span> b, scale <span class="op">=</span> a) <span class="op">*</span> scale</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> predict</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> stats.expon.pdf(x, scale <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>a) <span class="op">*</span> scale</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pred</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        ynew <span class="op">=</span> <span class="va">self</span>.func(xobs, <span class="op">*</span>params)</span>
@@ -458,29 +471,29 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change initial guess here</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="dv">15</span>), (<span class="op">-</span><span class="dv">30</span>, <span class="dv">30</span>)]</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds <span class="op">=</span> bounds)        </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="fl">0.5</span>)]           </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds <span class="op">=</span> bounds)             </span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, t<span class="op">=</span><span class="dv">30</span>):</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">self</span>.solver()</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        ypred <span class="op">=</span> <span class="va">self</span>.func(<span class="bu">range</span>(<span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>), <span class="op">*</span>res.x)        </span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="hàm-phân-phối-log-logistic" class="level4">
-<h4 class="anchored" data-anchor-id="hàm-phân-phối-log-logistic">1.4 Hàm phân phối log logistic</h4>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_log_logistic:</span>
+<section id="hàm-phân-phối-cauchy" class="level4">
+<h4 class="anchored" data-anchor-id="hàm-phân-phối-cauchy">1.3 Hàm phân phối Cauchy</h4>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_cauchy:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, actual_pd):</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actual_pd <span class="op">=</span> actual_pd</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x_input <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(actual_pd) <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a, b):        </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change function here</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> scale<span class="op">*</span>(a<span class="op">/</span>b)<span class="op">*</span>(x<span class="op">/</span>b)<span class="op">**</span>(a<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>(x<span class="op">/</span>b)<span class="op">**</span>a)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change function here        </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> stats.cauchy.pdf(x, loc <span class="op">=</span> b, scale <span class="op">=</span> a) <span class="op">*</span> scale</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> predict</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
@@ -490,9 +503,9 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change initial guess here</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>]</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>)]</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds<span class="op">=</span>bounds)        </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="dv">15</span>), (<span class="op">-</span><span class="dv">30</span>, <span class="dv">30</span>)]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds <span class="op">=</span> bounds)        </span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, t<span class="op">=</span><span class="dv">30</span>):</span>
@@ -501,10 +514,10 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="hàm-phân-phối-log-normal" class="level4">
-<h4 class="anchored" data-anchor-id="hàm-phân-phối-log-normal">1.5 Hàm phân phối log normal</h4>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_log_normal:</span>
+<section id="hàm-phân-phối-log-logistic" class="level4">
+<h4 class="anchored" data-anchor-id="hàm-phân-phối-log-logistic">1.4 Hàm phân phối log logistic</h4>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_log_logistic:</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, actual_pd):</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actual_pd <span class="op">=</span> actual_pd</span>
@@ -512,7 +525,7 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a, b):        </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change function here</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> (np.exp(<span class="op">-</span>(np.log(x) <span class="op">-</span> a)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> b<span class="op">**</span><span class="dv">2</span>)) <span class="op">/</span> (x <span class="op">*</span> b <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)))<span class="op">*</span>scale</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> scale<span class="op">*</span>(a<span class="op">/</span>b)<span class="op">*</span>(x<span class="op">/</span>b)<span class="op">**</span>(a<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>(x<span class="op">/</span>b)<span class="op">**</span>a)<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> predict</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
@@ -522,8 +535,8 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change initial guess here</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="fl">0.5</span>), (<span class="fl">0.0001</span>, <span class="fl">0.5</span>)]</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>]</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>), (<span class="fl">0.0001</span>, <span class="dv">10</span>)]</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds<span class="op">=</span>bounds)        </span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -531,6 +544,38 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">self</span>.solver()</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        ypred <span class="op">=</span> <span class="va">self</span>.func(<span class="bu">range</span>(<span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>), <span class="op">*</span>res.x)        </span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hàm-phân-phối-log-normal" class="level4">
+<h4 class="anchored" data-anchor-id="hàm-phân-phối-log-normal">1.5 Hàm phân phối log normal</h4>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> opt_log_normal:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, actual_pd):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actual_pd <span class="op">=</span> actual_pd</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x_input <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(actual_pd) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> func(<span class="va">self</span>, x, scale, a, b):        </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change function here</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        predict <span class="op">=</span> (np.exp(<span class="op">-</span>(np.log(x) <span class="op">-</span> a)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> b<span class="op">**</span><span class="dv">2</span>)) <span class="op">/</span> (x <span class="op">*</span> b <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)))<span class="op">*</span>scale</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> predict</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sse(<span class="va">self</span>, params, xobs, yobs):</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        ynew <span class="op">=</span> <span class="va">self</span>.func(xobs, <span class="op">*</span>params)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        mse <span class="op">=</span> np.<span class="bu">sum</span>((ynew <span class="op">-</span> yobs) <span class="op">**</span> <span class="dv">2</span>)        </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mse</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> solver(<span class="va">self</span>):</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># change initial guess here</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        p0 <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> [(<span class="fl">0.0001</span>, <span class="dv">2</span>), (<span class="fl">0.0001</span>, <span class="fl">0.5</span>), (<span class="fl">0.0001</span>, <span class="fl">0.5</span>)]</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> scipy.optimize.minimize(<span class="va">self</span>.sse, p0, args<span class="op">=</span>(<span class="va">self</span>.x_input, <span class="va">self</span>.actual_pd), bounds<span class="op">=</span>bounds)        </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, t<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="va">self</span>.solver()</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        ypred <span class="op">=</span> <span class="va">self</span>.func(<span class="bu">range</span>(<span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>), <span class="op">*</span>res.x)        </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ypred    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -550,91 +595,91 @@ f_{x}(x)=\frac{d}{d x} \operatorname{Pr}(X \leq x)=\frac{1}{x \sigma \sqrt{2 \pi
 <section id="đọc-dữ-liệu" class="level3">
 <h3 class="anchored" data-anchor-id="đọc-dữ-liệu">2.2 Đọc dữ liệu</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_excel(<span class="st">'results/Cohort Analysis.xlsb'</span>, engine<span class="op">=</span><span class="st">'pyxlsb'</span>, sheet_name<span class="op">=</span><span class="st">'1.2 Visualize'</span>, usecols <span class="op">=</span> <span class="st">'O:Z'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_excel(<span class="st">'results/Cohort Analysis.xlsb'</span>, engine<span class="op">=</span><span class="st">'pyxlsb'</span>, sheet_name<span class="op">=</span><span class="st">'1.2 Visualize'</span>, usecols <span class="op">=</span> <span class="st">'O:Z'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="fit-models-1" class="level2">
 <h2 class="anchored" data-anchor-id="fit-models-1">2.3 Fit models</h2>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn_export_by_segment(segment, period):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># segment = segment.upper()</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    actual_pd <span class="op">=</span> data[data.Segment_Group.isin([segment])]</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    actual_pd <span class="op">=</span> actual_pd.iloc[<span class="dv">0</span>, <span class="dv">2</span>:]</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    actual_pd <span class="op">=</span> actual_pd.values</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    res_gamma <span class="op">=</span> opt_gamma(actual_pd)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    res_exponential <span class="op">=</span> opt_exponential(actual_pd)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    res_cauchy <span class="op">=</span> opt_cauchy(actual_pd)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    res_log_logistic <span class="op">=</span> opt_log_logistic(actual_pd)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    res_log_normal <span class="op">=</span> opt_log_normal(actual_pd)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Segment'</span>: segment,</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Distribution'</span>: [<span class="st">'Gamma'</span>, <span class="st">'Exponential'</span>, <span class="st">'Cauchy'</span>, <span class="st">'Log-Logistic'</span>, <span class="st">'Log-Normal'</span>],</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'SSE'</span>: [res_gamma.solver().fun, res_exponential.solver().fun, res_cauchy.solver().fun, res_log_logistic.solver().fun, res_log_normal.solver().fun],</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'params'</span>: [res_gamma.solver().x, res_exponential.solver().x, res_cauchy.solver().x, res_log_logistic.solver().x, res_log_normal.solver().x]</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    })    </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    params[[<span class="st">'scale'</span>, <span class="st">'a'</span>, <span class="st">'b'</span>]] <span class="op">=</span> pd.DataFrame(params.params.to_list())    </span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> params[<span class="st">'params'</span>]</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    dict_predict <span class="op">=</span> {</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Segment'</span>: segment,</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Period'</span>: <span class="bu">range</span>(<span class="dv">1</span>, period<span class="op">+</span><span class="dv">1</span>),</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Gamma'</span>: res_gamma.predict(period),</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Exponential'</span>: res_exponential.predict(period),</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Cauchy'</span>: res_cauchy.predict(period),</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Log-Logistic'</span>: res_log_logistic.predict(period),</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Log-Normal'</span>: res_log_normal.predict(period)</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    best_distribution <span class="op">=</span> params.sort_values(<span class="st">'SSE'</span>).head(<span class="dv">1</span>)</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    best_distribution[<span class="st">'Tag best distribution'</span>] <span class="op">=</span> <span class="st">'Best distribution'</span>    </span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Best distribution of '</span> <span class="op">+</span> segment <span class="op">+</span> <span class="st">' is '</span><span class="op">+</span> best_distribution[<span class="st">'Distribution'</span>].item())</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> params, best_distribution, pd.DataFrame(dict_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn_export_by_segment(segment, period):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># segment = segment.upper()</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    actual_pd <span class="op">=</span> data[data.Segment_Group.isin([segment])]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    actual_pd <span class="op">=</span> actual_pd.iloc[<span class="dv">0</span>, <span class="dv">2</span>:]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    actual_pd <span class="op">=</span> actual_pd.values</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    res_gamma <span class="op">=</span> opt_gamma(actual_pd)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    res_exponential <span class="op">=</span> opt_exponential(actual_pd)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    res_cauchy <span class="op">=</span> opt_cauchy(actual_pd)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    res_log_logistic <span class="op">=</span> opt_log_logistic(actual_pd)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    res_log_normal <span class="op">=</span> opt_log_normal(actual_pd)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Segment'</span>: segment,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Distribution'</span>: [<span class="st">'Gamma'</span>, <span class="st">'Exponential'</span>, <span class="st">'Cauchy'</span>, <span class="st">'Log-Logistic'</span>, <span class="st">'Log-Normal'</span>],</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'SSE'</span>: [res_gamma.solver().fun, res_exponential.solver().fun, res_cauchy.solver().fun, res_log_logistic.solver().fun, res_log_normal.solver().fun],</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'params'</span>: [res_gamma.solver().x, res_exponential.solver().x, res_cauchy.solver().x, res_log_logistic.solver().x, res_log_normal.solver().x]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    })    </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    params[[<span class="st">'scale'</span>, <span class="st">'a'</span>, <span class="st">'b'</span>]] <span class="op">=</span> pd.DataFrame(params.params.to_list())    </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">del</span> params[<span class="st">'params'</span>]</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    dict_predict <span class="op">=</span> {</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Segment'</span>: segment,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Period'</span>: <span class="bu">range</span>(<span class="dv">1</span>, period<span class="op">+</span><span class="dv">1</span>),</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Gamma'</span>: res_gamma.predict(period),</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Exponential'</span>: res_exponential.predict(period),</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Cauchy'</span>: res_cauchy.predict(period),</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Log-Logistic'</span>: res_log_logistic.predict(period),</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Log-Normal'</span>: res_log_normal.predict(period)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    best_distribution <span class="op">=</span> params.sort_values(<span class="st">'SSE'</span>).head(<span class="dv">1</span>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    best_distribution[<span class="st">'Tag best distribution'</span>] <span class="op">=</span> <span class="st">'Best distribution'</span>    </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Best distribution of '</span> <span class="op">+</span> segment <span class="op">+</span> <span class="st">' is '</span><span class="op">+</span> best_distribution[<span class="st">'Distribution'</span>].item())</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> params, best_distribution, pd.DataFrame(dict_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pred_best_fit <span class="op">=</span> []</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>params_frame <span class="op">=</span> []</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pred_all_curve <span class="op">=</span> []</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seg <span class="kw">in</span> data.Segment_Group:</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    params, df_best_fit, df_all <span class="op">=</span> fn_export_by_segment(seg, <span class="dv">30</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    pred_best_fit.append(df_best_fit)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    params_frame.append(params)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    pred_all_curve.append(df_all)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>pred_best_fit <span class="op">=</span> pd.concat(pred_best_fit, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>params_frame <span class="op">=</span> pd.concat(params_frame, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>pred_all_curve <span class="op">=</span> pd.concat(pred_all_curve, axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pred_best_fit <span class="op">=</span> []</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>params_frame <span class="op">=</span> []</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>pred_all_curve <span class="op">=</span> []</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seg <span class="kw">in</span> data.Segment_Group:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    params, df_best_fit, df_all <span class="op">=</span> fn_export_by_segment(seg, <span class="dv">30</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    pred_best_fit.append(df_best_fit)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    params_frame.append(params)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    pred_all_curve.append(df_all)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>pred_best_fit <span class="op">=</span> pd.concat(pred_best_fit, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>params_frame <span class="op">=</span> pd.concat(params_frame, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>pred_all_curve <span class="op">=</span> pd.concat(pred_all_curve, axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve <span class="op">=</span> pd.melt(pred_all_curve, </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        id_vars<span class="op">=</span>[<span class="st">'Segment'</span>, <span class="st">'Period'</span>], </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        value_vars<span class="op">=</span>[<span class="st">'Gamma'</span>, <span class="st">'Exponential'</span>, <span class="st">'Cauchy'</span>, <span class="st">'Log-Logistic'</span>, <span class="st">'Log-Normal'</span>],</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        var_name <span class="op">=</span> <span class="st">'Distribution'</span>).pivot(</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                index <span class="op">=</span> [<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>], columns<span class="op">=</span><span class="st">'Period'</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve.columns <span class="op">=</span> [<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>, <span class="op">*</span><span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">31</span>)]</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve <span class="op">=</span> params_frame.merge(pivot_pred_all_curve, how<span class="op">=</span><span class="st">'inner'</span>, on<span class="op">=</span>[<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>]).merge(</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        pred_best_fit[[<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>, <span class="st">'Tag best distribution'</span>]], how<span class="op">=</span><span class="st">'left'</span>, on<span class="op">=</span>[<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>]</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve <span class="op">=</span> pd.melt(pred_all_curve, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        id_vars<span class="op">=</span>[<span class="st">'Segment'</span>, <span class="st">'Period'</span>], </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        value_vars<span class="op">=</span>[<span class="st">'Gamma'</span>, <span class="st">'Exponential'</span>, <span class="st">'Cauchy'</span>, <span class="st">'Log-Logistic'</span>, <span class="st">'Log-Normal'</span>],</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        var_name <span class="op">=</span> <span class="st">'Distribution'</span>).pivot(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                index <span class="op">=</span> [<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>], columns<span class="op">=</span><span class="st">'Period'</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve.columns <span class="op">=</span> [<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>, <span class="op">*</span><span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">31</span>)]</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve <span class="op">=</span> params_frame.merge(pivot_pred_all_curve, how<span class="op">=</span><span class="st">'inner'</span>, on<span class="op">=</span>[<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>]).merge(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        pred_best_fit[[<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>, <span class="st">'Tag best distribution'</span>]], how<span class="op">=</span><span class="st">'left'</span>, on<span class="op">=</span>[<span class="st">'Segment'</span>, <span class="st">'Distribution'</span>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="xuất-output-ra-excel" class="level1">
 <h1>Xuất OutPut ra Excel</h1>
 <div class="cell" data-execution_count="136">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pred_best_fit.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>params_frame.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.ExcelWriter(<span class="st">'cohort_fitted.xlsx'</span>) <span class="im">as</span> writer:</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    pred_best_fit.to_excel(writer, sheet_name<span class="op">=</span><span class="st">'pred_best_fit'</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    params_frame.to_excel(writer, sheet_name<span class="op">=</span><span class="st">'params_frame'</span>)        </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    pivot_pred_all_curve.to_excel(writer, sheet_name<span class="op">=</span><span class="st">'pivot_pred_all_curve'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pred_best_fit.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>params_frame.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pivot_pred_all_curve.reset_index(inplace<span class="op">=</span><span class="va">True</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.ExcelWriter(<span class="st">'cohort_fitted.xlsx'</span>) <span class="im">as</span> writer:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    pred_best_fit.to_excel(writer, sheet_name<span class="op">=</span><span class="st">'pred_best_fit'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    params_frame.to_excel(writer, sheet_name<span class="op">=</span><span class="st">'params_frame'</span>)        </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    pivot_pred_all_curve.to_excel(writer, sheet_name<span class="op">=</span><span class="st">'pivot_pred_all_curve'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
