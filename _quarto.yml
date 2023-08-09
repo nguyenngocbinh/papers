@@ -36,12 +36,12 @@ website:
       - section: irb/ModelGuideline.qmd
         contents:
           - irb/ModelGuideline.qmd
-      - section: machine-learning/transformer.md
+      - section: machine-learning/Index.md
         contents:
-          - machine-learning/focal-loss.ipynb
-          - machine-learning/transformer.md
+          - machine-learning/focal-loss.ipynb          
           - machine-learning/delong_test.ipynb
           - machine-learning/CohortFitDistribution.ipynb
+          - machine-learning/transformer.md
       - section: models-monitoring/KS-PSI_ENTROPY.qmd
         contents:
           - models-monitoring/KS-PSI_ENTROPY.qmd
