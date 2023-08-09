@@ -8,7 +8,7 @@
 
 <meta name="author" content="Nguyễn Ngọc Bình">
 
-<title>Making sharable documents with Quarto - Delong for Estimate AUC</title>
+<title>Making sharable documents with Quarto - Delong method for AUC interval and AUC test</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/transformer.html">Transformer</a></li><li class="breadcrumb-item"><a href="../machine-learning/delong_test.html">Delong for Estimate AUC</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/transformer.html">Transformer</a></li><li class="breadcrumb-item"><a href="../machine-learning/delong_test.html">Delong method for AUC interval and AUC test</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -190,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../machine-learning/delong_test.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Delong for Estimate AUC</span></a>
+ <span class="menu-text">Delong method for AUC interval and AUC test</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -277,10 +277,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#auc" id="toc-auc" class="nav-link active" data-scroll-target="#auc">AUC</a></li>
   <li><a href="#liên-hệ-auc-và-thống-kê-mann-whitney" id="toc-liên-hệ-auc-và-thống-kê-mann-whitney" class="nav-link" data-scroll-target="#liên-hệ-auc-và-thống-kê-mann-whitney">Liên hệ AUC và thống kê Mann-Whitney</a></li>
+  <li><a href="#thuật-toán-sun-và-xu" id="toc-thuật-toán-sun-và-xu" class="nav-link" data-scroll-target="#thuật-toán-sun-và-xu">Thuật toán Sun và Xu</a>
+  <ul class="collapse">
+  <li><a href="#kiểm-định-sự-khác-biệt-auc-của-2-mô-hình-theo-delong" id="toc-kiểm-định-sự-khác-biệt-auc-của-2-mô-hình-theo-delong" class="nav-link" data-scroll-target="#kiểm-định-sự-khác-biệt-auc-của-2-mô-hình-theo-delong">Kiểm định sự khác biệt AUC của 2 mô hình theo Delong</a></li>
+  </ul></li>
+  <li><a href="#so-sánh-auc-của-hai-mô-hình-bằng-bootstrap" id="toc-so-sánh-auc-của-hai-mô-hình-bằng-bootstrap" class="nav-link" data-scroll-target="#so-sánh-auc-của-hai-mô-hình-bằng-bootstrap">So sánh AUC của hai mô hình bằng bootstrap</a></li>
   <li><a href="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong" id="toc-tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong" class="nav-link" data-scroll-target="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong">Tính khoảng tin cậy AUC sử dụng phương pháp <code>Delong</code></a></li>
   <li><a href="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap" id="toc-tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap" class="nav-link" data-scroll-target="#tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap">Tính khoảng tin cậy AUC sử dụng phương pháp <code>Bootstrap</code></a></li>
-  <li><a href="#so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong" id="toc-so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong" class="nav-link" data-scroll-target="#so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong">So sánh AUC của hai mô hình máy học sử dụng kiểm định thống kê DeLong</a></li>
-  <li><a href="#so-sánh-auc-của-hai-mô-hình-bằng-bootstrap" id="toc-so-sánh-auc-của-hai-mô-hình-bằng-bootstrap" class="nav-link" data-scroll-target="#so-sánh-auc-của-hai-mô-hình-bằng-bootstrap">So sánh AUC của hai mô hình bằng bootstrap</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/delong_test.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -289,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Delong for Estimate AUC</h1>
+<h1 class="title">Delong method for AUC interval and AUC test</h1>
 </div>
 
 
@@ -320,42 +323,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>AUC là diện tích nằm dưới đường cong ROC và nó thể hiện khả năng của mô hình phân loại phân biệt giữa hai lớp positive và negative. AUC càng lớn thì mô hình càng có khả năng phân loại tốt hơn, với AUC = 1 thể hiện mô hình hoàn hảo, trong khi AUC = 0.5 chỉ ra mô hình không khác biệt so với một dự đoán ngẫu nhiên.</p>
 <p>AUC là một phép đo định lượng và phổ biến trong đánh giá hiệu suất của các mô hình phân loại như Logistic Regression, Support Vector Machines (SVM), Random Forest, Neural Networks, và nhiều mô hình khác.</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo dữ liệu mẫu cho binary classification</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(n_samples<span class="op">=</span><span class="dv">1000</span>, n_features<span class="op">=</span><span class="dv">20</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Chia dữ liệu thành tập train và tập test</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo mô hình Logistic Regression và huấn luyện trên tập train</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression()</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính xác suất dự đoán của mô hình trên tập test</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>y_prob <span class="op">=</span> model.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính đường cong ROC và AUC</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_test, y_prob)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> auc(fpr, tpr)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Vẽ biểu đồ AUC</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr, tpr, color<span class="op">=</span><span class="st">'darkorange'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'ROC curve (area = </span><span class="sc">%0.2f</span><span class="st">)'</span> <span class="op">%</span> roc_auc)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="fl">0.0</span>, <span class="fl">1.0</span>])</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.0</span>, <span class="fl">1.05</span>])</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'ROC Curve'</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>aSAH <span class="op">=</span> pd.read_excel(<span class="st">"aSAH.xlsx"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>y_true_str <span class="op">=</span> aSAH[<span class="st">'outcome'</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> aSAH[<span class="st">'s100b'</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dictionary to map string labels to binary labels</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>label_mapping <span class="op">=</span> {<span class="st">"Poor"</span>: <span class="dv">1</span>, <span class="st">"Good"</span>: <span class="dv">0</span>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Map true labels to binary labels</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [label_mapping[label] <span class="cf">for</span> label <span class="kw">in</span> y_true_str]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính đường cong ROC và AUC</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_true, y_pred)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> auc(fpr, tpr)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Vẽ biểu đồ AUC</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr, tpr, color<span class="op">=</span><span class="st">'darkorange'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'ROC curve (area = </span><span class="sc">%0.2f</span><span class="st">)'</span> <span class="op">%</span> roc_auc)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="fl">0.0</span>, <span class="fl">1.0</span>])</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.0</span>, <span class="fl">1.05</span>])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'ROC Curve'</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="delong_test_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
 </div>
@@ -383,212 +381,300 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>AUC là diện tích dưới đường cong ROC đã tính từ mô hình phân loại và tập dữ liệu.</li>
 <li>Var(U) là phương sai của U-statistic, tính từ kiểm định DeLong.</li>
 <li><span class="math inline">\(z_{\alpha/2}\)</span> là giá trị thống kê từ phân phối chuẩn tương ứng với mức đáng tin cậy 95%. Với mức đáng tin cậy 95%, <span class="math inline">\(\alpha = 0.05\)</span>, nên <span class="math inline">\(z_{\alpha/2}\)</span> tương ứng với giá trị thống kê 1.96.</li>
-</ul>
-<p>Khoảng tin cậy này sẽ cho phép bạn ước tính khoảng giá trị mà AUC có thể nằm trong với mức đáng tin cậy 95%.</p>
-<p><span class="math display">\[ \text{var(U)} = \frac{U \cdot (n_{\text{positives}} + n_{\text{negatives}} + 1) \cdot (n_{\text{positives}} + n_{\text{negatives}} - U)}{12} \]</span></p>
-<p>Trong đó:</p>
-<ul>
-<li><span class="math inline">\(U\)</span> là giá trị U-statistic đã tính trước đó.</li>
-<li><span class="math inline">\(n_{\text{positives}}\)</span> là số lượng điểm dữ liệu positive (nhãn dương) trong tập dữ liệu.</li>
-<li><span class="math inline">\(n_{\text{negatives}}\)</span> là số lượng điểm dữ liệu negative (nhãn âm) trong tập dữ liệu.</li>
 </ul></li>
 </ol>
 </section>
+<section id="thuật-toán-sun-và-xu" class="level2">
+<h2 class="anchored" data-anchor-id="thuật-toán-sun-và-xu">Thuật toán Sun và Xu</h2>
+<p>Thuật toán được đề xuất bởi Sun và Xu trong bài báo “Fast Implementation of DeLong’s Algorithm for Comparing the Areas Under Correlated Receiver Operating Characteristic Curves” cung cấp một cách tính toán hiệu suất và nhanh chóng để tính phương sai của sự khác biệt giữa diện tích dưới đường cong ROC (AUC) bằng phương pháp DeLong cho các đường cong ROC tương quan. Thuật toán của họ giảm đáng kể độ phức tạp tính toán so với phương pháp DeLong gốc, làm cho nó phù hợp cho các tập dữ liệu lớn.</p>
+<p>Dưới đây là tổng quan về các bước của thuật toán:</p>
+<ol type="1">
+<li><p><strong>Đầu vào</strong>: Bạn có hai đường cong ROC tương quan (ví dụ, từ hai mô hình khác nhau), cùng với tỷ lệ dương tính thật sự (<code>TPR</code>) và tỷ lệ giả mạo thật sự (<code>FPR</code>) cho mỗi đường cong.</p></li>
+<li><p><strong>Tính U-statistic</strong>: Tính U-statistic bằng cách sử dụng công thức: <span class="math display">\[ U = n_1 \cdot n_2 + \frac{n_1 \cdot (n_1 - 1)}{2} - \sum_{i=1}^{n_1} R_i \]</span> trong đó <span class="math inline">\(n_1\)</span> và <span class="math inline">\(n_2\)</span> là số điểm dữ liệu trong hai đường cong, và <span class="math inline">\(R_i\)</span> đại diện cho hạng của điểm thứ <span class="math inline">\(i\)</span> trong đường cong đầu tiên.</p></li>
+<li><p><strong>Tính phương sai</strong>: Tính phương sai của U-statistic bằng cách sử dụng công thức: <span class="math display">\[ \text{Var}(U) = \frac{n_1 \cdot n_2 \cdot (n_1 + n_2 + 1) \cdot \sigma_{12}^2 + n_1 \cdot (n_1 - 1) \cdot \sigma_1^2 + n_2 \cdot (n_2 - 1) \cdot \sigma_2^2}{n_1 \cdot n_2} \]</span> trong đó <span class="math inline">\(\sigma_1^2\)</span> và <span class="math inline">\(\sigma_2^2\)</span> là phương sai của ước tính AUC cho hai đường cong, và <span class="math inline">\(\sigma_{12}^2\)</span> là hiệp phương sai giữa các ước tính AUC.</p></li>
+<li><p><strong>Tính Z-score và p-value</strong>: Tính Z-score bằng cách sử dụng công thức: <span class="math display">\[ Z = \frac{AUC_1 - AUC_2}{\sqrt{\text{Var}(U)}} \]</span> Sau đó, tính giá trị p-value sử dụng Z-score.</p></li>
+<li><p><strong>Hiểu kết quả</strong>: Dựa vào giá trị p-value tính toán được và một ngưỡng ý nghĩa đã chọn (ví dụ, 0.05), bạn có thể xác định xem sự khác biệt trong AUC giữa hai mô hình có ý nghĩa thống kê hay không.</p></li>
+</ol>
+<p>Thuật toán này cung cấp một cách tính toán phương sai hiệu suất khác biệt hiệu quả hơn, đồng thời xem xét đến sự tương quan giữa các đường cong. Điều này rất hữu ích khi làm việc với tập dữ liệu lớn hoặc thực hiện nhiều so sánh. Ưu điểm chính là nó giảm độ phức tạp so với phương pháp DeLong gốc, làm cho nó thích hợp hơn cho các ứng dụng thực tế.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> midrank(x):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    J, Z <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span><span class="bu">sorted</span>(<span class="bu">enumerate</span>(x), key<span class="op">=</span><span class="kw">lambda</span> x:x[<span class="dv">1</span>]))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    J <span class="op">=</span> <span class="bu">list</span>(J)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    Z <span class="op">=</span> <span class="bu">list</span>(Z)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Z.append(Z[<span class="op">-</span><span class="dv">1</span>]<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> np.zeros(N)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> N:</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> i</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> a</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> Z[j<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> Z[a<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            j <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> j <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(a, b<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            T[k<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> (a <span class="op">+</span> b) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> b <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    T2 <span class="op">=</span> np.zeros(N)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    T2[J] <span class="op">=</span> T</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> T2</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fastDeLong(samples):</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %FASTDELONGCOV</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %The fast version of DeLong's method for computing the covariance of</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %unadjusted AUC.</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %% Reference:</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># % @article{sun2014fast,</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   title={Fast Implementation of DeLong's Algorithm for Comparing the Areas Under Correlated Receiver Operating Characteristic Curves},</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   author={Xu Sun and Weichao Xu},</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   journal={IEEE Signal Processing Letters},</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   volume={21},</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   number={11},</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   pages={1389--1393},</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   year={2014},</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %   publisher={IEEE}</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># % }</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %% [aucs, delongcov] = fastDeLong(samples)</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %%</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># % Edited by Xu Sun.</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># % Homepage: https://pamixsun.github.io</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># % Version: 2014/12</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># %%</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.<span class="bu">sum</span>(samples.spsizes) <span class="op">!=</span> samples.ratings.shape[<span class="dv">1</span>] <span class="kw">or</span> <span class="bu">len</span>(samples.spsizes) <span class="op">!=</span> <span class="dv">2</span>:</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> <span class="va">False</span>, <span class="st">'Argument mismatch error'</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> samples.ratings    </span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    m, n <span class="op">=</span> samples.spsizes</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> z[:, :m]    </span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> z[:, m:]</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> z.shape[<span class="dv">0</span>]</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    tx <span class="op">=</span> np.zeros([k, m])</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    ty <span class="op">=</span> np.zeros([k, n])</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    tz <span class="op">=</span> np.zeros([k, m <span class="op">+</span> n])</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(k):</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        tx[r, :] <span class="op">=</span> midrank(x[r, :])</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        ty[r, :] <span class="op">=</span> midrank(y[r, :])</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        tz[r, :] <span class="op">=</span> midrank(z[r, :])</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    aucs <span class="op">=</span> np.<span class="bu">sum</span>(tz[:, :m], axis<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> m <span class="op">/</span> n <span class="op">-</span> <span class="bu">float</span>(m <span class="op">+</span> <span class="fl">1.0</span>) <span class="op">/</span> <span class="fl">2.0</span> <span class="op">/</span> n</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    v01 <span class="op">=</span> (tz[:, :m] <span class="op">-</span> tx[:, :]) <span class="op">/</span> n</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    v10 <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> (tz[:, m:] <span class="op">-</span> ty[:, :]) <span class="op">/</span> m</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    sx <span class="op">=</span> np.cov(v01)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    sy <span class="op">=</span> np.cov(v10)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    delongcov <span class="op">=</span> sx <span class="op">/</span> m <span class="op">+</span> sy <span class="op">/</span> n</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> aucs, delongcov, v01, v10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>aSAH <span class="op">=</span> pd.read_excel(<span class="st">"aSAH.xlsx"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create synthetic predicted probabilities for two models</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> aSAH.shape[<span class="dv">0</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="dv">41</span>  <span class="co"># Number of samples with label '1'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n_samples <span class="op">-</span> m  <span class="co"># Number of samples with label '0'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random predicted probabilities</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>aSAH <span class="op">=</span> aSAH.sort_values(<span class="st">'outcome'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>predictions_model1 <span class="op">=</span> np.array(aSAH[<span class="st">'s100b'</span>])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>predictions_model2 <span class="op">=</span> np.array(aSAH[<span class="st">'wfns'</span>])</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 'samples' object with the generated predictions</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Samples:</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> Samples()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>samples.ratings <span class="op">=</span> np.vstack((predictions_model1, predictions_model2))</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>samples.spsizes <span class="op">=</span> (m, n)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the fastDeLong function</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>aucs, delongcov, v01, v10 <span class="op">=</span> fastDeLong(samples)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the results</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"AUCs:"</span>, aucs)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DeLong Covariance:"</span>, delongcov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AUCs: [0.73136856 0.82367886]
+DeLong Covariance: [[0.00266868 0.00119616]
+ [0.00119616 0.00146991]]</code></pre>
+</div>
+</div>
+<section id="kiểm-định-sự-khác-biệt-auc-của-2-mô-hình-theo-delong" class="level3">
+<h3 class="anchored" data-anchor-id="kiểm-định-sự-khác-biệt-auc-của-2-mô-hình-theo-delong">Kiểm định sự khác biệt AUC của 2 mô hình theo Delong</h3>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calpvalue(aucs, sigma):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    l <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> np.<span class="bu">abs</span>(np.diff(aucs)) <span class="op">/</span> np.sqrt(np.dot(np.dot(l, sigma), l.T))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    pvalue <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> scipy.stats.norm.cdf(z, loc<span class="op">=</span><span class="dv">0</span>, scale<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pvalue</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>AUC_DS, C, _, _ <span class="op">=</span> fastDeLong(samples)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> calpvalue(AUC_DS, C)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 1: </span><span class="sc">{</span>AUC_DS[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 2: </span><span class="sc">{</span>AUC_DS[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"P-value for DeLong test:"</span>, p_value)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># So sánh AUC của hai mô hình</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Không có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AUC Model 1: 0.731
+AUC Model 2: 0.824
+P-value for DeLong test: 0.02717578222918804
+Có sự khác biệt đáng kể giữa AUC của hai mô hình.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="so-sánh-auc-của-hai-mô-hình-bằng-bootstrap" class="level2">
+<h2 class="anchored" data-anchor-id="so-sánh-auc-của-hai-mô-hình-bằng-bootstrap">So sánh AUC của hai mô hình bằng bootstrap</h2>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo dữ liệu mẫu với độ dài chuỗi y_true là 1000</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính AUC cho hai mô hình</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>auc_model1 <span class="op">=</span> roc_auc_score(y_true, predictions_model1)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>auc_model2 <span class="op">=</span> roc_auc_score(y_true, predictions_model2)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Thực hiện bootstrap để tính khoảng tin cậy 95% cho AUC của cả hai mô hình</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">1000</span>  <span class="co"># Số lượng lần lấy mẫu bootstrap</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>n_size <span class="op">=</span> <span class="bu">len</span>(y_true)  <span class="co"># Số lượng phần tử trong chuỗi y_true</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>auc_scores_model1 <span class="op">=</span> []</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>auc_scores_model2 <span class="op">=</span> []</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lấy ngẫu nhiên mẫu từ dữ liệu với replacement</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n_size, n_size)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    y_true_bootstrap <span class="op">=</span> np.array(y_true)[indices]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    y_pred_bootstrap_model1 <span class="op">=</span> predictions_model1[indices]</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    y_pred_bootstrap_model2 <span class="op">=</span> predictions_model2[indices]</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tính AUC cho mẫu lấy ra từ dữ liệu bootstrap cho hai mô hình</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    auc_score_model1 <span class="op">=</span> roc_auc_score(y_true_bootstrap, y_pred_bootstrap_model1)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    auc_score_model2 <span class="op">=</span> roc_auc_score(y_true_bootstrap, y_pred_bootstrap_model2)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    auc_scores_model1.append(auc_score_model1)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    auc_scores_model2.append(auc_score_model2)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính khoảng tin cậy 95% cho AUC cho cả hai mô hình</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>lower_bound_model1 <span class="op">=</span> np.percentile(auc_scores_model1, <span class="fl">2.5</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>upper_bound_model1 <span class="op">=</span> np.percentile(auc_scores_model1, <span class="fl">97.5</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>lower_bound_model2 <span class="op">=</span> np.percentile(auc_scores_model2, <span class="fl">2.5</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>upper_bound_model2 <span class="op">=</span> np.percentile(auc_scores_model2, <span class="fl">97.5</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 1: </span><span class="sc">{</span>auc_model1<span class="sc">:.3f}</span><span class="ss"> (95% CI: [</span><span class="sc">{</span>lower_bound_model1<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound_model1<span class="sc">:.3f}</span><span class="ss">])"</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 2: </span><span class="sc">{</span>auc_model2<span class="sc">:.3f}</span><span class="ss"> (95% CI: [</span><span class="sc">{</span>lower_bound_model2<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound_model2<span class="sc">:.3f}</span><span class="ss">])"</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co"># So sánh khoảng tin cậy của AUC của hai mô hình</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> lower_bound_model1 <span class="op">&gt;</span> upper_bound_model2 <span class="kw">or</span> lower_bound_model2 <span class="op">&gt;</span> upper_bound_model1:</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Không có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AUC Model 1: 0.523 (95% CI: [0.403, 0.638])
+AUC Model 2: 0.506 (95% CI: [0.383, 0.613])
+Không có sự khác biệt đáng kể giữa AUC của hai mô hình.</code></pre>
+</div>
+</div>
+</section>
 <section id="tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong" class="level2">
 <h2 class="anchored" data-anchor-id="tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-delong">Tính khoảng tin cậy AUC sử dụng phương pháp <code>Delong</code></h2>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính AUC cho mô hình ban đầu</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>auc_model <span class="op">=</span> roc_auc_score(y_test, y_prob)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính U-statistic và phương sai của U-statistic</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>n_positives <span class="op">=</span> np.<span class="bu">sum</span>(y_test)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>n_negatives <span class="op">=</span> <span class="bu">len</span>(y_test) <span class="op">-</span> n_positives</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> n_positives <span class="op">*</span> n_negatives</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>var_U <span class="op">=</span> (U <span class="op">*</span> (n_positives <span class="op">+</span> n_negatives <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (n_positives <span class="op">+</span> n_negatives <span class="op">-</span> U)) <span class="op">/</span> <span class="dv">12</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính giá trị Z-score tương ứng với mức đáng tin cậy 95%</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>z_score <span class="op">=</span> norm.ppf(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính khoảng tin cậy 95% cho AUC bằng phương pháp DeLong</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="op">=</span> auc_model <span class="op">-</span> z_score <span class="op">*</span> np.sqrt(var_U)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="op">=</span> auc_model <span class="op">+</span> z_score <span class="op">*</span> np.sqrt(var_U)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC: </span><span class="sc">{</span>auc_model<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% Confidence Interval for AUC using DeLong method: [</span><span class="sc">{</span>lower_bound<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound<span class="sc">:.3f}</span><span class="ss">]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>AUC: 0.914
-95% Confidence Interval for AUC using DeLong method: [-9969.485, 9971.314]</code></pre>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_auc_ci(y_true, y_score,alpha <span class="op">=</span> <span class="fl">0.05</span>):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    total_sample <span class="op">=</span> <span class="bu">len</span>(y_true)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> <span class="bu">sum</span>(y_true)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> total_sample <span class="op">-</span> m</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zip the lists together</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    zipped_data <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(y_true, y_score))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort the zipped data based on labels in decreasing order</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    sorted_data <span class="op">=</span> <span class="bu">sorted</span>(zipped_data, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">0</span>], reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Unzip the sorted data to get separate sorted values and labels</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    sorted_y_true, sorted_y_score <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>sorted_data)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a 'samples' object with the generated predictions</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> OtherSamples:</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    samples <span class="op">=</span> OtherSamples()</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    samples.ratings <span class="op">=</span> np.vstack((sorted_y_score, sorted_y_score))</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    samples.spsizes <span class="op">=</span> (m, n)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    auc, auc_cov,_,_ <span class="op">=</span> fastDeLong(samples)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    auc <span class="op">=</span> auc[<span class="dv">0</span>]</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    var_U <span class="op">=</span> auc_cov[<span class="dv">0</span>,<span class="dv">0</span>]    </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    z_score <span class="op">=</span> norm.ppf(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    lower_bound <span class="op">=</span> auc <span class="op">-</span> z_score <span class="op">*</span> np.sqrt(var_U)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    upper_bound <span class="op">=</span> auc <span class="op">+</span> z_score <span class="op">*</span> np.sqrt(var_U)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> auc, var_U, lower_bound, upper_bound</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\nguye\AppData\Local\Temp\ipykernel_18272\717348408.py:13: RuntimeWarning: overflow encountered in long_scalars
-  var_U = (U * (n_positives + n_negatives + 1) * (n_positives + n_negatives - U)) / 12</code></pre>
+<div class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>auc_model, _, lower_bound, upper_bound <span class="op">=</span> calculate_auc_ci(y_true, y_pred)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC: </span><span class="sc">{</span>auc_model<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% Confidence Interval for AUC using bootstrap method: [</span><span class="sc">{</span>lower_bound<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound<span class="sc">:.3f}</span><span class="ss">]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AUC: 0.731
+95% Confidence Interval for AUC using bootstrap method: [0.630, 0.833]</code></pre>
 </div>
 </div>
 </section>
 <section id="tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap" class="level2">
 <h2 class="anchored" data-anchor-id="tính-khoảng-tin-cậy-auc-sử-dụng-phương-pháp-bootstrap">Tính khoảng tin cậy AUC sử dụng phương pháp <code>Bootstrap</code></h2>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, roc_curve</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính AUC cho mô hình ban đầu</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>auc_model <span class="op">=</span> roc_auc_score(y_test, y_prob)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Số lượng lần lấy mẫu (bootstrap iterations)</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Số lượng mẫu lấy ra từ dữ liệu ban đầu trong mỗi lần lấy mẫu</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>n_size <span class="op">=</span> <span class="bu">len</span>(y_test)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo mảng để lưu kết quả AUC từ các lần lấy mẫu</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>auc_scores <span class="op">=</span> []</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lấy ngẫu nhiên mẫu từ dữ liệu với replacement</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n_size, n_size)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    y_true_bootstrap <span class="op">=</span> y_test[indices]</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    y_prob_bootstrap <span class="op">=</span> y_prob[indices]</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tính AUC cho mẫu lấy ra từ dữ liệu bootstrap</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    auc_score <span class="op">=</span> roc_auc_score(y_true_bootstrap, y_prob_bootstrap)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    auc_scores.append(auc_score)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính khoảng tin cậy 95% cho AUC</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="op">=</span> np.percentile(auc_scores, <span class="fl">2.5</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="op">=</span> np.percentile(auc_scores, <span class="fl">97.5</span>)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC: </span><span class="sc">{</span>auc_model<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% Confidence Interval for AUC using bootstrap method: [</span><span class="sc">{</span>lower_bound<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound<span class="sc">:.3f}</span><span class="ss">]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, roc_curve</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính AUC cho mô hình ban đầu</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>auc_model <span class="op">=</span> roc_auc_score(y_true, y_pred)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Số lượng lần lấy mẫu (bootstrap iterations)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Số lượng mẫu lấy ra từ dữ liệu ban đầu trong mỗi lần lấy mẫu</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>n_size <span class="op">=</span> <span class="bu">len</span>(y_true)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo mảng để lưu kết quả AUC từ các lần lấy mẫu</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>auc_scores <span class="op">=</span> []</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lấy ngẫu nhiên mẫu từ dữ liệu với replacement</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n_size, n_size)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    y_true_bootstrap <span class="op">=</span> np.array(y_true)[indices]</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    y_pred_bootstrap <span class="op">=</span> y_pred[indices]</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tính AUC cho mẫu lấy ra từ dữ liệu bootstrap</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    auc_score <span class="op">=</span> roc_auc_score(y_true_bootstrap, y_pred_bootstrap)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    auc_scores.append(auc_score)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính khoảng tin cậy 95% cho AUC</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="op">=</span> np.percentile(auc_scores, <span class="fl">2.5</span>)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="op">=</span> np.percentile(auc_scores, <span class="fl">97.5</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC: </span><span class="sc">{</span>auc_model<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% Confidence Interval for AUC using bootstrap method: [</span><span class="sc">{</span>lower_bound<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound<span class="sc">:.3f}</span><span class="ss">]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>AUC: 0.914
-95% Confidence Interval for AUC using bootstrap method: [0.878, 0.943]</code></pre>
-</div>
-</div>
-</section>
-<section id="so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong" class="level2">
-<h2 class="anchored" data-anchor-id="so-sánh-auc-của-hai-mô-hình-máy-học-sử-dụng-kiểm-định-thống-kê-delong">So sánh AUC của hai mô hình máy học sử dụng kiểm định thống kê DeLong</h2>
-<p>Giả sử AUC của mô hình thứ nhất là <span class="math inline">\(\text{AUC}_1\)</span> và AUC của mô hình thứ hai là <span class="math inline">\(\text{AUC}_2\)</span>.</p>
-<p>Công thức kiểm định DeLong để so sánh AUC của hai mô hình như sau:</p>
-<p><span class="math display">\[ U = \frac{\text{AUC}_1 - \text{AUC}_2}{\sqrt{\text{Var}(\text{AUC}_1) + \text{Var}(\text{AUC}_2) - 2 \cdot \text{Cov}(\text{AUC}_1, \text{AUC}_2)}} \]</span></p>
-<p>Trong đó: - <span class="math inline">\(\text{Var}(\text{AUC}_1)\)</span> là phương sai của AUC của mô hình thứ nhất. - <span class="math inline">\(\text{Var}(\text{AUC}_2)\)</span> là phương sai của AUC của mô hình thứ hai. - <span class="math inline">\(\text{Cov}(\text{AUC}_1, \text{AUC}_2)\)</span> là hiệp phương sai giữa AUC của hai mô hình.</p>
-<div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dữ liệu mẫu cho hai mô hình (y_true là nhãn thực tế, y_prob_model1 và y_prob_model2 là xác suất dự đoán của hai mô hình)</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">2</span>, size<span class="op">=</span><span class="dv">1000</span>)  <span class="co"># Nhãn thực tế (0 hoặc 1)</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>y_prob_model1 <span class="op">=</span> np.random.rand(<span class="dv">1000</span>)  <span class="co"># Xác suất dự đoán của mô hình thứ nhất</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>y_prob_model2 <span class="op">=</span> np.random.rand(<span class="dv">1000</span>)  <span class="co"># Xác suất dự đoán của mô hình thứ hai</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính AUC cho hai mô hình</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>auc_model1 <span class="op">=</span> roc_auc_score(y_true, y_prob_model1)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>auc_model2 <span class="op">=</span> roc_auc_score(y_true, y_prob_model2)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính U-statistic và phương sai của U-statistic</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>n_positives <span class="op">=</span> np.<span class="bu">sum</span>(y_true)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>n_negatives <span class="op">=</span> <span class="bu">len</span>(y_true) <span class="op">-</span> n_positives</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> n_positives <span class="op">*</span> n_negatives</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>var_U <span class="op">=</span> (U <span class="op">*</span> (n_positives <span class="op">+</span> n_negatives <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (n_positives <span class="op">+</span> n_negatives <span class="op">-</span> U)) <span class="op">/</span> <span class="dv">12</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính giá trị Z-score tương ứng với mức đáng tin cậy 95%</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>z_score <span class="op">=</span> norm.ppf(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính U-score</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>U_score <span class="op">=</span> (auc_model1 <span class="op">-</span> auc_model2) <span class="op">/</span> np.sqrt(var_U)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính p-value từ Z-score</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> norm.cdf(<span class="op">-</span>np.<span class="bu">abs</span>(U_score))</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 1: </span><span class="sc">{</span>auc_model1<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 2: </span><span class="sc">{</span>auc_model2<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"U-score: </span><span class="sc">{</span>U_score<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value: </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co"># So sánh AUC của hai mô hình</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Không có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>AUC Model 1: 0.517
-AUC Model 2: 0.507
-U-score: 0.000
-p-value: 1.000
-Không có sự khác biệt đáng kể giữa AUC của hai mô hình.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\nguye\AppData\Local\Temp\ipykernel_18272\3311839127.py:19: RuntimeWarning: overflow encountered in long_scalars
-  var_U = (U * (n_positives + n_negatives + 1) * (n_positives + n_negatives - U)) / 12</code></pre>
-</div>
-</div>
-</section>
-<section id="so-sánh-auc-của-hai-mô-hình-bằng-bootstrap" class="level2">
-<h2 class="anchored" data-anchor-id="so-sánh-auc-của-hai-mô-hình-bằng-bootstrap">So sánh AUC của hai mô hình bằng bootstrap</h2>
-<div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo dữ liệu mẫu với độ dài chuỗi y_true là 1000</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">2</span>, size<span class="op">=</span><span class="dv">1000</span>)  <span class="co"># Nhãn thực tế (0 hoặc 1)</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>y_prob_model1 <span class="op">=</span> np.random.rand(<span class="dv">1000</span>)  <span class="co"># Xác suất dự đoán của mô hình thứ nhất</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>y_prob_model2 <span class="op">=</span> np.random.rand(<span class="dv">1000</span>)  <span class="co"># Xác suất dự đoán của mô hình thứ hai</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính AUC cho hai mô hình</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>auc_model1 <span class="op">=</span> roc_auc_score(y_true, y_prob_model1)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>auc_model2 <span class="op">=</span> roc_auc_score(y_true, y_prob_model2)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Thực hiện bootstrap để tính khoảng tin cậy 95% cho AUC của cả hai mô hình</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">1000</span>  <span class="co"># Số lượng lần lấy mẫu bootstrap</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>n_size <span class="op">=</span> <span class="bu">len</span>(y_true)  <span class="co"># Số lượng phần tử trong chuỗi y_true</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>auc_scores_model1 <span class="op">=</span> []</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>auc_scores_model2 <span class="op">=</span> []</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lấy ngẫu nhiên mẫu từ dữ liệu với replacement</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n_size, n_size)</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    y_true_bootstrap <span class="op">=</span> y_true[indices]</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    y_prob_bootstrap_model1 <span class="op">=</span> y_prob_model1[indices]</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    y_prob_bootstrap_model2 <span class="op">=</span> y_prob_model2[indices]</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tính AUC cho mẫu lấy ra từ dữ liệu bootstrap cho hai mô hình</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    auc_score_model1 <span class="op">=</span> roc_auc_score(y_true_bootstrap, y_prob_bootstrap_model1)</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    auc_score_model2 <span class="op">=</span> roc_auc_score(y_true_bootstrap, y_prob_bootstrap_model2)</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    auc_scores_model1.append(auc_score_model1)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    auc_scores_model2.append(auc_score_model2)</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính khoảng tin cậy 95% cho AUC cho cả hai mô hình</span></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>lower_bound_model1 <span class="op">=</span> np.percentile(auc_scores_model1, <span class="fl">2.5</span>)</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>upper_bound_model1 <span class="op">=</span> np.percentile(auc_scores_model1, <span class="fl">97.5</span>)</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>lower_bound_model2 <span class="op">=</span> np.percentile(auc_scores_model2, <span class="fl">2.5</span>)</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>upper_bound_model2 <span class="op">=</span> np.percentile(auc_scores_model2, <span class="fl">97.5</span>)</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 1: </span><span class="sc">{</span>auc_model1<span class="sc">:.3f}</span><span class="ss"> (95% CI: [</span><span class="sc">{</span>lower_bound_model1<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound_model1<span class="sc">:.3f}</span><span class="ss">])"</span>)</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AUC Model 2: </span><span class="sc">{</span>auc_model2<span class="sc">:.3f}</span><span class="ss"> (95% CI: [</span><span class="sc">{</span>lower_bound_model2<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_bound_model2<span class="sc">:.3f}</span><span class="ss">])"</span>)</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co"># So sánh khoảng tin cậy của AUC của hai mô hình</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> lower_bound_model1 <span class="op">&gt;</span> upper_bound_model2 <span class="kw">or</span> lower_bound_model2 <span class="op">&gt;</span> upper_bound_model1:</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Không có sự khác biệt đáng kể giữa AUC của hai mô hình."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>AUC Model 1: 0.517 (95% CI: [0.481, 0.551])
-AUC Model 2: 0.507 (95% CI: [0.472, 0.541])
-Không có sự khác biệt đáng kể giữa AUC của hai mô hình.</code></pre>
+<pre><code>AUC: 0.731
+95% Confidence Interval for AUC using bootstrap method: [0.624, 0.824]</code></pre>
 </div>
 </div>
 
