@@ -42,9 +42,10 @@ website:
           - machine-learning/delong_test.ipynb
           - machine-learning/CohortFitDistribution.ipynb
           - machine-learning/transformer.md
-      - section: models-monitoring/KS-PSI_ENTROPY.qmd
+      - section: statistic/Index.md
         contents:
-          - models-monitoring/KS-PSI_ENTROPY.qmd
+          - statistic/confidenceIntervalWithSmallSampleSize.ipynb
+          - statistic/KS-PSI_ENTROPY.qmd          
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
