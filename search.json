@@ -242,7 +242,7 @@
     "href": "statistic/KS-PSI_ENTROPY.html#ks-kolmogorov-smirnov",
     "title": "Giám sát độ ổn định của mô hình",
     "section": "KS (Kolmogorov-Smirnov)",
-    "text": "KS (Kolmogorov-Smirnov)\n\nKiểm định KS (Kolmogorov-Smirnov) là một kiểm định thống kê phi tham số dùng để so sánh hai phân phối tích lũy (CDFs) hoặc một mẫu dữ liệu với một phân phối lý thuyết. Nó có hai ứng dụng chính:\n\nKiểm tra sự phù hợp của mẫu: Được sử dụng để kiểm tra xem một tập dữ liệu có tuân theo một phân phối lý thuyết cụ thể (như phân phối chuẩn, phân phối đều, v.v.) hay không.\nSo sánh hai mẫu dữ liệu: Được sử dụng để kiểm tra xem hai tập dữ liệu có xuất phát từ cùng một phân phối gốc hay không.\n\nCông thức tính toán cho chỉ số KS là:\n\\[ D = \\max |F_1(x) - F_2(x)| \\]\nTrong đó:\n\n$ F_1(x) $ và $F_2(x) $ là hai hàm phân phối tích lũy cần so sánh.\nD là giá trị lớn nhất của sự khác biệt tuyệt đối giữa hai hàm phân phối tích lũy trên toàn bộ phạm vi x.\n\nMột đặc điểm quan trọng của kiểm định KS là nó không yêu cầu giả định về dạng của phân phối, làm cho nó trở thành một công cụ mạnh mẽ và linh hoạt khi so sánh phân phối.\n\nfrom scipy.stats import ks_2samp\n\n# Generate two sample datasets\ndata1 = np.random.normal(0, 1, 1000)\ndata2 = np.random.normal(0.5, 1.5, 1000)\n\n# Compute the KS statistic and p-value\nks_statistic, p_value = ks_2samp(data1, data2)\n\nks_statistic, p_value\n\n(0.255, 5.77199391392635e-29)"
+    "text": "KS (Kolmogorov-Smirnov)\n\nKiểm định KS (Kolmogorov-Smirnov) là một kiểm định thống kê phi tham số dùng để so sánh hai phân phối tích lũy (CDFs) hoặc một mẫu dữ liệu với một phân phối lý thuyết. Nó có hai ứng dụng chính:\n\nKiểm tra sự phù hợp của mẫu: Được sử dụng để kiểm tra xem một tập dữ liệu có tuân theo một phân phối lý thuyết cụ thể (như phân phối chuẩn, phân phối đều, v.v.) hay không.\nSo sánh hai mẫu dữ liệu: Được sử dụng để kiểm tra xem hai tập dữ liệu có xuất phát từ cùng một phân phối gốc hay không.\n\nCông thức tính toán cho chỉ số KS là:\n\\[ D = \\max |F_1(x) - F_2(x)| \\]\nTrong đó:\n\n$ F_1(x) $ và $F_2(x) $ là hai hàm phân phối tích lũy cần so sánh.\nD là giá trị lớn nhất của sự khác biệt tuyệt đối giữa hai hàm phân phối tích lũy trên toàn bộ phạm vi x.\n\nMột đặc điểm quan trọng của kiểm định KS là nó không yêu cầu giả định về dạng của phân phối, làm cho nó trở thành một công cụ mạnh mẽ và linh hoạt khi so sánh phân phối.\n\nfrom scipy.stats import ks_2samp\n\n# Generate two sample datasets\ndata1 = np.random.normal(0, 1, 1000)\ndata2 = np.random.normal(0.5, 1.5, 1000)\n\n# Compute the KS statistic and p-value\nks_statistic, p_value = ks_2samp(data1, data2)\n\nks_statistic, p_value\n\n(0.242, 4.2252283893369713e-26)"
   },
   {
     "objectID": "statistic/KS-PSI_ENTROPY.html#divergence-test-cross-entropy",
@@ -257,6 +257,55 @@
     "title": "Giám sát độ ổn định của mô hình",
     "section": "So sánh KS và Divergence",
     "text": "So sánh KS và Divergence\n\nMục đích:\n\nKiểm định KS: Đây là một kiểm định phi tham số được sử dụng để xác định xem hai mẫu có xuất phát từ cùng một phân phối hay không. Thống kê KS đo sự khác biệt lớn nhất giữa các hàm phân phối tích lũy (CDFs) của hai mẫu.\nKiểm định Divergence (KL Divergence): Nó đo cách một phân phối xác suất khác biệt so với một phân phối xác suất thứ hai mong đợi. Nó thường được sử dụng trong lý thuyết thông tin để đo “khoảng cách” giữa hai phân phối.\n\nKết quả:\n\nKiểm định KS: Kết quả là một chỉ số (D) đại diện cho sự khác biệt lớn nhất giữa hai CDFs và một giá trị p kiểm tra giả thuyết rằng hai mẫu được rút ra từ cùng một phân phối.\nKiểm định Divergence (KL Divergence): Kết quả là một giá trị không âm, trong đó giá trị 0 chỉ ra rằng hai phân phối là giống nhau. Lưu ý rằng KL Divergence không đối xứng, tức là \\(D_{KL}(P||Q) \\neq D_{KL}(Q||P)\\).\n\nGiả định:\n\nKiểm định KS: Không giả định về phân phối của dữ liệu.\nKiểm định Divergence (KL Divergence): Giả định \\(Q(i) &gt; 0\\) cho bất kỳ i nào sao cho \\(P(i) &gt; 0\\), nếu không sự khác biệt sẽ vô cùng.\n\nỨng dụng:\n\nKiểm định KS: Thường được sử dụng trong kiểm định giả thuyết để xác định xem một mẫu dữ liệu có tuân theo một phân phối cụ thể hay không.\nKiểm định Divergence (KL Divergence): Rộng rãi được sử dụng trong lý thuyết thông tin, học máy và thống kê, đặc biệt khi so sánh một phân phối thực nghiệm với một phân phối lý thuyết.\n\nGiải thích:\n\nKiểm định KS: Một giá trị p nhỏ cho thấy rằng hai mẫu đến từ các phân phối khác nhau.\nKiểm định Divergence (KL Divergence): Một Divergence KL lớn hơn chỉ ra rằng hai phân phối khác biệt hơn so với nhau.\n\n\nTóm lại, mặc dù cả Kiểm định KS và KL Divergence đều được sử dụng để so sánh các phân phối, nhưng chúng có các phương pháp, giải thích và ứng dụng khác nhau. Sự lựa chọn giữa chúng phụ thuộc vào vấn đề cụ thể và bản chất của dữ liệu."
+  },
+  {
+    "objectID": "statistic/confidenceIntervalWithSmallSampleSize.html",
+    "href": "statistic/confidenceIntervalWithSmallSampleSize.html",
+    "title": "Ước lượng khoảng tin cậy với cỡ mẫu nhỏ",
+    "section": "",
+    "text": "Để ước tính khoảng tin cậy cho trung bình của tổng thể với kích thước mẫu nhỏ, bạn cần xem xét cẩn thận do sự không chắc chắn gia tăng khi có dữ liệu hạn chế. Khi kích thước mẫu nhỏ, thường sử dụng phân phối t thay vì phân phối chuẩn để tính đến biến động. Dưới đây là cách bạn có thể ước tính khoảng tin cậy cho trung bình của dân số với kích thước mẫu nhỏ:\n\nThu thập và Tóm tắt Dữ liệu: Thu thập dữ liệu mẫu của bạn và tính trung bình mẫu (\\(\\bar{x}\\)) và độ lệch chuẩn mẫu (\\(s\\)).\nChọn Mức Độ Tin Cậy: Quyết định mức độ tin cậy mong muốn cho khoảng tin cậy, thường là 95% hoặc 99%.\nTính Giá Trị t-Critical: Tìm giá trị t-critical liên quan đến mức độ tin cậy đã chọn và bậc tự do, với bậc tự do cho mẫu kích thước \\(n\\) là \\(n - 1\\).\nTính Toán Sai Số Chuẩn: Tính sai số chuẩn (\\(SE\\)) của trung bình mẫu bằng công thức: \\[ SE = \\frac{s}{\\sqrt{n}} \\]\nTính Toán Sai Số Biên: Tính sai số biên (\\(MOE\\)) bằng công thức: \\[ MOE = t_{\\text{critical}} \\times SE \\]\nTính Khoảng Tin Cậy: Khoảng tin cậy được tính bằng cách trừ và cộng sai số biên từ trung bình mẫu: \\[ \\text{Khoảng Tin Cậy} = \\bar{x} \\pm MOE \\]\n\nDưới đây là ví dụ về cách tính khoảng tin cậy bằng Python:\nLưu ý với kích thước mẫu nhỏ, khoảng tin cậy kết quả có thể rộng, cho thấy mức độ không chắc chắn tương đối cao. Khi kích thước mẫu tăng lên, khoảng tin cậy sẽ trở nên hẹp hơn, cung cấp một ước tính chính xác hơn về trung bình của tổng thể.\n\nimport scipy.stats as stats\nimport numpy as np\n\n# Dữ liệu mẫu\nsample_data = [12, 14, 15, 17, 18, 19, 20]\nn = len(sample_data)\n\n# Tính trung bình mẫu và độ lệch chuẩn mẫu\nsample_mean = np.mean(sample_data)\nsample_std = np.std(sample_data, ddof=1)  # Sửa đổi Bessel cho độ lệch chuẩn mẫu\n\n# Đặt mức độ tin cậy\nconfidence_level = 0.95\n\n# Tính độ tự do\ndegrees_of_freedom = n - 1\n\n# Tính giá trị t-critical\nt_critical = stats.t.ppf(1 - (1 - confidence_level) / 2, df=degrees_of_freedom)\n\n# Tính sai số chuẩn\nSE = sample_std / np.sqrt(n)\n\n# Tính sai số biên\nMOE = t_critical * SE\n\n# Tính khoảng tin cậy\nconfidence_interval = (sample_mean - MOE, sample_mean + MOE)\n\nprint(\"Trung bình mẫu:\", sample_mean)\nprint(\"Khoảng tin cậy:\", confidence_interval)\n\nTrung bình mẫu: 16.428571428571427\nKhoảng tin cậy: (13.766410649936082, 19.09073220720677)\n\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as stats\n\n# Parameters for the t-distribution\ndegrees_of_freedom = [3, 10, 30]\nx_range = np.linspace(-5, 5, 500)\n\n# Generate data for the normal distribution\nnormal_pdf = stats.norm.pdf(x_range, 0, 1)\n\n# Generate data for t-distributions with different degrees of freedom\nt_distributions = [stats.t.pdf(x_range, df) for df in degrees_of_freedom]\n\n# Plotting\nplt.figure(figsize=(10, 6))\nplt.plot(x_range, normal_pdf, label='Normal Distribution')\n\nfor i, df in enumerate(degrees_of_freedom):\n    plt.plot(x_range, t_distributions[i], label=f't-Distribution (df={df})')\n\nplt.title('Comparison of Normal and t-Distributions')\nplt.xlabel('x')\nplt.ylabel('Probability Density')\nplt.legend()\nplt.grid(True)\nplt.show()\n\n\n\n\nTrong biểu đồ này, bạn sẽ thấy đường cong mật độ xác suất cho phân phối chuẩn tiêu chuẩn và phân phối t-Student với các độ tự do khác nhau (3, 10 và 30). Khi độ tự do tăng lên, phân phối t-Student tiến dần tới phân phối chuẩn. Với các độ tự do nhỏ hơn, phân phối t-Student có đuôi dày và đỉnh phẳnghơn so với phân phối chuẩn. Khi độ tự do tăng lên, phân phối t-Student trở nên giống phân phối chuẩn hơn."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Making shareable documents with Quarto",
+    "section": "",
+    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Making shareable documents with Quarto",
+    "section": "",
+    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
+  },
+  {
+    "objectID": "index.html#what-is-quarto",
+    "href": "index.html#what-is-quarto",
+    "title": "Making shareable documents with Quarto",
+    "section": "What is Quarto?",
+    "text": "What is Quarto?\nQuarto helps you have your ideas and your code in one place, and present it in a beautiful way.\nQuarto unifies and extends the RMarkdown ecosystem - it unifies by combining the functionality of R Markdown, bookdown, distill, xaringian, etc into a single consistent system. And it extends in several ways: all features are possible beyond R too, including Python and Javascript. It also has more “guardrails”: accessibility and inclusion are centered in the design. Quarto is for people who love RMarkdown, and it’s for people who have never used RMarkdown.\nThe ability for Quarto to streamline collaboration has been so cool and important for our NASA Openscapes project. Quarto has been a common place for us to collaborate - across R and Python languages and coding expertise."
+  },
+  {
+    "objectID": "index.html#what-is-this-tutorial",
+    "href": "index.html#what-is-this-tutorial",
+    "title": "Making shareable documents with Quarto",
+    "section": "What is this tutorial?",
+    "text": "What is this tutorial?\nThis is a 1-hour tutorial that can be used to teach or as self-paced learning.\nWe introduce Quarto by exploring this tutorial website, and practicing the basic Quarto workflow using different tools (GitHub browser, RStudio, and Jupyter) for editing your website.\nWe’ll start off from the browser so you don’t need to install any additional software, however this approach is very limited and you will soon outgrow its capabilities. If you don’t already have a workflow to edit files and sync to GitHub from your computer, I recommend RStudio. You don’t need to know R to use RStudio, and it has powerful editor features that make for happy workflows.\nQuarto.org is the go-to place for full documentation and more tutorials!"
+  },
+  {
+    "objectID": "index.html#example-quarto-sites",
+    "href": "index.html#example-quarto-sites",
+    "title": "Making shareable documents with Quarto",
+    "section": "Example Quarto sites",
+    "text": "Example Quarto sites\nA few Quarto websites from Openscapes - so far we have been using Quarto for documentation using Quarto and Markdown files and Jupyter Notebooks.\n\nChampions Lessons Series\nOpenscapes Approach Guide\n\n2021 NASA Cloud Hackathon\nFaylab Lab Manual\nA Quarto tip a day, by Mine Çetinkaya-Rundel"
+  },
+  {
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Making shareable documents with Quarto",
+    "section": "About",
+    "text": "About\nOpenscapes is about better science for future us. We help researchers reimagine data analysis, develop modern skills that are of immediate value to them, and cultivate collaborative and inclusive research teams as part of the broader global open movement.\nWe’re developing this tutorial to help folks with different levels of technical skills use Quarto for documentation and tutorial building. This tutorial was originally created for several different audiences: NASA-Openscapes researcher support engineers using Python, communications directors at organizations promoting open science who do not identify as coders, and fisheries scientists curious about transitioning from RMarkdown. We’re hoping it’s useful to folks with backgrounds as wide as these; if you find it useful or have suggestions for improvement, please let us know by clicking “Edit this page” or “Report an issue” at the upper right side of any page."
   },
   {
     "objectID": "explore.html",
@@ -313,55 +362,6 @@
     "title": "Explore and setup",
     "section": "Onward!",
     "text": "Onward!\nNow you are ready to start editing and publishing! The next chapter describes how starting off from the browser, using Markdown."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Making shareable documents with Quarto",
-    "section": "",
-    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "Making shareable documents with Quarto",
-    "section": "",
-    "text": "It’s possible to create beautiful documentation to share online with Quarto that auto-updates with GitHub. This is very new and incredibly cool. This tutorial is an example of a quarto website — it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.\nCreating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that’s where we’ll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too – there are links throughout."
-  },
-  {
-    "objectID": "index.html#what-is-quarto",
-    "href": "index.html#what-is-quarto",
-    "title": "Making shareable documents with Quarto",
-    "section": "What is Quarto?",
-    "text": "What is Quarto?\nQuarto helps you have your ideas and your code in one place, and present it in a beautiful way.\nQuarto unifies and extends the RMarkdown ecosystem - it unifies by combining the functionality of R Markdown, bookdown, distill, xaringian, etc into a single consistent system. And it extends in several ways: all features are possible beyond R too, including Python and Javascript. It also has more “guardrails”: accessibility and inclusion are centered in the design. Quarto is for people who love RMarkdown, and it’s for people who have never used RMarkdown.\nThe ability for Quarto to streamline collaboration has been so cool and important for our NASA Openscapes project. Quarto has been a common place for us to collaborate - across R and Python languages and coding expertise."
-  },
-  {
-    "objectID": "index.html#what-is-this-tutorial",
-    "href": "index.html#what-is-this-tutorial",
-    "title": "Making shareable documents with Quarto",
-    "section": "What is this tutorial?",
-    "text": "What is this tutorial?\nThis is a 1-hour tutorial that can be used to teach or as self-paced learning.\nWe introduce Quarto by exploring this tutorial website, and practicing the basic Quarto workflow using different tools (GitHub browser, RStudio, and Jupyter) for editing your website.\nWe’ll start off from the browser so you don’t need to install any additional software, however this approach is very limited and you will soon outgrow its capabilities. If you don’t already have a workflow to edit files and sync to GitHub from your computer, I recommend RStudio. You don’t need to know R to use RStudio, and it has powerful editor features that make for happy workflows.\nQuarto.org is the go-to place for full documentation and more tutorials!"
-  },
-  {
-    "objectID": "index.html#example-quarto-sites",
-    "href": "index.html#example-quarto-sites",
-    "title": "Making shareable documents with Quarto",
-    "section": "Example Quarto sites",
-    "text": "Example Quarto sites\nA few Quarto websites from Openscapes - so far we have been using Quarto for documentation using Quarto and Markdown files and Jupyter Notebooks.\n\nChampions Lessons Series\nOpenscapes Approach Guide\n\n2021 NASA Cloud Hackathon\nFaylab Lab Manual\nA Quarto tip a day, by Mine Çetinkaya-Rundel"
-  },
-  {
-    "objectID": "index.html#about",
-    "href": "index.html#about",
-    "title": "Making shareable documents with Quarto",
-    "section": "About",
-    "text": "About\nOpenscapes is about better science for future us. We help researchers reimagine data analysis, develop modern skills that are of immediate value to them, and cultivate collaborative and inclusive research teams as part of the broader global open movement.\nWe’re developing this tutorial to help folks with different levels of technical skills use Quarto for documentation and tutorial building. This tutorial was originally created for several different audiences: NASA-Openscapes researcher support engineers using Python, communications directors at organizations promoting open science who do not identify as coders, and fisheries scientists curious about transitioning from RMarkdown. We’re hoping it’s useful to folks with backgrounds as wide as these; if you find it useful or have suggestions for improvement, please let us know by clicking “Edit this page” or “Report an issue” at the upper right side of any page."
-  },
-  {
-    "objectID": "statistic/confidenceIntervalWithSmallSampleSize.html",
-    "href": "statistic/confidenceIntervalWithSmallSampleSize.html",
-    "title": "Ước lượng khoảng tin cậy với cỡ mẫu nhỏ",
-    "section": "",
-    "text": "Để ước tính khoảng tin cậy cho trung bình của tổng thể với kích thước mẫu nhỏ, bạn cần xem xét cẩn thận do sự không chắc chắn gia tăng khi có dữ liệu hạn chế. Khi kích thước mẫu nhỏ, thường sử dụng phân phối t thay vì phân phối chuẩn để tính đến biến động. Dưới đây là cách bạn có thể ước tính khoảng tin cậy cho trung bình của dân số với kích thước mẫu nhỏ:\n\nThu thập và Tóm tắt Dữ liệu: Thu thập dữ liệu mẫu của bạn và tính trung bình mẫu (\\(\\bar{x}\\)) và độ lệch chuẩn mẫu (\\(s\\)).\nChọn Mức Độ Tin Cậy: Quyết định mức độ tin cậy mong muốn cho khoảng tin cậy, thường là 95% hoặc 99%.\nTính Giá Trị t-Critical: Tìm giá trị t-critical liên quan đến mức độ tin cậy đã chọn và bậc tự do, với bậc tự do cho mẫu kích thước \\(n\\) là \\(n - 1\\).\nTính Toán Sai Số Chuẩn: Tính sai số chuẩn (\\(SE\\)) của trung bình mẫu bằng công thức: \\[ SE = \\frac{s}{\\sqrt{n}} \\]\nTính Toán Sai Số Biên: Tính sai số biên (\\(MOE\\)) bằng công thức: \\[ MOE = t_{\\text{critical}} \\times SE \\]\nTính Khoảng Tin Cậy: Khoảng tin cậy được tính bằng cách trừ và cộng sai số biên từ trung bình mẫu: \\[ \\text{Khoảng Tin Cậy} = \\bar{x} \\pm MOE \\]\n\nDưới đây là ví dụ về cách tính khoảng tin cậy bằng Python:\nLưu ý với kích thước mẫu nhỏ, khoảng tin cậy kết quả có thể rộng, cho thấy mức độ không chắc chắn tương đối cao. Khi kích thước mẫu tăng lên, khoảng tin cậy sẽ trở nên hẹp hơn, cung cấp một ước tính chính xác hơn về trung bình của tổng thể.\n\nimport scipy.stats as stats\nimport numpy as np\n\n# Dữ liệu mẫu\nsample_data = [12, 14, 15, 17, 18, 19, 20]\nn = len(sample_data)\n\n# Tính trung bình mẫu và độ lệch chuẩn mẫu\nsample_mean = np.mean(sample_data)\nsample_std = np.std(sample_data, ddof=1)  # Sửa đổi Bessel cho độ lệch chuẩn mẫu\n\n# Đặt mức độ tin cậy\nconfidence_level = 0.95\n\n# Tính độ tự do\ndegrees_of_freedom = n - 1\n\n# Tính giá trị t-critical\nt_critical = stats.t.ppf(1 - (1 - confidence_level) / 2, df=degrees_of_freedom)\n\n# Tính sai số chuẩn\nSE = sample_std / np.sqrt(n)\n\n# Tính sai số biên\nMOE = t_critical * SE\n\n# Tính khoảng tin cậy\nconfidence_interval = (sample_mean - MOE, sample_mean + MOE)\n\nprint(\"Trung bình mẫu:\", sample_mean)\nprint(\"Khoảng tin cậy:\", confidence_interval)\n\nTrung bình mẫu: 16.428571428571427\nKhoảng tin cậy: (13.766410649936082, 19.09073220720677)\n\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as stats\n\n# Parameters for the t-distribution\ndegrees_of_freedom = [3, 10, 30]\nx_range = np.linspace(-5, 5, 500)\n\n# Generate data for the normal distribution\nnormal_pdf = stats.norm.pdf(x_range, 0, 1)\n\n# Generate data for t-distributions with different degrees of freedom\nt_distributions = [stats.t.pdf(x_range, df) for df in degrees_of_freedom]\n\n# Plotting\nplt.figure(figsize=(10, 6))\nplt.plot(x_range, normal_pdf, label='Normal Distribution')\n\nfor i, df in enumerate(degrees_of_freedom):\n    plt.plot(x_range, t_distributions[i], label=f't-Distribution (df={df})')\n\nplt.title('Comparison of Normal and t-Distributions')\nplt.xlabel('x')\nplt.ylabel('Probability Density')\nplt.legend()\nplt.grid(True)\nplt.show()\n\n\n\n\nTrong biểu đồ này, bạn sẽ thấy đường cong mật độ xác suất cho phân phối chuẩn tiêu chuẩn và phân phối t-Student với các độ tự do khác nhau (3, 10 và 30). Khi độ tự do tăng lên, phân phối t-Student tiến dần tới phân phối chuẩn. Với các độ tự do nhỏ hơn, phân phối t-Student có đuôi dày và đỉnh phẳnghơn so với phân phối chuẩn. Khi độ tự do tăng lên, phân phối t-Student trở nên giống phân phối chuẩn hơn."
   },
   {
     "objectID": "machine-learning/delong_test.html",
