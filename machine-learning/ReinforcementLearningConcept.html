@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nguyễn Ngọc Bình">
+
+<title>Making sharable documents with Quarto - Reinforcement Learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reinforcement Learning</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/openscapes_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://nguyenngocbinh.github.io/papers" rel="" title="nguyenngocbinh.github.io/papers" class="quarto-navigation-tool px-1" aria-label="nguyenngocbinh.github.io/papers"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/nguyenngocbinh/papers" rel="" title="github" class="quarto-navigation-tool px-1" aria-label="github"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/nanabi88" rel="" title="nanabi88 Twitter" class="quarto-navigation-tool px-1" aria-label="nanabi88 Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model guideline</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model guideline</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../machine-learning/Index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/focal-loss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Focal loss - handle class imbalance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/delong_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Delong method for AUC interval and AUC test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/CohortFitDistribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fit Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transformer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Reinforcement learning to enhance traditional scorecard</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../statistic/Index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/confidenceIntervalWithSmallSampleSize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ước lượng khoảng tin cậy với cỡ mẫu nhỏ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/KS-PSI_ENTROPY.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Giám sát độ ổn định của mô hình</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../explore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore and setup</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto-workflows/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto-workflows/browser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From the Browser</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto-workflows/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto-workflows/jupyter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From Jupyter</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-more.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning more</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../transition-from-rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transition from Rmd</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reinforcement-learning-là-gì" id="toc-reinforcement-learning-là-gì" class="nav-link active" data-scroll-target="#reinforcement-learning-là-gì">Reinforcement Learning là gì</a></li>
+  <li><a href="#các-thuật-ngữ-thông-dụng" id="toc-các-thuật-ngữ-thông-dụng" class="nav-link" data-scroll-target="#các-thuật-ngữ-thông-dụng">Các thuật ngữ thông dụng</a></li>
+  <li><a href="#so-sánh-reinforcement-learning-rl-unsupervised-learning-and-supervised-learning" id="toc-so-sánh-reinforcement-learning-rl-unsupervised-learning-and-supervised-learning" class="nav-link" data-scroll-target="#so-sánh-reinforcement-learning-rl-unsupervised-learning-and-supervised-learning">So sánh Reinforcement Learning (RL), Unsupervised Learning, and Supervised Learning</a>
+  <ul class="collapse">
+  <li><a href="#học-tăng-cường-rl" id="toc-học-tăng-cường-rl" class="nav-link" data-scroll-target="#học-tăng-cường-rl">Học tăng cường (RL):</a></li>
+  <li><a href="#học-không-giám-sát" id="toc-học-không-giám-sát" class="nav-link" data-scroll-target="#học-không-giám-sát">Học không giám sát:</a></li>
+  <li><a href="#học-tập-có-giám-sát" id="toc-học-tập-có-giám-sát" class="nav-link" data-scroll-target="#học-tập-có-giám-sát">Học tập có giám sát:</a></li>
+  </ul></li>
+  <li><a href="#tham-khảo" id="toc-tham-khảo" class="nav-link" data-scroll-target="#tham-khảo">Tham khảo</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/ReinforcementLearningConcept.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Reinforcement Learning</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nguyễn Ngọc Bình </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="reinforcement-learning-là-gì" class="level2">
+<h2 class="anchored" data-anchor-id="reinforcement-learning-là-gì">Reinforcement Learning là gì</h2>
+<p>Reinforcement Learning (RL) là một lĩnh vực của trí tuệ nhân tạo mà trong đó một “agent” học cách tương tác với một “environment” để đạt được mục tiêu thông qua việc thực hiện “actions”. Agent học từ các phản hồi gọi là “rewards” từ environment và dần dần điều chỉnh hành vi để tối đa hóa tổng số rewards.</p>
+</section>
+<section id="các-thuật-ngữ-thông-dụng" class="level2">
+<h2 class="anchored" data-anchor-id="các-thuật-ngữ-thông-dụng">Các thuật ngữ thông dụng</h2>
+<p>Trong reinforcement learning có rất nhiều các thuật ngữ khác nhau. Sau đây chúng ta cùng liệt kê các thuật ngữ thông dụng và tìm hiểu ý nghĩa của từng thuật ngữ</p>
+<ol type="1">
+<li><p><strong>Agent</strong>: Là thực thể thực hiện các hành động trong môi trường để đạt được mục tiêu.</p></li>
+<li><p><strong>Environment</strong>: Là môi trường mà agent tương tác và học từ đó. Nó bao gồm tất cả các yếu tố ảnh hưởng đến agent và có thể thay đổi dựa trên hành động của agent.</p></li>
+<li><p><strong>Action</strong>: Là các hành động mà agent thực hiện trong môi trường để thay đổi trạng thái hiện tại của nó.</p></li>
+<li><p><strong>Observation</strong>: Là thông tin mà agent thu thập từ môi trường sau khi thực hiện một hành động.</p></li>
+<li><p><strong>State</strong>: Là biểu diễn trạng thái hiện tại của môi trường. Nó chứa thông tin cần thiết để quyết định tương lai của agent.</p></li>
+<li><p><strong>Policy</strong>: Là chiến lược hoặc kế hoạch mà agent sử dụng để chọn hành động dựa trên trạng thái hiện tại.</p></li>
+<li><p><strong>Reward</strong>: Là phản hồi từ môi trường sau mỗi hành động. Reward định rõ giá trị của hành động và giúp agent học cách tối đa hóa tổng số reward theo thời gian.</p></li>
+<li><p><strong>Khai thác và khám phá (exploit or explore)</strong>: Là quá trình cân bằng giữa việc sử dụng kiến thức hiện có để đạt được reward ngay lập tức (khai thác) và việc thử nghiệm các hành động mới để tìm hiểu thêm về môi trường (khám phá).</p></li>
+</ol>
+<p><img src="https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2020/08/Reinforcement-Learning-in-ML-TV.jpg" class="img-fluid"></p>
+</section>
+<section id="so-sánh-reinforcement-learning-rl-unsupervised-learning-and-supervised-learning" class="level2">
+<h2 class="anchored" data-anchor-id="so-sánh-reinforcement-learning-rl-unsupervised-learning-and-supervised-learning">So sánh Reinforcement Learning (RL), Unsupervised Learning, and Supervised Learning</h2>
+<p>Học tăng cường (RL), Học không giám sát và Học có giám sát là ba mô hình cơ bản trong học máy, mỗi mô hình phục vụ các mục đích khác nhau và giải quyết các loại vấn đề riêng biệt. Dưới đây là so sánh ba cách tiếp cận này:</p>
+<section id="học-tăng-cường-rl" class="level3">
+<h3 class="anchored" data-anchor-id="học-tăng-cường-rl">Học tăng cường (RL):</h3>
+<ul>
+<li><strong>Mục tiêu</strong>: Học cách đưa ra quyết định để tối đa hóa phần thưởng tích lũy trong một môi trường.</li>
+<li><strong>Bản chất</strong>: Liên quan đến việc tác nhân tương tác với môi trường bằng cách thực hiện hành động và nhận phần thưởng dựa trên hành động của tác nhân đó.</li>
+<li><strong>Dữ liệu đào tạo</strong>: RL học hỏi từ các tương tác và phản hồi thay vì dữ liệu được gắn nhãn.</li>
+<li><strong>Ví dụ</strong>: Chơi trò chơi, điều khiển robot, hệ thống đề xuất.</li>
+<li><strong>Thách thức</strong>: Đánh đổi giữa thăm dò và khai thác, phần thưởng bị trì hoãn, cân bằng giữa thăm dò và khai thác.</li>
+</ul>
+</section>
+<section id="học-không-giám-sát" class="level3">
+<h3 class="anchored" data-anchor-id="học-không-giám-sát">Học không giám sát:</h3>
+<ul>
+<li><strong>Mục tiêu</strong>: Tìm các mẫu hoặc cấu trúc trong dữ liệu chưa được gắn nhãn.</li>
+<li><strong>Bản chất</strong>: Không có mục tiêu hoặc kết quả cụ thể để dự đoán. Mục tiêu là khám phá các mối quan hệ hoặc cụm ẩn trong dữ liệu.</li>
+<li><strong>Dữ liệu huấn luyện</strong>: Học từ dữ liệu đầu vào mà không có nhãn đầu ra rõ ràng.</li>
+<li><strong>Ví dụ</strong>: Phân cụm, giảm kích thước, tạo mô hình tổng quát (ví dụ: GAN).</li>
+<li><strong>Thách thức</strong>: Xác định số lượng cụm thích hợp, xử lý dữ liệu nhiều chiều.</li>
+</ul>
+</section>
+<section id="học-tập-có-giám-sát" class="level3">
+<h3 class="anchored" data-anchor-id="học-tập-có-giám-sát">Học tập có giám sát:</h3>
+<ul>
+<li><strong>Mục tiêu</strong>: Học cách ánh xạ từ đầu vào đến đầu ra dựa trên dữ liệu huấn luyện được gắn nhãn.</li>
+<li><strong>Bản chất</strong>: Yêu cầu tập dữ liệu được gắn nhãn trong đó mô hình học cách dự đoán kết quả đầu ra chính xác từ các đầu vào nhất định.</li>
+<li><strong>Dữ liệu huấn luyện</strong>: Sử dụng các cặp đầu vào-đầu ra để huấn luyện.</li>
+<li><strong>Ví dụ</strong>: Phân loại, hồi quy.</li>
+<li><strong>Thách thức</strong>: Quá phù hợp, sai lệch, khái quát hóa đối với dữ liệu không nhìn thấy được.</li>
+</ul>
+<p><strong>Sự khác biệt chính</strong>: - RL tập trung vào việc học các hành động tối ưu để tối đa hóa phần thưởng, trong khi việc học có giám sát và không giám sát tập trung vào các mô hình học tập hoặc các mối quan hệ trong dữ liệu. - Học không giám sát thiếu dữ liệu được dán nhãn, trong khi học có giám sát yêu cầu dữ liệu được dán nhãn. - Học có giám sát phù hợp với các nhiệm vụ đã biết đầu ra mong muốn, trong khi RL phù hợp với các nhiệm vụ liên quan đến việc ra quyết định tuần tự. - RL thường liên quan đến việc khám phá và đánh đổi giữa phần thưởng trước mắt và lâu dài, trong khi học tập có giám sát và không giám sát là tìm kiếm các mô hình hoặc đưa ra dự đoán.</p>
+<p><img src="https://www.mathworks.com/discovery/reinforcement-learning/_jcr_content/mainParsys3/discoverysubsection/mainParsys/image.adapt.full.medium.png/1690832474215.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="tham-khảo" class="level2">
+<h2 class="anchored" data-anchor-id="tham-khảo">Tham khảo</h2>
+<ul>
+<li><a href="https://codelearn.io/sharing/reinforcement-learning-la-gi">codelearn</a></li>
+<li><a href="https://techvidvan.com/tutorials/reinforcement-learning/">techvidvan</a></li>
+<li><a href="https://www.mathworks.com/discovery/reinforcement-learning.html">mathworks</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-By NguyenNgocBinh, 2023</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
