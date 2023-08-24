@@ -42,6 +42,7 @@ website:
           - machine-learning/delong_test.ipynb
           - machine-learning/CohortFitDistribution.ipynb
           - machine-learning/transformer.md
+          - machine-learning/ReinforcementLearningConcept.ipynb
           - machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.ipynb
       - section: statistic/Index.md
         contents:
