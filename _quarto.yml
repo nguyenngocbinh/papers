@@ -48,7 +48,8 @@ website:
       - section: statistic/Index.md
         contents:
           - statistic/confidenceIntervalWithSmallSampleSize.ipynb
-          - statistic/KS-PSI_ENTROPY.qmd          
+          - statistic/KS-PSI_ENTROPY.qmd   
+          - statistic/DiD.ipynb
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
