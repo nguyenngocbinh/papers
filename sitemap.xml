@@ -2,82 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/browser.html</loc>
-    <lastmod>2023-08-31T03:10:17.152Z</lastmod>
+    <lastmod>2023-09-07T03:21:30.053Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/index.html</loc>
-    <lastmod>2023-08-31T03:10:16.064Z</lastmod>
+    <lastmod>2023-09-07T03:21:28.637Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/transition-from-rmarkdown.html</loc>
-    <lastmod>2023-08-31T03:10:15.016Z</lastmod>
+    <lastmod>2023-09-07T03:21:27.289Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/irb/ModelGuideline.html</loc>
-    <lastmod>2023-08-31T03:10:14.032Z</lastmod>
+    <lastmod>2023-09-07T03:21:26.017Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/Index.html</loc>
-    <lastmod>2023-08-31T03:10:12.824Z</lastmod>
+    <lastmod>2023-09-07T03:21:24.461Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/transformer.html</loc>
-    <lastmod>2023-08-31T03:10:11.884Z</lastmod>
+    <lastmod>2023-09-07T03:21:23.249Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/ReinforcementLearningConcept.html</loc>
-    <lastmod>2023-08-31T03:10:10.260Z</lastmod>
+    <lastmod>2023-09-07T03:21:21.141Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/SHAP_SHapley_Additive_exPlanations.html</loc>
-    <lastmod>2023-08-31T03:10:09.012Z</lastmod>
+    <lastmod>2023-09-07T03:21:19.532Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/statistic/Index.html</loc>
-    <lastmod>2023-08-31T03:10:03.368Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/explore.html</loc>
-    <lastmod>2023-08-31T03:10:02.552Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/index.html</loc>
-    <lastmod>2023-08-31T03:10:00.200Z</lastmod>
+    <lastmod>2023-09-07T03:21:11.948Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/statistic/confidenceIntervalWithSmallSampleSize.html</loc>
-    <lastmod>2023-08-31T03:10:03.024Z</lastmod>
+    <lastmod>2023-09-07T03:21:10.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/index.html</loc>
+    <lastmod>2023-09-07T03:21:07.248Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/explore.html</loc>
+    <lastmod>2023-09-07T03:21:09.980Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/statistic/DiD.html</loc>
+    <lastmod>2023-09-07T03:21:11.460Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/statistic/KS-PSI_ENTROPY.html</loc>
-    <lastmod>2023-08-31T03:10:07.948Z</lastmod>
+    <lastmod>2023-09-07T03:21:18.160Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/delong_test.html</loc>
-    <lastmod>2023-08-31T03:10:09.696Z</lastmod>
+    <lastmod>2023-09-07T03:21:20.421Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/focal-loss.html</loc>
-    <lastmod>2023-08-31T03:10:10.952Z</lastmod>
+    <lastmod>2023-09-07T03:21:22.045Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.html</loc>
-    <lastmod>2023-08-31T03:10:12.476Z</lastmod>
+    <lastmod>2023-09-07T03:21:23.989Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/CohortFitDistribution.html</loc>
-    <lastmod>2023-08-31T03:10:13.424Z</lastmod>
+    <lastmod>2023-09-07T03:21:25.217Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/learning-more.html</loc>
-    <lastmod>2023-08-31T03:10:14.396Z</lastmod>
+    <lastmod>2023-09-07T03:21:26.513Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/rstudio.html</loc>
-    <lastmod>2023-08-31T03:10:15.584Z</lastmod>
+    <lastmod>2023-09-07T03:21:28.029Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/jupyter.html</loc>
-    <lastmod>2023-08-31T03:10:16.708Z</lastmod>
+    <lastmod>2023-09-07T03:21:29.453Z</lastmod>
   </url>
 </urlset>
