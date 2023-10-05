@@ -3,7 +3,7 @@ project:
   
 website: 
   page-navigation: true
-  title: "Making sharable documents with Quarto" 
+  title: "Making sharable documents" 
   site-url: "https://nguyenngocbinh.github.io/papers" 
   repo-url: https://github.com/nguyenngocbinh/papers 
   repo-actions: [edit, issue]
@@ -48,6 +48,7 @@ website:
           - machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.ipynb
       - section: statistic/Index.md
         contents:
+          - statistic/StandardizedCoefficients.ipynb
           - statistic/confidenceIntervalWithSmallSampleSize.ipynb
           - statistic/PSI_KS_ENTROPY.ipynb  
           - statistic/DiD.ipynb
