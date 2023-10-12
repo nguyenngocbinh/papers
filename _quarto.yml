@@ -43,6 +43,7 @@ website:
           - machine-learning/FeatureImportance_Permutation_versus_MeanDecrease.ipynb
           - machine-learning/SHAP_SHapley_Additive_exPlanations.ipynb
           - machine-learning/CohortFitDistribution.ipynb
+          - machine-learning/modelCalibration.ipynb
           - machine-learning/transformer.md
           - machine-learning/ReinforcementLearningConcept.ipynb
           - machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.ipynb
