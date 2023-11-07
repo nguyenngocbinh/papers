@@ -47,6 +47,7 @@ website:
           - machine-learning/transformer.md
           - machine-learning/ReinforcementLearningConcept.ipynb
           - machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.ipynb
+          - machine-learning/IsolationForest.ipynb
       - section: statistic/Index.md
         contents:
           - statistic/StandardizedCoefficients.ipynb
