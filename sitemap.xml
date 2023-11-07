@@ -1,103 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nguyenngocbinh.github.io/papers/index.html</loc>
-    <lastmod>2023-10-12T10:26:43.817Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/explore.html</loc>
-    <lastmod>2023-10-12T10:26:42.453Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/FeatureImportance_Permutation_versus_MeanDecrease.html</loc>
-    <lastmod>2023-10-12T10:26:40.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/modelCalibration.html</loc>
-    <lastmod>2023-10-12T10:26:38.037Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/CohortFitDistribution.html</loc>
-    <lastmod>2023-10-12T10:26:36.549Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/SHAP_SHapley_Additive_exPlanations.html</loc>
-    <lastmod>2023-10-12T10:26:35.045Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/ReinforcementLearningConcept.html</loc>
-    <lastmod>2023-10-12T10:26:32.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/index.html</loc>
-    <lastmod>2023-10-12T10:26:31.221Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/jupyter.html</loc>
-    <lastmod>2023-10-12T10:26:29.849Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/learning-more.html</loc>
-    <lastmod>2023-10-12T10:26:28.377Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/statistic/KS-PSI_ENTROPY.html</loc>
-    <lastmod>2023-10-12T10:26:27.293Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/statistic/Index.html</loc>
-    <lastmod>2023-10-12T10:26:20.297Z</lastmod>
-  </url>
-  <url>
     <loc>https://nguyenngocbinh.github.io/papers/statistic/PSI_KS_ENTROPY.html</loc>
-    <lastmod>2023-10-12T10:26:17.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/statistic/confidenceIntervalWithSmallSampleSize.html</loc>
-    <lastmod>2023-10-12T10:26:19.853Z</lastmod>
+    <lastmod>2023-11-07T04:21:40.111Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/statistic/DiD.html</loc>
-    <lastmod>2023-10-12T10:26:21.141Z</lastmod>
+    <lastmod>2023-11-07T04:21:38.547Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/papers/statistic/StandardizedCoefficients.html</loc>
-    <lastmod>2023-10-12T10:26:27.921Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/browser.html</loc>
-    <lastmod>2023-10-12T10:26:28.941Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/rstudio.html</loc>
-    <lastmod>2023-10-12T10:26:30.613Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/transition-from-rmarkdown.html</loc>
-    <lastmod>2023-10-12T10:26:31.977Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/focal-loss.html</loc>
-    <lastmod>2023-10-12T10:26:33.589Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/statistic/KS-PSI_ENTROPY.html</loc>
+    <lastmod>2023-11-07T04:21:37.103Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.html</loc>
-    <lastmod>2023-10-12T10:26:35.785Z</lastmod>
+    <lastmod>2023-11-07T04:21:29.803Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/SHAP_SHapley_Additive_exPlanations.html</loc>
+    <lastmod>2023-11-07T04:21:27.843Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/modelCalibration.html</loc>
+    <lastmod>2023-11-07T04:21:25.175Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/focal-loss.html</loc>
+    <lastmod>2023-11-07T04:21:23.278Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/machine-learning/Index.html</loc>
-    <lastmod>2023-10-12T10:26:37.017Z</lastmod>
+    <lastmod>2023-11-07T04:21:21.630Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/delong_test.html</loc>
-    <lastmod>2023-10-12T10:26:38.917Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/transition-from-rmarkdown.html</loc>
+    <lastmod>2023-11-07T04:21:20.506Z</lastmod>
   </url>
   <url>
-    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/transformer.html</loc>
-    <lastmod>2023-10-12T10:26:41.637Z</lastmod>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/jupyter.html</loc>
+    <lastmod>2023-11-07T04:21:15.798Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/browser.html</loc>
+    <lastmod>2023-11-07T04:21:14.238Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/index.html</loc>
+    <lastmod>2023-11-07T04:21:13.026Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/explore.html</loc>
+    <lastmod>2023-11-07T04:21:11.986Z</lastmod>
   </url>
   <url>
     <loc>https://nguyenngocbinh.github.io/papers/irb/ModelGuideline.html</loc>
-    <lastmod>2023-10-12T10:26:43.249Z</lastmod>
+    <lastmod>2023-11-07T04:21:09.334Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/learning-more.html</loc>
+    <lastmod>2023-11-07T04:21:12.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/index.html</loc>
+    <lastmod>2023-11-07T04:21:13.678Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/quarto-workflows/rstudio.html</loc>
+    <lastmod>2023-11-07T04:21:14.954Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/IsolationForest.html</loc>
+    <lastmod>2023-11-07T04:21:19.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/ReinforcementLearningConcept.html</loc>
+    <lastmod>2023-11-07T04:21:21.202Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/CohortFitDistribution.html</loc>
+    <lastmod>2023-11-07T04:21:22.410Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/delong_test.html</loc>
+    <lastmod>2023-11-07T04:21:24.218Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/FeatureImportance_Permutation_versus_MeanDecrease.html</loc>
+    <lastmod>2023-11-07T04:21:26.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/machine-learning/transformer.html</loc>
+    <lastmod>2023-11-07T04:21:29.055Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/statistic/StandardizedCoefficients.html</loc>
+    <lastmod>2023-11-07T04:21:30.407Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/statistic/confidenceIntervalWithSmallSampleSize.html</loc>
+    <lastmod>2023-11-07T04:21:37.719Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nguyenngocbinh.github.io/papers/statistic/Index.html</loc>
+    <lastmod>2023-11-07T04:21:38.991Z</lastmod>
   </url>
 </urlset>
