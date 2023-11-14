@@ -48,12 +48,14 @@ website:
           - machine-learning/ReinforcementLearningConcept.ipynb
           - machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.ipynb
           - machine-learning/IsolationForest.ipynb
+          - machine-learning/Autoencoders.ipynb
       - section: statistic/Index.md
         contents:
           - statistic/StandardizedCoefficients.ipynb
           - statistic/confidenceIntervalWithSmallSampleSize.ipynb
           - statistic/PSI_KS_ENTROPY.ipynb  
           - statistic/DiD.ipynb
+          - statistic/MonteCarlo_Bootstrap.ipynb          
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
