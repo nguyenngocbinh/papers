@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nguyễn Ngọc Bình">
+
+<title>Making sharable documents - Autoencoders - anomaly detection</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Autoencoders - anomaly detection</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/b_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://nguyenngocbinh.github.io/papers" rel="" title="nguyenngocbinh.github.io/papers" class="quarto-navigation-tool px-1" aria-label="nguyenngocbinh.github.io/papers"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/nguyenngocbinh/papers" rel="" title="github" class="quarto-navigation-tool px-1" aria-label="github"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/nanabi88" rel="" title="nanabi88 Twitter" class="quarto-navigation-tool px-1" aria-label="nanabi88 Twitter"><i class="bi bi-twitter"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model guideline</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model guideline</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../machine-learning/Index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/focal-loss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Focal loss - handle class imbalance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/delong_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Delong method for AUC interval and AUC test</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/FeatureImportance_Permutation_versus_MeanDecrease.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overestimate feature importance in Random Forest</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/SHAP_SHapley_Additive_exPlanations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SHAP values and Coefficients of Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/CohortFitDistribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fit Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/modelCalibration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model calibration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transformer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/ReinforcementLearningConcept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reinforcement Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Reinforcement learning to enhance traditional scorecard</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">machine-learning/IsolationForest.ipynb</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../statistic/Index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistic</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/StandardizedCoefficients.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardized Coefficients vs Unstandardized Coefficients</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/confidenceIntervalWithSmallSampleSize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ước lượng khoảng tin cậy với cỡ mẫu nhỏ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/PSI_KS_ENTROPY.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Giám sát độ ổn định của mô hình</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/DiD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Difference-in-Differences (DiD)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../explore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore and setup</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../quarto-workflows/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto workflows</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto-workflows/browser.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From the Browser</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto-workflows/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quarto-workflows/jupyter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From Jupyter</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-more.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning more</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../transition-from-rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transition from Rmd</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#autoencoders" id="toc-autoencoders" class="nav-link active" data-scroll-target="#autoencoders">Autoencoders</a></li>
+  <li><a href="#so-sánh-autoencoders-với-pca-phân-tích-thành-phần-chính-và-isolation-forest-trong-phát-hiện-bất-thường" id="toc-so-sánh-autoencoders-với-pca-phân-tích-thành-phần-chính-và-isolation-forest-trong-phát-hiện-bất-thường" class="nav-link" data-scroll-target="#so-sánh-autoencoders-với-pca-phân-tích-thành-phần-chính-và-isolation-forest-trong-phát-hiện-bất-thường">So sánh Autoencoders với PCA (Phân tích thành phần chính) và Isolation Forest trong phát hiện bất thường:</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nguyenngocbinh/papers/blob/main/statistic/Autoencoders.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Autoencoders - anomaly detection</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nguyễn Ngọc Bình </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="autoencoders" class="level2">
+<h2 class="anchored" data-anchor-id="autoencoders">Autoencoders</h2>
+<p>Bộ mã hóa tự động (Autoencoders) là một loại kiến trúc mạng thần kinh thường được sử dụng cho nhiều tác vụ khác nhau, bao gồm cả phát hiện sự bất thường. Chúng đặc biệt hiệu quả trong việc phát hiện sự bất thường không có giám sát, trong đó mô hình học cách tái tạo lại dữ liệu thông thường và xác định các điểm bất thường là các điểm dữ liệu sai lệch đáng kể so với phiên bản được xây dựng lại.</p>
+<p>Sau đây là cách bộ mã hóa tự động hoạt động để phát hiện sự bất thường:</p>
+<ol type="1">
+<li><p><strong>Kiến trúc</strong>: Bộ mã hóa tự động bao gồm bộ mã hóa và bộ giải mã (encoder - decoder). Bộ mã hóa nén dữ liệu đầu vào thành biểu diễn có chiều thấp hơn và bộ giải mã cố gắng tái tạo lại dữ liệu đầu vào ban đầu từ biểu diễn này.</p></li>
+<li><p><strong>Encoder</strong>: Nén đầu vào thành một biểu diễn không gian ẩn. Lớp mã hóa mã hóa hình ảnh đầu vào dưới dạng biểu diễn nén ở kích thước giảm; bây giờ, ảnh nén trông giống ảnh gốc nhưng không giống ảnh gốc.</p></li>
+<li><p><strong>Decoder</strong>: Bộ giải mã giải mã hình ảnh được mã hóa trở lại hình ảnh gốc có cùng kích thước. Bộ giải mã đưa dữ liệu từ không gian ẩn thấp hơn đến giai đoạn tái tạo, trong đó kích thước của đầu ra được giải mã bằng đầu ra X ban đầu. Nhưng nếu chúng ta xem nó là nén Ảnh thì sẽ có nén không mất dữ liệu, nhưng trong trường hợp Autoencoders, thông tin bị mất do nó nén và giải nén đầu vào. Khi giải nén, nó cố gắng đạt gần đầu vào, nhưng đầu ra không hoàn toàn giống ban đầu.</p></li>
+<li><p><strong>Không gian ẩn (Latent Space)</strong>: Giảm số chiều của dữ liệu thấp hơn do bộ mã hóa tạo ra (thường được gọi là không gian ẩn hay nén dữ liệu). Ví dụ số chiều dữ liệu ban đầu là 10x10x1 sau khi giảm chiều hoặc nén lại còn 5x1 (kích thước latent space còn 5x1). Bây giờ, mỗi điểm dữ liệu 10x10x1 chỉ được xác định bởi 5 số</p></li>
+<li><p><strong>Lỗi tái tạo (Reconstruction Error)</strong>: Do quá trình nén (giảm chiều) rồi tái tạo về số chiều ban đầu làm cho thông tin đầu vào và đầu ra bị khác nhau. Sai khác này được gọi là <em>Lỗi tái tạo (Reconstruction Error)</em>. Các điểm bất thường được phát hiện dựa trên lỗi tái tạo của chúng. Với những điểm bất thường, lỗi tái tạo thường cao hơn nhiều so với dữ liệu thông thường.</p></li>
+<li><p><strong>Đào tạo</strong>: Bộ mã hóa tự động thường được đào tạo trên tập dữ liệu chỉ chứa dữ liệu thông thường. Mục tiêu là giảm thiểu lỗi tái tạo, nghĩa là bộ mã hóa tự động sẽ có thể tái tạo lại dữ liệu bình thường một cách chính xác trong khi gặp khó khăn trong việc tái tạo lại các điểm bất thường.</p></li>
+<li><p><strong>Ngưỡng</strong>: Việc phát hiện bất thường bằng bộ mã hóa tự động thường liên quan đến việc đặt ngưỡng cho lỗi tái tạo. Điểm dữ liệu có lỗi tái tạo vượt quá ngưỡng được coi là bất thường.</p></li>
+</ol>
+<p>Bộ mã hóa tự động có một số lợi thế để phát hiện sự bất thường:</p>
+<ul>
+<li>Chúng có thể nắm bắt các mẫu phức tạp trong dữ liệu, khiến chúng phù hợp với dữ liệu nhiều chiều.</li>
+<li>Chúng không được giám sát nên không yêu cầu dữ liệu bất thường được dán nhãn để huấn luyện.</li>
+<li>Chúng có khả năng thích ứng với các loại dữ liệu khác nhau, bao gồm dữ liệu số và hình ảnh.</li>
+</ul>
+</section>
+<section id="so-sánh-autoencoders-với-pca-phân-tích-thành-phần-chính-và-isolation-forest-trong-phát-hiện-bất-thường" class="level2">
+<h2 class="anchored" data-anchor-id="so-sánh-autoencoders-với-pca-phân-tích-thành-phần-chính-và-isolation-forest-trong-phát-hiện-bất-thường">So sánh Autoencoders với PCA (Phân tích thành phần chính) và Isolation Forest trong phát hiện bất thường:</h2>
+<ol type="1">
+<li><strong>Autoencoders</strong>:
+<ul>
+<li><strong>Thuận lợi</strong>:
+<ul>
+<li>Có thể nắm bắt các mẫu phức tạp, phi tuyến trong dữ liệu.</li>
+<li>Thích hợp cho dữ liệu nhiều chiều.</li>
+<li>Có thể tinh chỉnh cho các nhiệm vụ cụ thể.</li>
+</ul></li>
+<li><strong>Nhược điểm</strong>:
+<ul>
+<li>Yêu cầu nhiều dữ liệu và thời gian huấn luyện hơn so với PCA.</li>
+<li>Có thể cần phải điều chỉnh siêu tham số.</li>
+<li>Có thể bị overfit nếu không được điều chỉnh đúng cách.</li>
+</ul></li>
+</ul></li>
+<li><strong>PCA</strong>:
+<ul>
+<li><strong>Thuận lợi</strong>:
+<ul>
+<li>Đơn giản và hiệu quả tính toán.</li>
+<li>Hữu ích cho việc giảm kích thước và trực quan hóa.</li>
+<li>Cung cấp các tính năng trực giao, có thể nắm bắt một số mẫu.</li>
+</ul></li>
+<li><strong>Nhược điểm</strong>:
+<ul>
+<li>Phương pháp tuyến tính; có thể không nắm bắt được các mẫu phức tạp, phi tuyến.</li>
+<li>Giả sử dữ liệu được phân phối Gaussian.</li>
+<li>Không có tiêu chí cụ thể về dị thường; dựa vào các thuộc tính thống kê.</li>
+</ul></li>
+</ul></li>
+<li><strong>Isolation Forest</strong>:
+<ul>
+<li><strong>Thuận lợi</strong>:
+<ul>
+<li>Được thiết kế riêng cho mục đích phát hiện sự bất thường.</li>
+<li>Hoạt động tốt với cả dữ liệu có nhiều chiều và ít chiều.</li>
+<li>Có thể xử lý các kiểu dữ liệu hỗn hợp (số và phân loại).</li>
+</ul></li>
+<li><strong>Nhược điểm</strong>:
+<ul>
+<li>Dễ bị overfitting trên các tập dữ liệu nhỏ.</li>
+<li>Có thể yêu cầu tinh chỉnh các siêu tham số.</li>
+<li>Không giải thích được tại sao trường hợp cụ thể lại bất thường</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>Các yếu tố so sánh cần xem xét khi lựa chọn phương pháp cho nhiệm vụ phát hiện dấu vết bất thường của bạn:</p>
+<ul>
+<li><p><strong>Tính phức tạp của Dữ liệu</strong>: Autoencoders phù hợp cho dữ liệu phức tạp, phi tuyến tính, trong khi PCA và Isolation Forest thích hợp cho dữ liệu đơn giản, tuyến tính hơn.</p></li>
+<li><p><strong>Số chiều</strong>: Nếu làm việc với dữ liệu có số chiều cao, autoencoders và PCA có thể hữu ích hơn. PCA đặc biệt tốt cho việc giảm chiều dữ liệu.</p></li>
+<li><p><strong>Khả năng diễn giải</strong>: PCA cung cấp biến đổi đặc trưng và điểm số thành phần có thể diễn giải. Autoencoders và Isolation Forest không cung cấp điều này theo cách tự nhiên.</p></li>
+<li><p><strong>Tính toán</strong>: PCA hiệu quả tính toán nhất, theo sau là Isolation Forest. Autoencoders yêu cầu nhiều tài nguyên tính toán hơn cho quá trình đào tạo.</p></li>
+<li><p><strong>Kích thước Dữ liệu</strong>: Isolation Forest có thể gây overfitting trên tập dữ liệu nhỏ hơn. Autoencoders và PCA có thể mạnh mẽ hơn đối với tập dữ liệu nhỏ.</p></li>
+<li><p><strong>Loại đặc trưng</strong>: Nếu dữ liệu của bạn bao gồm cả số và phân loại, Isolation Forest phù hợp hơn vì nó có thể xử lý cả hai loại dữ liệu. Autoencoders và PCA thường được sử dụng cho dữ liệu số.</p></li>
+<li><p><strong>Sự có sẵn của Dữ liệu Đào tạo</strong>: Autoencoders yêu cầu nhiều dữ liệu đào tạo hơn so với Isolation Forest và PCA, có thể xử lý các tập dữ liệu nhỏ hơn.</p></li>
+<li><p><strong>Tinh chỉnh siêu tham số</strong>: Tất cả các phương pháp có thể yêu cầu một mức độ tinh chỉnh siêu tham số, nhưng autoencoders có thể yêu cầu nhiều hơn.</p></li>
+<li><p><strong>Mục đích Sử dụng</strong>: Xem xét yêu cầu cụ thể và tính chất của vấn đề phát hiện dấu vết bất thường của bạn. Mỗi phương pháp có thể hoạt động tố</p></li>
+</ul>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> Input, Dense</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> Model</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the German Credit Data (you can download it from the source)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data_url <span class="op">=</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german/german.data"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>column_names <span class="op">=</span> [<span class="st">'existing_checking'</span>, <span class="st">'duration'</span>, <span class="st">'credit_history'</span>, <span class="st">'purpose'</span>, <span class="st">'credit_amount'</span>, <span class="st">'savings'</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">'employment'</span>, <span class="st">'installment_rate'</span>, <span class="st">'personal_status'</span>, <span class="st">'other_debtors'</span>, <span class="st">'residence_since'</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">'property'</span>, <span class="st">'age'</span>, <span class="st">'other_installment_plans'</span>, <span class="st">'housing'</span>, <span class="st">'existing_credits'</span>, <span class="st">'job'</span>, <span class="st">'people_liable'</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                <span class="st">'telephone'</span>, <span class="st">'foreign_worker'</span>, <span class="st">'class'</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(data_url, delimiter<span class="op">=</span><span class="st">' '</span>, names<span class="op">=</span>column_names)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert categorical columns to one-hot encoding</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>categorical_columns <span class="op">=</span> [<span class="st">'existing_checking'</span>, <span class="st">'credit_history'</span>, <span class="st">'purpose'</span>, <span class="st">'savings'</span>, <span class="st">'employment'</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                       <span class="st">'personal_status'</span>, <span class="st">'other_debtors'</span>, <span class="st">'property'</span>, <span class="st">'other_installment_plans'</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                       <span class="st">'housing'</span>, <span class="st">'job'</span>, <span class="st">'telephone'</span>, <span class="st">'foreign_worker'</span>]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.get_dummies(data, columns<span class="op">=</span>categorical_columns, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into features and labels</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(<span class="st">'class'</span>, axis<span class="op">=</span><span class="dv">1</span>).values</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'class'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define and train the autoencoder model</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>input_dim <span class="op">=</span> X.shape[<span class="dv">1</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>encoding_dim <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Number of neurons in the encoding layer</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>input_layer <span class="op">=</span> Input(shape<span class="op">=</span>(input_dim,))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>encoded <span class="op">=</span> Dense(encoding_dim, activation<span class="op">=</span><span class="st">'relu'</span>)(input_layer)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> Dense(input_dim, activation<span class="op">=</span><span class="st">'linear'</span>)(encoded)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>autoencoder <span class="op">=</span> Model(input_layer, decoded)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>autoencoder.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'mean_squared_error'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>autoencoder.fit(X, X, epochs<span class="op">=</span><span class="dv">50</span>, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the autoencoder model on the entire dataset</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>reconstruction_errors <span class="op">=</span> np.mean(np.square(X <span class="op">-</span> autoencoder.predict(X)), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a threshold for anomalies</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> np.percentile(reconstruction_errors, <span class="dv">95</span>)  <span class="co"># Example threshold (adjust as needed)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Detect anomalies for the entire dataset</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>anomalies_detected <span class="op">=</span> reconstruction_errors <span class="op">&gt;</span> threshold</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the number of anomalies detected</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/50
+16/16 [==============================] - 0s 2ms/step - loss: 1.1801
+Epoch 2/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.1139
+Epoch 3/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.0666
+Epoch 4/50
+16/16 [==============================] - 0s 2ms/step - loss: 1.0310
+Epoch 5/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.0032
+Epoch 6/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9797
+Epoch 7/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9594
+Epoch 8/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9411
+Epoch 9/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9241
+Epoch 10/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9077
+Epoch 11/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8921
+Epoch 12/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8774
+Epoch 13/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8631
+Epoch 14/50
+16/16 [==============================] - 0s 3ms/step - loss: 0.8497
+Epoch 15/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.8370
+Epoch 16/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8249
+Epoch 17/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8138
+Epoch 18/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8033
+Epoch 19/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7934
+Epoch 20/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7843
+Epoch 21/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.7759
+Epoch 22/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7681
+Epoch 23/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7609
+Epoch 24/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7544
+Epoch 25/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7483
+Epoch 26/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7425
+Epoch 27/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7373
+Epoch 28/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7322
+Epoch 29/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7277
+Epoch 30/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7234
+Epoch 31/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7193
+Epoch 32/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7154
+Epoch 33/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7118
+Epoch 34/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7082
+Epoch 35/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7049
+Epoch 36/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7017
+Epoch 37/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6988
+Epoch 38/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6958
+Epoch 39/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6931
+Epoch 40/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6904
+Epoch 41/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6878
+Epoch 42/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6853
+Epoch 43/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6828
+Epoch 44/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6804
+Epoch 45/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6781
+Epoch 46/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6758
+Epoch 47/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6737
+Epoch 48/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.6716
+Epoch 49/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.6697
+Epoch 50/50
+16/16 [==============================] - 0s 10ms/step - loss: 0.6675
+32/32 [==============================] - 0s 936us/step
+Anomalies detected: 50 out of 1000</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the rows of data that are anomalies</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>anomalous_data <span class="op">=</span> data[anomalies_detected]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>anomalous_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">duration</th>
+<th data-quarto-table-cell-role="th">credit_amount</th>
+<th data-quarto-table-cell-role="th">installment_rate</th>
+<th data-quarto-table-cell-role="th">residence_since</th>
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">existing_credits</th>
+<th data-quarto-table-cell-role="th">people_liable</th>
+<th data-quarto-table-cell-role="th">class</th>
+<th data-quarto-table-cell-role="th">existing_checking_A12</th>
+<th data-quarto-table-cell-role="th">existing_checking_A13</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">property_A124</th>
+<th data-quarto-table-cell-role="th">other_installment_plans_A142</th>
+<th data-quarto-table-cell-role="th">other_installment_plans_A143</th>
+<th data-quarto-table-cell-role="th">housing_A152</th>
+<th data-quarto-table-cell-role="th">housing_A153</th>
+<th data-quarto-table-cell-role="th">job_A172</th>
+<th data-quarto-table-cell-role="th">job_A173</th>
+<th data-quarto-table-cell-role="th">job_A174</th>
+<th data-quarto-table-cell-role="th">telephone_A192</th>
+<th data-quarto-table-cell-role="th">foreign_worker_A202</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>10</td>
+<td>1225</td>
+<td>2</td>
+<td>2</td>
+<td>37</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">42</td>
+<td>18</td>
+<td>6204</td>
+<td>2</td>
+<td>4</td>
+<td>44</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">65</td>
+<td>27</td>
+<td>5190</td>
+<td>4</td>
+<td>4</td>
+<td>48</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">72</td>
+<td>8</td>
+<td>1164</td>
+<td>3</td>
+<td>4</td>
+<td>51</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">83</td>
+<td>24</td>
+<td>1755</td>
+<td>4</td>
+<td>4</td>
+<td>58</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">105</td>
+<td>24</td>
+<td>11938</td>
+<td>2</td>
+<td>3</td>
+<td>39</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">156</td>
+<td>9</td>
+<td>1288</td>
+<td>3</td>
+<td>4</td>
+<td>48</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">157</td>
+<td>12</td>
+<td>339</td>
+<td>4</td>
+<td>1</td>
+<td>45</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">162</td>
+<td>15</td>
+<td>1262</td>
+<td>4</td>
+<td>3</td>
+<td>36</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">203</td>
+<td>12</td>
+<td>902</td>
+<td>4</td>
+<td>4</td>
+<td>21</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">207</td>
+<td>12</td>
+<td>1424</td>
+<td>4</td>
+<td>3</td>
+<td>26</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">209</td>
+<td>12</td>
+<td>1413</td>
+<td>3</td>
+<td>2</td>
+<td>55</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">215</td>
+<td>6</td>
+<td>932</td>
+<td>1</td>
+<td>3</td>
+<td>39</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">226</td>
+<td>48</td>
+<td>10961</td>
+<td>1</td>
+<td>2</td>
+<td>27</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">244</td>
+<td>12</td>
+<td>3447</td>
+<td>4</td>
+<td>3</td>
+<td>35</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">274</td>
+<td>30</td>
+<td>11998</td>
+<td>1</td>
+<td>1</td>
+<td>34</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">287</td>
+<td>48</td>
+<td>7582</td>
+<td>2</td>
+<td>4</td>
+<td>31</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">310</td>
+<td>48</td>
+<td>5381</td>
+<td>3</td>
+<td>4</td>
+<td>40</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">337</td>
+<td>15</td>
+<td>1275</td>
+<td>4</td>
+<td>2</td>
+<td>24</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">350</td>
+<td>9</td>
+<td>1236</td>
+<td>1</td>
+<td>4</td>
+<td>23</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">374</td>
+<td>60</td>
+<td>14782</td>
+<td>3</td>
+<td>4</td>
+<td>60</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">429</td>
+<td>18</td>
+<td>1190</td>
+<td>2</td>
+<td>4</td>
+<td>55</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">431</td>
+<td>24</td>
+<td>11328</td>
+<td>2</td>
+<td>3</td>
+<td>29</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">436</td>
+<td>6</td>
+<td>660</td>
+<td>2</td>
+<td>4</td>
+<td>23</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">438</td>
+<td>42</td>
+<td>3394</td>
+<td>4</td>
+<td>4</td>
+<td>65</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">442</td>
+<td>20</td>
+<td>2629</td>
+<td>2</td>
+<td>3</td>
+<td>29</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">449</td>
+<td>15</td>
+<td>1512</td>
+<td>3</td>
+<td>3</td>
+<td>61</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">458</td>
+<td>6</td>
+<td>343</td>
+<td>4</td>
+<td>1</td>
+<td>27</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">463</td>
+<td>12</td>
+<td>754</td>
+<td>4</td>
+<td>4</td>
+<td>38</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">473</td>
+<td>6</td>
+<td>1238</td>
+<td>4</td>
+<td>4</td>
+<td>36</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">579</td>
+<td>24</td>
+<td>937</td>
+<td>4</td>
+<td>3</td>
+<td>27</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">583</td>
+<td>36</td>
+<td>2384</td>
+<td>4</td>
+<td>1</td>
+<td>33</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">588</td>
+<td>18</td>
+<td>1217</td>
+<td>4</td>
+<td>3</td>
+<td>47</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">594</td>
+<td>24</td>
+<td>1358</td>
+<td>4</td>
+<td>3</td>
+<td>40</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">610</td>
+<td>12</td>
+<td>741</td>
+<td>4</td>
+<td>3</td>
+<td>22</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">613</td>
+<td>24</td>
+<td>3632</td>
+<td>1</td>
+<td>4</td>
+<td>22</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">665</td>
+<td>24</td>
+<td>6314</td>
+<td>4</td>
+<td>2</td>
+<td>27</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">666</td>
+<td>30</td>
+<td>3496</td>
+<td>4</td>
+<td>2</td>
+<td>34</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">721</td>
+<td>6</td>
+<td>433</td>
+<td>4</td>
+<td>2</td>
+<td>24</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">735</td>
+<td>36</td>
+<td>3990</td>
+<td>3</td>
+<td>2</td>
+<td>29</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">754</td>
+<td>12</td>
+<td>1555</td>
+<td>4</td>
+<td>4</td>
+<td>55</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">782</td>
+<td>12</td>
+<td>1410</td>
+<td>2</td>
+<td>2</td>
+<td>31</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">813</td>
+<td>48</td>
+<td>3051</td>
+<td>3</td>
+<td>4</td>
+<td>54</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">816</td>
+<td>6</td>
+<td>1338</td>
+<td>1</td>
+<td>4</td>
+<td>62</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">818</td>
+<td>36</td>
+<td>15857</td>
+<td>2</td>
+<td>3</td>
+<td>43</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">856</td>
+<td>10</td>
+<td>894</td>
+<td>4</td>
+<td>3</td>
+<td>40</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">873</td>
+<td>15</td>
+<td>874</td>
+<td>4</td>
+<td>1</td>
+<td>24</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">915</td>
+<td>48</td>
+<td>18424</td>
+<td>1</td>
+<td>2</td>
+<td>32</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">964</td>
+<td>6</td>
+<td>454</td>
+<td>3</td>
+<td>1</td>
+<td>22</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">970</td>
+<td>15</td>
+<td>1514</td>
+<td>4</td>
+<td>2</td>
+<td>22</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>50 rows × 49 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into train and test sets</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define and train the autoencoder model</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>input_dim <span class="op">=</span> X_train.shape[<span class="dv">1</span>]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>encoding_dim <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Number of neurons in the encoding layer</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>input_layer <span class="op">=</span> Input(shape<span class="op">=</span>(input_dim,))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>encoded <span class="op">=</span> Dense(encoding_dim, activation<span class="op">=</span><span class="st">'relu'</span>)(input_layer)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> Dense(input_dim, activation<span class="op">=</span><span class="st">'linear'</span>)(encoded)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>autoencoder <span class="op">=</span> Model(input_layer, decoded)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>autoencoder.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'mean_squared_error'</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>autoencoder.fit(X_train, X_train, epochs<span class="op">=</span><span class="dv">50</span>, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>, validation_data<span class="op">=</span>(X_test, X_test))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the autoencoder model on the test set</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>reconstruction_errors <span class="op">=</span> np.mean(np.square(X_test <span class="op">-</span> autoencoder.predict(X_test)), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a threshold for anomalies</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> np.percentile(reconstruction_errors, <span class="dv">95</span>)  <span class="co"># Example threshold (adjust as needed)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Detect anomalies</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>anomalies_detected <span class="op">=</span> reconstruction_errors <span class="op">&gt;</span> threshold</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the number of anomalies detected</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/50
+13/13 [==============================] - 0s 11ms/step - loss: 1.2654 - val_loss: 1.1622
+Epoch 2/50
+13/13 [==============================] - 0s 4ms/step - loss: 1.1879 - val_loss: 1.1093
+Epoch 3/50
+13/13 [==============================] - 0s 4ms/step - loss: 1.1322 - val_loss: 1.0692
+Epoch 4/50
+13/13 [==============================] - 0s 4ms/step - loss: 1.0886 - val_loss: 1.0381
+Epoch 5/50
+13/13 [==============================] - 0s 4ms/step - loss: 1.0551 - val_loss: 1.0139
+Epoch 6/50
+13/13 [==============================] - 0s 4ms/step - loss: 1.0286 - val_loss: 0.9934
+Epoch 7/50
+13/13 [==============================] - 0s 4ms/step - loss: 1.0062 - val_loss: 0.9760
+Epoch 8/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.9867 - val_loss: 0.9606
+Epoch 9/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.9696 - val_loss: 0.9468
+Epoch 10/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.9543 - val_loss: 0.9342
+Epoch 11/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.9399 - val_loss: 0.9223
+Epoch 12/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.9263 - val_loss: 0.9112
+Epoch 13/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.9133 - val_loss: 0.9005
+Epoch 14/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.9009 - val_loss: 0.8902
+Epoch 15/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.8892 - val_loss: 0.8801
+Epoch 16/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.8779 - val_loss: 0.8707
+Epoch 17/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.8670 - val_loss: 0.8614
+Epoch 18/50
+13/13 [==============================] - 0s 5ms/step - loss: 0.8566 - val_loss: 0.8528
+Epoch 19/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.8468 - val_loss: 0.8442
+Epoch 20/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.8375 - val_loss: 0.8360
+Epoch 21/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.8283 - val_loss: 0.8283
+Epoch 22/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.8197 - val_loss: 0.8211
+Epoch 23/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.8116 - val_loss: 0.8140
+Epoch 24/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.8040 - val_loss: 0.8074
+Epoch 25/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7966 - val_loss: 0.8010
+Epoch 26/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7898 - val_loss: 0.7953
+Epoch 27/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7833 - val_loss: 0.7896
+Epoch 28/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7771 - val_loss: 0.7845
+Epoch 29/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7714 - val_loss: 0.7796
+Epoch 30/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7658 - val_loss: 0.7751
+Epoch 31/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7608 - val_loss: 0.7706
+Epoch 32/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7560 - val_loss: 0.7665
+Epoch 33/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7515 - val_loss: 0.7628
+Epoch 34/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7473 - val_loss: 0.7590
+Epoch 35/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7431 - val_loss: 0.7558
+Epoch 36/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7393 - val_loss: 0.7526
+Epoch 37/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7356 - val_loss: 0.7495
+Epoch 38/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7322 - val_loss: 0.7468
+Epoch 39/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7289 - val_loss: 0.7437
+Epoch 40/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7259 - val_loss: 0.7413
+Epoch 41/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7228 - val_loss: 0.7385
+Epoch 42/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7201 - val_loss: 0.7362
+Epoch 43/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7174 - val_loss: 0.7340
+Epoch 44/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7149 - val_loss: 0.7318
+Epoch 45/50
+13/13 [==============================] - 0s 5ms/step - loss: 0.7123 - val_loss: 0.7297
+Epoch 46/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7100 - val_loss: 0.7275
+Epoch 47/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7078 - val_loss: 0.7256
+Epoch 48/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7056 - val_loss: 0.7235
+Epoch 49/50
+13/13 [==============================] - 0s 3ms/step - loss: 0.7035 - val_loss: 0.7215
+Epoch 50/50
+13/13 [==============================] - 0s 4ms/step - loss: 0.7012 - val_loss: 0.7197
+7/7 [==============================] - 0s 1ms/step
+Anomalies detected: 10 out of 200</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into features and labels</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(<span class="st">'class'</span>, axis<span class="op">=</span><span class="dv">1</span>).values</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'class'</span>].values</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define and train the autoencoder model</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>input_dim <span class="op">=</span> X.shape[<span class="dv">1</span>]</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>encoding_dim <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Number of neurons in the encoding layer</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>input_layer <span class="op">=</span> Input(shape<span class="op">=</span>(input_dim,))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>encoded <span class="op">=</span> Dense(encoding_dim, activation<span class="op">=</span><span class="st">'relu'</span>)(input_layer)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>decoded <span class="op">=</span> Dense(input_dim, activation<span class="op">=</span><span class="st">'linear'</span>)(encoded)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>autoencoder <span class="op">=</span> Model(input_layer, decoded)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>autoencoder.<span class="bu">compile</span>(optimizer<span class="op">=</span><span class="st">'adam'</span>, loss<span class="op">=</span><span class="st">'mean_squared_error'</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>autoencoder.fit(X, X, epochs<span class="op">=</span><span class="dv">50</span>, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the autoencoder model on the entire dataset</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>reconstruction_errors <span class="op">=</span> np.mean(np.square(X <span class="op">-</span> autoencoder.predict(X)), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a threshold for anomalies</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> np.percentile(reconstruction_errors, <span class="dv">95</span>)  <span class="co"># Example threshold (adjust as needed)</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Detect anomalies for the entire dataset</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>anomalies_detected <span class="op">=</span> reconstruction_errors <span class="op">&gt;</span> threshold</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the number of anomalies detected</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.2795
+Epoch 2/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.1882
+Epoch 3/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.1245
+Epoch 4/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.0789
+Epoch 5/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.0441
+Epoch 6/50
+16/16 [==============================] - 0s 1ms/step - loss: 1.0170
+Epoch 7/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9944
+Epoch 8/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9754
+Epoch 9/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9588
+Epoch 10/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9433
+Epoch 11/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9291
+Epoch 12/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9158
+Epoch 13/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.9028
+Epoch 14/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8905
+Epoch 15/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.8784
+Epoch 16/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8665
+Epoch 17/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8548
+Epoch 18/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8433
+Epoch 19/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8321
+Epoch 20/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.8211
+Epoch 21/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.8105
+Epoch 22/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.8005
+Epoch 23/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7909
+Epoch 24/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7817
+Epoch 25/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7733
+Epoch 26/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7654
+Epoch 27/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7583
+Epoch 28/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7516
+Epoch 29/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7455
+Epoch 30/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.7400
+Epoch 31/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7346
+Epoch 32/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7297
+Epoch 33/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7253
+Epoch 34/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.7211
+Epoch 35/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7170
+Epoch 36/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7133
+Epoch 37/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7099
+Epoch 38/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7067
+Epoch 39/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7036
+Epoch 40/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.7006
+Epoch 41/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6979
+Epoch 42/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6952
+Epoch 43/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6927
+Epoch 44/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6903
+Epoch 45/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6881
+Epoch 46/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6860
+Epoch 47/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6839
+Epoch 48/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.6819
+Epoch 49/50
+16/16 [==============================] - 0s 2ms/step - loss: 0.6800
+Epoch 50/50
+16/16 [==============================] - 0s 1ms/step - loss: 0.6782
+32/32 [==============================] - 0s 935us/step
+Anomalies detected: 50 out of 1000</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-By NguyenNgocBinh, 2023</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
