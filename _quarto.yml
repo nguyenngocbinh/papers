@@ -55,7 +55,8 @@ website:
           - statistic/confidenceIntervalWithSmallSampleSize.ipynb
           - statistic/PSI_KS_ENTROPY.ipynb  
           - statistic/DiD.ipynb
-          - statistic/MonteCarlo_Bootstrap.ipynb          
+          - statistic/MonteCarlo_Bootstrap.ipynb 
+          - statistic/Binomial_interval.ipynb
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
