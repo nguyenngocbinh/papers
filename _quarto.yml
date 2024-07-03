@@ -57,6 +57,7 @@ website:
           - statistic/DiD.ipynb
           - statistic/MonteCarlo_Bootstrap.ipynb 
           - statistic/Binomial_interval.ipynb
+          - statistic/ordinal_regression.ipynb
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
