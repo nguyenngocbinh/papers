@@ -532,14 +532,15 @@ window.Quarto = {
 </section>
 <section id="hàm-log-likelihood" class="level4">
 <h4 class="anchored" data-anchor-id="hàm-log-likelihood">Hàm Log-Likelihood</h4>
-<p>Hàm log-likelihood là: <span class="math display">\[ \ln L = \sum_{j=1}^N \sum_{i=1}^k l_i(y_j) \ln p_{ij} \]</span></p>
-<p>Trong đó: - $ w_j $ là một trọng số tùy chọn. - $ l_i(y_j) $ là hàm chỉ báo (indicator function): <span class="math display">\[
+<p>Hàm log-likelihood là: <span class="math display">\[ \ln L = \sum_{j=1}^N Wj \sum_{i=1}^k l_i(y_j) \ln p_{ij} \]</span></p>
+<p>Trong đó: - $ w_j $ là một trọng số tùy chọn. - $ l_i(y_j) $ : <span class="math display">\[
   l_i(y_j) =
   \begin{cases}
   1 &amp; \text{nếu } y_j = i \\
   0 &amp; \text{ngược lại}
   \end{cases}
   \]</span></p>
+<p>Nguồn: <a href="https://www.stata.com/manuals/rologit.pdf#rologitMethodsandformulas">rologit</a></p>
 </section>
 </section>
 <section id="cách-giải-thích-kết-quả-của-mô-hình-ordinal-logistic" class="level3">
