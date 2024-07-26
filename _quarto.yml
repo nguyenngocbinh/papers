@@ -42,6 +42,7 @@ website:
           - machine-learning/delong_test.ipynb
           - machine-learning/FeatureImportance_Permutation_versus_MeanDecrease.ipynb
           - machine-learning/SHAP_SHapley_Additive_exPlanations.ipynb
+          - machine-learning/cal_shap_use_lightgbm.ipynb
           - machine-learning/CohortFitDistribution.ipynb
           - machine-learning/modelCalibration.ipynb
           - machine-learning/transformer.md
