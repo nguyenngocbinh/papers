@@ -59,6 +59,7 @@ website:
           - statistic/MonteCarlo_Bootstrap.ipynb 
           - statistic/Binomial_interval.ipynb
           - statistic/ordinal_regression.ipynb
+          - statistic/Closeness_Evaluation_Measure_CEM.ipynb
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
