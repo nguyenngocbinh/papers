@@ -1,45 +1,50 @@
 ---
-title: "Making shareable documents with Quarto"
-subtitle: "Create open-source tutorials, onboarding docs, and much more"
+title: "Giới thiệu"
+author: "Nguyen Ngoc Binh"
+date: "2023-09-14"
+format: html
 ---
 
-## Welcome {#welcome}
+# Giới thiệu về tôi
 
-It's possible to create beautiful documentation to share online with [Quarto](https://quarto.org) that auto-updates with [GitHub](http://github.com). This is very new and incredibly cool. This tutorial is an example of a quarto website --- it is a really powerful way to create and share your work. You can communicate about science using the same reproducible workflow you and/or your colleagues use for analyses, whether or not you write code.
+Trong trang web này, tôi sẽ chia sẻ những dự án và tài liệu liên quan đến các chủ đề như:
 
-Creating websites with Quarto can be done without knowing R, Python or HTML, CSS, etc, and that's where we'll start. However, Quarto integrates with these tools so you can make your websites as complex and beautiful as you like as you see examples and reuse and remix from others in the open community. This tutorial borrows heavily from a lot of great tutorials and resources you should check out too -- there are links throughout.
+- **Học máy (Machine Learning)**
+- **Thống kê (Statistics)**
 
-## What is Quarto?
+Tôi cũng rất quan tâm đến việc xây dựng các tài liệu dễ chia sẻ và có thể tái sử dụng, giúp cộng đồng dễ dàng áp dụng trong công việc của mình.
 
-Quarto helps you have your ideas and your code in one place, and present it in a beautiful way. 
+## Các nội dung chính
 
-**Quarto unifies and extends the RMarkdown ecosystem** - it unifies by combining the functionality of R Markdown, bookdown, distill, xaringian, etc into a single consistent system. And it extends in several ways: all features are possible beyond R too, including Python and Javascript. It also has more “guardrails”: accessibility and inclusion are centered in the design. Quarto is for people who love RMarkdown, and it's for people who have never used RMarkdown. 
- 
+Dưới đây là các chủ đề mà tôi đã thực hiện và chia sẻ:
 
-The ability for Quarto to streamline collaboration has been so cool and important for our [NASA Openscapes](https://nasa-openscapes.github.io/) project. Quarto has been a common place for us to collaborate - across R and Python languages and coding expertise. 
+### 1. Học máy (Machine Learning)
+Tôi đã thực hiện nhiều nghiên cứu và dự án liên quan đến học máy, bao gồm các chủ đề như:
 
-## What is this tutorial?
+- **Focal Loss**: Cải thiện hiệu suất cho các mô hình phân loại mất cân bằng.
+- **Delong Test**: Phương pháp so sánh đường cong ROC giữa các mô hình khác nhau.
+- **Permutation Feature Importance**: Phân tích tầm quan trọng của các đặc trưng trong mô hình.
+- **SHAP**: Giải thích các dự đoán của mô hình bằng phương pháp SHAP (SHapley Additive exPlanations).
+- **Model Calibration**: Điều chỉnh xác suất dự đoán của mô hình.
+- **Reinforcement Learning**: Ứng dụng học tăng cường để tối ưu hóa mô hình.
 
-This is a 1-hour tutorial that can be used to teach or as self-paced learning. 
+[Khám phá thêm tại đây](machine-learning/Index.md)
 
-We introduce Quarto by exploring this tutorial website, and practicing the basic Quarto workflow using different tools (GitHub browser, RStudio, and Jupyter) for editing your website.
+### 2. Thống kê (Statistics)
+Một số nội dung tôi đã làm về thống kê bao gồm:
 
-We'll start off from the browser so you don't need to install any additional software, however this approach is very limited and you will soon outgrow its capabilities. If you don't already have a workflow to edit files and sync to GitHub from your computer, I recommend RStudio. You don't need to know R to use RStudio, and it has powerful editor features that make for happy workflows.
+- **Confidence Interval with Small Sample Size**: Tính toán khoảng tin cậy cho mẫu dữ liệu nhỏ.
+- **PSI, KS, Entropy**: Các phương pháp đánh giá sự khác biệt trong phân phối.
+- **Difference-in-Differences (DiD)**: Phương pháp để ước lượng ảnh hưởng của một sự can thiệp.
+- **Monte Carlo và Bootstrap**: Kỹ thuật lấy mẫu để ước lượng thống kê.
 
-[Quarto.org](https://quarto.org) is the go-to place for full documentation and more tutorials! 
+[Tìm hiểu thêm tại đây](statistic/Index.md)
 
-## Example Quarto sites
+## Thông tin thêm
 
-A few Quarto websites from Openscapes - so far we have been using Quarto for documentation using Quarto and Markdown files and Jupyter Notebooks.
+Thông tin về các source code (github hoặc gitlab):
 
--   [Champions Lessons Series](https://openscapes.github.io/series)
--   [Openscapes Approach Guide](https://openscapes.github.io/approach-guide/)\
--   [2021 NASA Cloud Hackathon](https://nasa-openscapes.github.io/2021-Cloud-Hackathon/)
--   [Faylab Lab Manual](https://thefaylab.github.io/lab-manual/)
--   [A Quarto tip a day](https://mine-cetinkaya-rundel.github.io/quarto-tip-a-day/), by Mine Çetinkaya-Rundel
+- [Trang web cá nhân](https://nguyenngocbinh.github.io/papers) (same link for gitlab)
+- [GitHub](https://github.com/nguyenngocbinh/papers) (same link for gitlab)
+- [Twitter](https://twitter.com/nanabi88)
 
-## About
-
-[Openscapes](https://openscapes.org) is about better science for future us. We help researchers reimagine data analysis, develop modern skills that are of immediate value to them, and cultivate collaborative and inclusive research teams as part of the broader global open movement.
-
-We're developing this tutorial to help folks with different levels of technical skills use [Quarto](https://quarto.org) for documentation and tutorial building. This tutorial was originally created for several different audiences: [NASA-Openscapes](https://nasa-openscapes.github.io) researcher support engineers using Python, communications directors at organizations promoting open science who do not identify as coders, and fisheries scientists curious about transitioning from RMarkdown. We're hoping it's useful to folks with backgrounds as wide as these; if you find it useful or have suggestions for improvement, please let us know by clicking "Edit this page" or "Report an issue" at the upper right side of any page.
