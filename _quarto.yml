@@ -50,6 +50,7 @@ website:
           - machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.ipynb
           - machine-learning/IsolationForest.ipynb
           - machine-learning/Autoencoders.ipynb
+          - machine-learning/Classifier_Chain.ipynb
       - section: statistic/Index.md
         contents:
           - statistic/StandardizedCoefficients.ipynb
