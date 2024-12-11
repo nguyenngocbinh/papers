@@ -61,6 +61,7 @@ website:
           - statistic/Binomial_interval.ipynb
           - statistic/ordinal_regression.ipynb
           - statistic/Closeness_Evaluation_Measure_CEM.ipynb
+          - statistic/Wine_Quality_Monotonic_Binning.ipynb
       - explore.qmd
       - section: quarto-workflows/index.qmd
         contents: 
