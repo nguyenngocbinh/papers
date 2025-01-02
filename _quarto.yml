@@ -52,6 +52,7 @@ website:
           - machine-learning/Autoencoders.ipynb
           - machine-learning/Classifier_Chain.ipynb
           - machine-learning/Wine_Quality_pytorch.ipynb
+          - machine-learning/Partial_dependence_and_Accumulated_local_Profiles.ipynb
       - section: statistic/Index.md
         contents:
           - statistic/StandardizedCoefficients.ipynb
