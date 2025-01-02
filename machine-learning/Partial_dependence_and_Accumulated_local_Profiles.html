@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Model guideline – Making sharable documents</title>
+<title>Partial-dependence Profiles vs Accumulated-local Profiles – Making sharable documents</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../machine-learning/Index.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../statistic/Index.html" rel="next">
+<link href="../machine-learning/Wine_Quality_pytorch.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../irb/ModelGuideline.html">Model guideline</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/Index.html">Machine learning</a></li><li class="breadcrumb-item"><a href="../machine-learning/Partial_dependence_and_Accumulated_local_Profiles.html">Partial-dependence Profiles vs Accumulated-local Profiles</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,16 +184,16 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
+            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model guideline</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
+  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model guideline</span></a>
   </div>
 </li>
@@ -140,11 +203,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../machine-learning/Index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Machine learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../machine-learning/focal-loss.html" class="sidebar-item-text sidebar-link">
@@ -231,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../machine-learning/Partial_dependence_and_Accumulated_local_Profiles.html" class="sidebar-item-text sidebar-link">
+  <a href="../machine-learning/Partial_dependence_and_Accumulated_local_Profiles.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Partial-dependence Profiles vs Accumulated-local Profiles</span></a>
   </div>
 </li>
@@ -359,34 +422,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#triết-lý-xây-dựng-mô-hình" id="toc-triết-lý-xây-dựng-mô-hình" class="nav-link active" data-scroll-target="#triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</a></li>
-  <li><a href="#phạm-vi-mô-hình" id="toc-phạm-vi-mô-hình" class="nav-link" data-scroll-target="#phạm-vi-mô-hình">Phạm vi mô hình</a></li>
-  <li><a href="#single-factor-analysis" id="toc-single-factor-analysis" class="nav-link" data-scroll-target="#single-factor-analysis">Single factor analysis</a>
-  <ul class="collapse">
-  <li><a href="#woe-binning" id="toc-woe-binning" class="nav-link" data-scroll-target="#woe-binning">WoE binning</a></li>
-  <li><a href="#chuẩn-hóa-biến" id="toc-chuẩn-hóa-biến" class="nav-link" data-scroll-target="#chuẩn-hóa-biến">Chuẩn hóa biến</a></li>
-  </ul></li>
-  <li><a href="#multiple-factors-analysis" id="toc-multiple-factors-analysis" class="nav-link" data-scroll-target="#multiple-factors-analysis">Multiple Factors Analysis</a></li>
-  <li><a href="#chọn-mô-hình-cuối-cùng" id="toc-chọn-mô-hình-cuối-cùng" class="nav-link" data-scroll-target="#chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</a></li>
-  <li><a href="#kiểm-định-mô-hình" id="toc-kiểm-định-mô-hình" class="nav-link" data-scroll-target="#kiểm-định-mô-hình">Kiểm định mô hình</a></li>
-  <li><a href="#giám-sát-mô-hình" id="toc-giám-sát-mô-hình" class="nav-link" data-scroll-target="#giám-sát-mô-hình">Giám sát mô hình</a></li>
-  <li><a href="#chuyển-đổi-điểm" id="toc-chuyển-đổi-điểm" class="nav-link" data-scroll-target="#chuyển-đổi-điểm">Chuyển đổi điểm</a></li>
-  <li><a href="#apply-irb" id="toc-apply-irb" class="nav-link" data-scroll-target="#apply-irb">Apply IRB</a></li>
-  <li><a href="#pd-model-calibration" id="toc-pd-model-calibration" class="nav-link" data-scroll-target="#pd-model-calibration">PD Model Calibration</a></li>
-  <li><a href="#xác-định-chu-kỳ-kinh-tế" id="toc-xác-định-chu-kỳ-kinh-tế" class="nav-link" data-scroll-target="#xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</a></li>
-  <li><a href="#chia-pool" id="toc-chia-pool" class="nav-link" data-scroll-target="#chia-pool">Chia pool</a></li>
-  <li><a href="#đánh-giá-lại-pd" id="toc-đánh-giá-lại-pd" class="nav-link" data-scroll-target="#đánh-giá-lại-pd">Đánh giá lại PD</a></li>
-  <li><a href="#moc" id="toc-moc" class="nav-link" data-scroll-target="#moc">MoC</a></li>
-  <li><a href="#thấu-chi" id="toc-thấu-chi" class="nav-link" data-scroll-target="#thấu-chi">Thấu chi</a></li>
+  <li><a href="#cách-tính-toán-partial-dependence-profiles-pdp" id="toc-cách-tính-toán-partial-dependence-profiles-pdp" class="nav-link active" data-scroll-target="#cách-tính-toán-partial-dependence-profiles-pdp">Cách tính toán Partial Dependence Profiles (PDP)</a></li>
+  <li><a href="#công-thức-tính-toán-pdp" id="toc-công-thức-tính-toán-pdp" class="nav-link" data-scroll-target="#công-thức-tính-toán-pdp">Công thức tính toán PDP</a></li>
+  <li><a href="#các-bước-tính-toán-pdp" id="toc-các-bước-tính-toán-pdp" class="nav-link" data-scroll-target="#các-bước-tính-toán-pdp">Các bước tính toán PDP</a></li>
+  <li><a href="#ví-dụ-minh-họa-bằng-python" id="toc-ví-dụ-minh-họa-bằng-python" class="nav-link" data-scroll-target="#ví-dụ-minh-họa-bằng-python">Ví dụ minh họa (bằng Python)</a></li>
+  <li><a href="#đồ-thị-trực-quan-hóa-pdp" id="toc-đồ-thị-trực-quan-hóa-pdp" class="nav-link" data-scroll-target="#đồ-thị-trực-quan-hóa-pdp">Đồ thị trực quan hóa PDP</a></li>
+  <li><a href="#một-số-lưu-ý" id="toc-một-số-lưu-ý" class="nav-link" data-scroll-target="#một-số-lưu-ý">Một số lưu ý</a></li>
+  <li><a href="#accumulated-local-effects-ale-là-gì" id="toc-accumulated-local-effects-ale-là-gì" class="nav-link" data-scroll-target="#accumulated-local-effects-ale-là-gì">Accumulated Local Effects (ALE) là gì?</a></li>
+  <li><a href="#so-sánh-ale-với-pdp" id="toc-so-sánh-ale-với-pdp" class="nav-link" data-scroll-target="#so-sánh-ale-với-pdp">So sánh ALE với PDP</a></li>
+  <li><a href="#cách-tính-toán-ale" id="toc-cách-tính-toán-ale" class="nav-link" data-scroll-target="#cách-tính-toán-ale">Cách tính toán ALE</a></li>
+  <li><a href="#ưu-điểm-của-ale" id="toc-ưu-điểm-của-ale" class="nav-link" data-scroll-target="#ưu-điểm-của-ale">Ưu điểm của ALE</a></li>
+  <li><a href="#nhược-điểm" id="toc-nhược-điểm" class="nav-link" data-scroll-target="#nhược-điểm">Nhược điểm</a></li>
+  <li><a href="#python-snippets-use-dalex" id="toc-python-snippets-use-dalex" class="nav-link" data-scroll-target="#python-snippets-use-dalex">Python snippets use dalex</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/Partial_dependence_and_Accumulated_local_Profiles.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/Index.html">Machine learning</a></li><li class="breadcrumb-item"><a href="../machine-learning/Partial_dependence_and_Accumulated_local_Profiles.html">Partial-dependence Profiles vs Accumulated-local Profiles</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Model guideline</h1>
+<h1 class="title">Partial-dependence Profiles vs Accumulated-local Profiles</h1>
 </div>
 
 
@@ -403,298 +460,262 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="triết-lý-xây-dựng-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</h2>
-<ul>
-<li>Nhìn tổng thể chân dung khách hàng</li>
-</ul>
+<section id="cách-tính-toán-partial-dependence-profiles-pdp" class="level3">
+<h3 class="anchored" data-anchor-id="cách-tính-toán-partial-dependence-profiles-pdp">Cách tính toán Partial Dependence Profiles (PDP)</h3>
+<p>Partial Dependence Profiles (PDP) được tính dựa trên việc ước lượng giá trị trung bình của đầu ra dự đoán khi thay đổi giá trị của một hoặc một nhóm đặc trưng cụ thể, trong khi giữ các đặc trưng còn lại cố định. Phương pháp này giúp hiểu ảnh hưởng trung bình của một đặc trưng đến dự đoán của mô hình.</p>
+<hr>
 </section>
-<section id="phạm-vi-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="phạm-vi-mô-hình">Phạm vi mô hình</h2>
-<ul>
-<li>Cần xác định rõ phạm vi của mô hình trước khi bắt đầu xây dựng &amp; phát triển mô hình</li>
-</ul>
+<section id="công-thức-tính-toán-pdp" class="level3">
+<h3 class="anchored" data-anchor-id="công-thức-tính-toán-pdp">Công thức tính toán PDP</h3>
+<p>Giả sử bạn có: - <strong><span class="math inline">\(f(X)\)</span></strong>: Hàm dự đoán của mô hình. - <strong><span class="math inline">\(S\)</span></strong>: Nhóm các đặc trưng được phân tích (có thể là một hoặc nhiều đặc trưng). - <strong><span class="math inline">\(C\)</span></strong>: Nhóm các đặc trưng còn lại không thuộc <span class="math inline">\(S\)</span>, tức <span class="math inline">\(C = X \setminus S\)</span>. - <strong><span class="math inline">\(X_S\)</span></strong>: Các giá trị có thể của <span class="math inline">\(S\)</span>. - <strong><span class="math inline">\(X_C\)</span></strong>: Các giá trị của các đặc trưng còn lại.</p>
+<p>Partial Dependence của <span class="math inline">\(S\)</span> được tính bằng cách trung bình hóa <span class="math inline">\(f(X)\)</span> theo <span class="math inline">\(X_C\)</span>: <span class="math display">\[
+PD_S(x_S) = \frac{1}{N} \sum_{i=1}^N f(x_S, x_{C_i})
+\]</span> Trong đó: - <span class="math inline">\(x_S\)</span>: Giá trị cụ thể của các đặc trưng <span class="math inline">\(S\)</span> mà bạn muốn phân tích. - <span class="math inline">\(x_{C_i}\)</span>: Các giá trị thực tế của các đặc trưng còn lại <span class="math inline">\(C\)</span> từ dữ liệu huấn luyện. - <span class="math inline">\(N\)</span>: Số lượng mẫu trong tập dữ liệu huấn luyện.</p>
+<hr>
 </section>
-<section id="single-factor-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="single-factor-analysis">Single factor analysis</h2>
-<section id="woe-binning" class="level3">
-<h3 class="anchored" data-anchor-id="woe-binning">WoE binning</h3>
-<ul>
-<li>Số lượng nhóm phân chia dựa trên tỷ lệ bad rate tương đối, nếu 5 nhóm thì nhóm thứ 3 tỷ lệ này xấp xỉ 1</li>
-<li>Số lượng nhóm khoảng 5-7 nhóm (đẹp nhất là 5 nhóm)</li>
-<li>Nên chọn số lượng nhóm số lẻ</li>
-<li>Missing tùy thuộc từng trường hợp sẽ nhóm vào nhóm có tỷ lệ bad rate cao nhất hoặc nhóm có tỷ lệ bad rate xấp xỉ</li>
-<li>Tùy từng biến có trend sẽ coasre trend theo biến</li>
-</ul>
-</section>
-<section id="chuẩn-hóa-biến" class="level3">
-<h3 class="anchored" data-anchor-id="chuẩn-hóa-biến">Chuẩn hóa biến</h3>
-<ul>
-<li><code>Normalising Score</code>: Dùng để dễ so sánh coef của mô hình đa biến sau khi đã hồi quy. Normalised Log Odds thông thường có <strong>trung bình = 0, std = 50</strong></li>
-</ul>
-</section>
-</section>
-<section id="multiple-factors-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-factors-analysis">Multiple Factors Analysis</h2>
-<ul>
-<li><p>Theo triết lý xây dựng mô hình, mỗi nhóm thông tin khách hàng có ít nhất 1 biến:</p>
-<p>VD: Nhóm thông tin chung có 1 biến, nhóm thông tin hành vi tiêu dùng 3 biến, … các nhóm thông tin còn lại có ít nhất 1 biến</p></li>
-</ul>
-</section>
-<section id="chọn-mô-hình-cuối-cùng" class="level2">
-<h2 class="anchored" data-anchor-id="chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</h2>
-<ul>
-<li>30% &gt; <code>std-coef</code> &gt; 5%</li>
-<li>Nếu có hệ số dưới 5%, điều chỉnh lại trọng số = 5%, rồi nhân ngược lại ra <code>adjusted-coef</code></li>
-<li>Cân nhắc trọng số của các nhóm thông tin: Ví dụ: Nhóm thông tin A có 2 biến tổng trọng số 10%, nhóm thông tin B có 3 biến tổng trọng số 50% (nhóm thông tin B này quá mạnh so với nhóm thông tin A)</li>
-<li>Nên tăng hoặc giảm hệ số các biến trong cùng 1 nhóm thông tin</li>
-</ul>
-</section>
-<section id="kiểm-định-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="kiểm-định-mô-hình">Kiểm định mô hình</h2>
-</section>
-<section id="giám-sát-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="giám-sát-mô-hình">Giám sát mô hình</h2>
-<ul>
-<li><p><code>Gini</code> đơn biến suy giảm quá 15%, hoặc 10% cho các biến nhân khẩu học điều chỉnh lại mô hình</p></li>
-<li><p>Sau khi mô hình vi phạm các ngưỡng thì xem xét lại mô hình</p></li>
-<li><p>Báo cáo lại những yếu tố ảnh hưởng tới mô hình. VD: Tình hình cho vay, …</p></li>
-<li><p>Front-end monitoring: Xem sự dịch chuyển các nhóm hạng, danh mục</p></li>
-<li><p>Back-end monitoring: performance (test trên cả overall, sub-segment)của mô hình vẫn tốt, các factors vẫn phản ánh được kết quả của mô hình. Tùy thuộc dữ liệu có thể ấy dữ liệu từ 2 năm đến 5 năm dữ liệu</p></li>
-<li><p>Thông thường các factors dễ thay đổi, có thể chạy mô hình trên dữ liệu mới</p></li>
-<li><p>Population thay đổi (PSI):</p>
-<ul>
-<li>Front-end</li>
-</ul>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 85%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Dev</th>
-<th>OOT</th>
-<th>Remark</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PSI</td>
-<td>NA</td>
-<td>3.1%</td>
-<td><p>Chỉ số ổn định tổng thể (PSI)</p>
-<p>- PSI &lt; 15%: chỉ số phân phối điểm ổn định.</p>
-<p>- PSI &gt;= 15% và &lt; 25%: chỉ số dịch chuyển vừa phải.</p>
-<p>- PSI &gt;=25%: thể hiện sự thay đổi đáng kể.</p>
-<p>Nếu có sự thay đổi đáng kể, thẻ điểm có thể không áp dụng cho mẫu OOT.<br>
-</p></td>
-</tr>
-<tr class="even">
-<td>AHI</td>
-<td>5.1%</td>
-<td>4.0%</td>
-<td><p>Chỉ số Herfindah được điều chỉnh (AHI) để đo độ tập trung trong dải điểm nhất định.</p>
-<p>- AHI &lt; 20%: không tập trung</p>
-<p>- AHI &gt;= 20%: có sự tập trung trong dải điểm nhất định. Cần điều tra để đảm bảo không có vấn đề gì với khả năng phân biệt rủi ro.</p></td>
-</tr>
-</tbody>
-</table></li>
-<li><p>Back-end</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 22%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Overall</th>
-<th>Dev</th>
-<th>OOT</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Gini</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>No of default</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Outcome</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 16%">
-<col style="width: 9%">
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Sub-segment</th>
-<th>Risk Ranking</th>
-<th></th>
-<th>Default</th>
-<th></th>
-<th>Outcome</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td>Dev</td>
-<td>OOT</td>
-<td>Dev</td>
-<td>OOT</td>
-<td>Baseline</td>
-<td>2020</td>
-</tr>
-<tr class="even">
-<td><strong>Product type</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Credit card only</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Personal Loan only</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Đơn vị kinh doanh</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>HO</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Công ty tài chính</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table></li>
-<li><p>Factor mới thêm vào có thể dùng phương pháp điều chỉnh weight</p></li>
-</ul>
-</section>
-<section id="chuyển-đổi-điểm" class="level2">
-<h2 class="anchored" data-anchor-id="chuyển-đổi-điểm">Chuyển đổi điểm</h2>
-</section>
-<section id="apply-irb" class="level2">
-<h2 class="anchored" data-anchor-id="apply-irb">Apply IRB</h2>
-<ul>
-<li>Quy trình tín dụng</li>
-<li>Quy trình đánh giá khách hàng</li>
-</ul>
-</section>
-<section id="pd-model-calibration" class="level2">
-<h2 class="anchored" data-anchor-id="pd-model-calibration">PD Model Calibration</h2>
-<ul>
-<li><p>Housing loan: với 6 tháng hành vi trả nợ chưa đủ mạnh, chưa có nhiều behavious, sử dụng MoB 12 để xác định khách hàng mới hoặc cũ</p></li>
-<li><p>Thẻ tín dụng: chỉ cần 6 tháng đã có được hành vi tiêu dùng, trả nợ</p></li>
-<li><p>Chú ý <strong><code>tính đồng nhất</code></strong> của danh mục</p></li>
-<li><p>Nếu thay đổi chính sách thì mô hình phải phản ánh chính sách forward-looking</p></li>
-<li><p>Nếu không có thông tin liên quan đến thị trường, thì phải có điều chỉnh downgrade PD</p></li>
-<li><p>A-score: Cyclicality ~ 40 -50%, B-score ~ 60-70%</p></li>
-<li><p>Ước tính cyclicality: do 1 model thường không dùng qua 1 chu kỳ kinh tế, nếu back score thì có thẻ dữ liệu cũ không đủ. Những biến như age, gender thì không có cyclicality</p></li>
-<li><p>Retail có thể có master scale riêng với từng danh mục, nhưng có thể distribution không đẹp</p></li>
-</ul>
-</section>
-<section id="xác-định-chu-kỳ-kinh-tế" class="level2">
-<h2 class="anchored" data-anchor-id="xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</h2>
-<ul>
-<li><p>Thu thập dữ liệu càng dài càng tốt, tối thiểu 5 năm</p></li>
-<li><p>Thị trường châu á, lấy mốc khủng hoảng kinh tế là 1998</p></li>
-<li><p>Dùng portfolio có tính chất tương tự, có thể dùng portfolio tương tự của Central Bank NPL, chứng minh correlation sau đó <code>extrapolate</code></p></li>
-<li><p>Forward looking, chọn số trung bình giữa baseline và worst-case</p></li>
-<li><p>Trong giai đoạn covid, nếu có nhà nước có nhiều chính sách làm cho odr giảm, thì có thể bỏ những data point này ra khỏi mẫu trong thời kỳ crisis</p></li>
-</ul>
-</section>
-<section id="chia-pool" class="level2">
-<h2 class="anchored" data-anchor-id="chia-pool">Chia pool</h2>
-<ul>
-<li>Dựa trên product types, pd, mob, bucket …</li>
-</ul>
-</section>
-<section id="đánh-giá-lại-pd" class="level2">
-<h2 class="anchored" data-anchor-id="đánh-giá-lại-pd">Đánh giá lại PD</h2>
-<ul>
-<li>dựa vào CT, ODR, đánh giá implied pd còn phù hợp hay không</li>
-</ul>
-</section>
-<section id="moc" class="level2">
-<h2 class="anchored" data-anchor-id="moc">MoC</h2>
-</section>
-<section id="thấu-chi" class="level2">
-<h2 class="anchored" data-anchor-id="thấu-chi">Thấu chi</h2>
+<section id="các-bước-tính-toán-pdp" class="level3">
+<h3 class="anchored" data-anchor-id="các-bước-tính-toán-pdp">Các bước tính toán PDP</h3>
 <ol type="1">
-<li><p>Có tài sản đảm bảo</p>
+<li><strong>Xác định đặc trưng cần phân tích (<span class="math inline">\(S\)</span>)</strong>:
 <ul>
-<li>Nếu là KH housing loan vay thêm thấu chi, có thể dùng housing score card</li>
-</ul>
-<!-- -->
-<ul>
-<li>Nếu tài sản là tiền gửi nhỏ, thì áp dụng standardise</li>
+<li>Chọn một hoặc nhiều đặc trưng mà bạn muốn kiểm tra tác động của nó lên đầu ra của mô hình.</li>
 </ul></li>
-<li><p>Không có tài sản</p>
+<li><strong>Giữ các đặc trưng còn lại cố định (<span class="math inline">\(X_C\)</span>)</strong>:
 <ul>
-<li><p>Xếp chung vào nhóm credit card</p></li>
-<li></li>
+<li>Duy trì giá trị thực tế của các đặc trưng không thuộc <span class="math inline">\(S\)</span> từ dữ liệu huấn luyện.</li>
+</ul></li>
+<li><strong>Thay đổi giá trị của đặc trưng phân tích (<span class="math inline">\(x_S\)</span>)</strong>:
+<ul>
+<li>Chọn một khoảng giá trị hoặc các giá trị mẫu cho <span class="math inline">\(x_S\)</span>.</li>
+</ul></li>
+<li><strong>Tính giá trị dự đoán (<span class="math inline">\(f(x_S, x_{C_i})\)</span>)</strong>:
+<ul>
+<li>Tính toán dự đoán của mô hình cho từng giá trị <span class="math inline">\(x_S\)</span> trong khi giữ các <span class="math inline">\(x_{C_i}\)</span> cố định.</li>
+</ul></li>
+<li><strong>Lấy trung bình</strong>:
+<ul>
+<li>Lấy trung bình các giá trị dự đoán trên toàn bộ tập dữ liệu huấn luyện để thu được Partial Dependence.</li>
 </ul></li>
 </ol>
+<hr>
+</section>
+<section id="ví-dụ-minh-họa-bằng-python" class="level3">
+<h3 class="anchored" data-anchor-id="ví-dụ-minh-họa-bằng-python">Ví dụ minh họa (bằng Python)</h3>
+<p>Giả sử bạn có một mô hình và dữ liệu như sau:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hàm dự đoán của mô hình (giả định)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x_s, x_c):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x_s <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> x_c <span class="op">*</span> <span class="fl">0.5</span>  <span class="co"># Ví dụ mô hình tuyến tính</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dữ liệu mẫu</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x_c_values <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])  <span class="co"># Các giá trị thực tế của X_C</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x_s_values <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)    <span class="co"># Giá trị thay đổi của X_S</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tính toán Partial Dependence</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pd_values <span class="op">=</span> []</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x_s <span class="kw">in</span> x_s_values:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> [f(x_s, x_c) <span class="cf">for</span> x_c <span class="kw">in</span> x_c_values]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    pd_values.append(np.mean(predictions))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Kết quả</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="đồ-thị-trực-quan-hóa-pdp" class="level3">
+<h3 class="anchored" data-anchor-id="đồ-thị-trực-quan-hóa-pdp">Đồ thị trực quan hóa PDP</h3>
+<p>Sau khi tính toán <span class="math inline">\(PD_S(x_S)\)</span>, bạn có thể vẽ đồ thị để hiểu mối quan hệ giữa <span class="math inline">\(x_S\)</span> và giá trị trung bình đầu ra dự đoán.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x_s_values, pd_values, label<span class="op">=</span><span class="st">"Partial Dependence"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Feature Value (X_S)"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Prediction"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Partial Dependence Plot"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="một-số-lưu-ý" class="level3">
+<h3 class="anchored" data-anchor-id="một-số-lưu-ý">Một số lưu ý</h3>
+<ul>
+<li>PDP giả định rằng các đặc trưng không liên quan (independent), vì vậy nếu các đặc trưng có tương quan cao, kết quả PDP có thể không chính xác.</li>
+<li>Khi sử dụng PDP cho nhóm đặc trưng, việc tính toán sẽ phức tạp hơn do cần đánh giá trên không gian đa chiều.</li>
+</ul>
+<p>PDP là công cụ mạnh mẽ để giải thích mô hình, nhưng khi gặp dữ liệu phức tạp (đặc biệt khi có sự phụ thuộc giữa các đặc trưng), bạn có thể cân nhắc sử dụng các phương pháp giải thích như <strong>SHAP</strong> hoặc <strong>ALE (Accumulated Local Effects)</strong>.</p>
+<div id="cell-3" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightgbm <span class="im">as</span> lgb</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> PartialDependenceDisplay</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1. Tải dữ liệu Wine Quality</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>wine <span class="op">=</span> fetch_openml(name<span class="op">=</span><span class="st">'wine-quality-red'</span>, version<span class="op">=</span><span class="dv">1</span>, as_frame<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> wine.data</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> wine.target.astype(<span class="bu">int</span>)  <span class="co"># Biến mục tiêu là chất lượng rượu</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.2. Chia dữ liệu thành tập huấn luyện và kiểm tra</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.3. Huấn luyện mô hình LightGBM</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> lgb.LGBMClassifier(random_state<span class="op">=</span><span class="dv">42</span>, verbosity <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.1. Chọn đặc trưng cần phân tích (ví dụ: 'alcohol')</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>feature_name <span class="op">=</span> <span class="st">'alcohol'</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.2. Sử dụng sklearn để tính Partial Dependence</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>PartialDependenceDisplay.from_estimator(</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    model,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    X_train,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    [feature_name],</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span>model.classes_[<span class="dv">1</span>],</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    grid_resolution<span class="op">=</span><span class="dv">50</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Partial_dependence_and_Accumulated_local_Profiles_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="accumulated-local-effects-ale-là-gì" class="level3">
+<h3 class="anchored" data-anchor-id="accumulated-local-effects-ale-là-gì">Accumulated Local Effects (ALE) là gì?</h3>
+<p><strong>Accumulated Local Effects (ALE)</strong> là một phương pháp giải thích mô hình machine learning được sử dụng để hiểu mối quan hệ giữa một hoặc nhiều đặc trưng đầu vào với đầu ra dự đoán. ALE được thiết kế để giải quyết những hạn chế của Partial Dependence Plots (PDP), đặc biệt khi các đặc trưng có tương quan mạnh với nhau.</p>
+</section>
+<section id="so-sánh-ale-với-pdp" class="level3">
+<h3 class="anchored" data-anchor-id="so-sánh-ale-với-pdp">So sánh ALE với PDP</h3>
+<ul>
+<li><strong>PDP</strong>: Giả định rằng các đặc trưng không phụ thuộc nhau. Nếu có mối tương quan giữa các đặc trưng, PDP có thể đưa ra kết quả sai lệch.</li>
+<li><strong>ALE</strong>: Không yêu cầu giả định về sự độc lập giữa các đặc trưng, tính toán hiệu ứng địa phương thay vì trung bình toàn cục.</li>
+</ul>
+<hr>
+</section>
+<section id="cách-tính-toán-ale" class="level3">
+<h3 class="anchored" data-anchor-id="cách-tính-toán-ale">Cách tính toán ALE</h3>
+<ol type="1">
+<li><strong>Chia nhỏ giá trị của đặc trưng</strong>:
+<ul>
+<li>Chia phạm vi của đặc trưng thành nhiều khoảng (bins).</li>
+</ul></li>
+<li><strong>Tính hiệu ứng cục bộ (local effect)</strong>:
+<ul>
+<li>Tính hiệu ứng địa phương của mô hình bằng cách so sánh đầu ra dự đoán khi tăng giá trị của đặc trưng từ bin hiện tại lên bin tiếp theo.</li>
+</ul></li>
+<li><strong>Tích lũy các hiệu ứng địa phương</strong>:
+<ul>
+<li>Tổng hợp các hiệu ứng địa phương để tạo thành giá trị tích lũy (accumulated).</li>
+</ul></li>
+<li><strong>Chuẩn hóa (center)</strong>:
+<ul>
+<li>Chuẩn hóa kết quả để đảm bảo giá trị ALE trung bình là 0, giúp dễ dàng so sánh.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="ưu-điểm-của-ale" class="level3">
+<h3 class="anchored" data-anchor-id="ưu-điểm-của-ale">Ưu điểm của ALE</h3>
+<ol type="1">
+<li><strong>Xử lý tương quan giữa các đặc trưng</strong>: ALE chính xác hơn PDP khi các đặc trưng có tương quan cao.</li>
+<li><strong>Độ phức tạp thấp hơn SHAP</strong>: Tính toán nhanh và ít tốn tài nguyên hơn so với SHAP.</li>
+<li><strong>Dễ hiểu</strong>: Kết quả ALE thường dễ trực quan hóa và giải thích.</li>
+</ol>
+<hr>
+</section>
+<section id="nhược-điểm" class="level3">
+<h3 class="anchored" data-anchor-id="nhược-điểm">Nhược điểm</h3>
+<ul>
+<li>Không cung cấp thông tin chi tiết về đóng góp của từng mẫu (như SHAP).</li>
+<li>Phụ thuộc vào cách chia khoảng (binning), có thể ảnh hưởng đến độ chính xác nếu số bin không phù hợp.</li>
+</ul>
+<p>Phương pháp ALE là một lựa chọn tuyệt vời để hiểu mô hình trong trường hợp dữ liệu có tương quan cao hoặc khi muốn một giải pháp giải thích đơn giản và hiệu quả.</p>
+</section>
+<section id="python-snippets-use-dalex" class="level2">
+<h2 class="anchored" data-anchor-id="python-snippets-use-dalex">Python snippets use dalex</h2>
+<div id="cell-6" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMClassifier</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dalex <span class="im">import</span> Explainer</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Explainer with DALEX</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>explainer <span class="op">=</span> Explainer(model, X_train, y_train, label<span class="op">=</span><span class="st">"LightGBM - Wine Quality"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Partial Dependence Profile (PDP) for a selected feature (e.g., alcohol)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>pdp <span class="op">=</span> explainer.model_profile(variables<span class="op">=</span><span class="st">"alcohol"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">'partial'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Accumulated Local Profile (ALE) for the same feature</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>ale <span class="op">=</span> explainer.model_profile(variables<span class="op">=</span><span class="st">"alcohol"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">'accumulated'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Preparation of a new explainer is initiated
+
+  -&gt; data              : 1279 rows 11 cols
+  -&gt; target variable   : Parameter 'y' was a pandas.Series. Converted to a numpy.ndarray.
+  -&gt; target variable   : 1279 values
+  -&gt; model_class       : lightgbm.sklearn.LGBMClassifier (default)
+  -&gt; label             : LightGBM - Wine Quality
+  -&gt; predict function  : &lt;function yhat_proba_default at 0x000001BD4BD9E170&gt; will be used (default)
+  -&gt; predict function  : Accepts pandas.DataFrame and numpy.ndarray.
+  -&gt; predicted values  : min = 9.3e-09, mean = 0.0336, max = 0.998
+  -&gt; model type        : classification will be used (default)
+  -&gt; residual function : difference between y and yhat (default)
+  -&gt; residuals         : min = 3.0, mean = 5.59, max = 8.0
+  -&gt; model_info        : package lightgbm
+
+A new explainer has been created!</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Calculating ceteris paribus: 100%|██████████| 1/1 [00:00&lt;00:00,  4.84it/s]
+Calculating ceteris paribus: 100%|██████████| 1/1 [00:00&lt;00:00,  5.03it/s]
+Calculating accumulated dependency: 100%|██████████| 1/1 [00:00&lt;00:00, 10.60it/s]</code></pre>
+</div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pdp.plot()</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ale.plot()</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot PDP and ALE in subplots</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot PDP</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(pdp.result[<span class="st">"_x_"</span>], pdp.result[<span class="st">"_yhat_"</span>], label<span class="op">=</span><span class="st">"PDP"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Partial Dependence Profile (PDP) for Alcohol"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Alcohol"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Predicted Value"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend()</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot ALE</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(ale.result[<span class="st">"_x_"</span>], ale.result[<span class="st">"_yhat_"</span>], label<span class="op">=</span><span class="st">"ALE"</span>, color<span class="op">=</span><span class="st">"orange"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Accumulated Local Effect (ALE) for Alcohol"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Alcohol"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Predicted Value"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Partial_dependence_and_Accumulated_local_Profiles_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>https://ema.drwhy.ai/partialDependenceProfiles.html</li>
+<li>https://docs.seldon.io/projects/alibi/en/latest/methods/PartialDependence.html</li>
+<li>https://www.blog.trainindata.com/partial-dependence-plots-with-python</li>
+<li>https://www.analyticsvidhya.com/blog/2020/10/accumulated-local-effects-ale-feature-effects-global-interpretability/</li>
+</ul>
 
 
 </section>
@@ -1263,13 +1284,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Welcome">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="../machine-learning/Wine_Quality_pytorch.html" class="pagination-link" aria-label="Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../machine-learning/Index.html" class="pagination-link" aria-label="Machine learning">
-        <span class="nav-page-text">Machine learning</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../statistic/Index.html" class="pagination-link" aria-label="Statistic">
+        <span class="nav-page-text">Statistic</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1281,7 +1302,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/Partial_dependence_and_Accumulated_local_Profiles.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

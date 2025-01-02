@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nguyễn Ngọc Bình">
 
-<title>Model guideline – Making sharable documents</title>
+<title>Closeness Evaluation Measure (CEM) – Making sharable documents</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +64,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../machine-learning/Index.html" rel="next">
-<link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +103,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../irb/ModelGuideline.html">Model guideline</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Closeness Evaluation Measure (CEM)</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,16 +183,16 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
+            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model guideline</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
+  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model guideline</span></a>
   </div>
 </li>
@@ -359,41 +421,44 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#triết-lý-xây-dựng-mô-hình" id="toc-triết-lý-xây-dựng-mô-hình" class="nav-link active" data-scroll-target="#triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</a></li>
-  <li><a href="#phạm-vi-mô-hình" id="toc-phạm-vi-mô-hình" class="nav-link" data-scroll-target="#phạm-vi-mô-hình">Phạm vi mô hình</a></li>
-  <li><a href="#single-factor-analysis" id="toc-single-factor-analysis" class="nav-link" data-scroll-target="#single-factor-analysis">Single factor analysis</a>
+  <li><a href="#công-thức-cem" id="toc-công-thức-cem" class="nav-link active" data-scroll-target="#công-thức-cem">Công thức CEM:</a></li>
+  <li><a href="#tóm-tắt-các-thành-phần-chính" id="toc-tóm-tắt-các-thành-phần-chính" class="nav-link" data-scroll-target="#tóm-tắt-các-thành-phần-chính">Tóm tắt các thành phần chính:</a></li>
+  <li><a href="#đặc-điểm-của-cem" id="toc-đặc-điểm-của-cem" class="nav-link" data-scroll-target="#đặc-điểm-của-cem">Đặc điểm của CEM:</a></li>
+  <li><a href="#các-bước-thực-hiện-tính-toán-proximity-matrix-và-cem" id="toc-các-bước-thực-hiện-tính-toán-proximity-matrix-và-cem" class="nav-link" data-scroll-target="#các-bước-thực-hiện-tính-toán-proximity-matrix-và-cem">Các bước thực hiện tính toán <strong>Proximity Matrix</strong> và <strong>CEM</strong></a>
   <ul class="collapse">
-  <li><a href="#woe-binning" id="toc-woe-binning" class="nav-link" data-scroll-target="#woe-binning">WoE binning</a></li>
-  <li><a href="#chuẩn-hóa-biến" id="toc-chuẩn-hóa-biến" class="nav-link" data-scroll-target="#chuẩn-hóa-biến">Chuẩn hóa biến</a></li>
+  <li><a href="#bước-1-dữ-liệu-ví-dụ" id="toc-bước-1-dữ-liệu-ví-dụ" class="nav-link" data-scroll-target="#bước-1-dữ-liệu-ví-dụ">Bước 1: Dữ liệu ví dụ</a></li>
+  <li><a href="#bước-2-tính-toán-ma-trận-proximity" id="toc-bước-2-tính-toán-ma-trận-proximity" class="nav-link" data-scroll-target="#bước-2-tính-toán-ma-trận-proximity">Bước 2: Tính toán ma trận Proximity</a></li>
+  <li><a href="#bước-3-tính-điểm-cem" id="toc-bước-3-tính-điểm-cem" class="nav-link" data-scroll-target="#bước-3-tính-điểm-cem">Bước 3: Tính điểm CEM</a></li>
+  <li><a href="#kết-quả-cuối-cùng" id="toc-kết-quả-cuối-cùng" class="nav-link" data-scroll-target="#kết-quả-cuối-cùng">Kết quả cuối cùng</a></li>
   </ul></li>
-  <li><a href="#multiple-factors-analysis" id="toc-multiple-factors-analysis" class="nav-link" data-scroll-target="#multiple-factors-analysis">Multiple Factors Analysis</a></li>
-  <li><a href="#chọn-mô-hình-cuối-cùng" id="toc-chọn-mô-hình-cuối-cùng" class="nav-link" data-scroll-target="#chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</a></li>
-  <li><a href="#kiểm-định-mô-hình" id="toc-kiểm-định-mô-hình" class="nav-link" data-scroll-target="#kiểm-định-mô-hình">Kiểm định mô hình</a></li>
-  <li><a href="#giám-sát-mô-hình" id="toc-giám-sát-mô-hình" class="nav-link" data-scroll-target="#giám-sát-mô-hình">Giám sát mô hình</a></li>
-  <li><a href="#chuyển-đổi-điểm" id="toc-chuyển-đổi-điểm" class="nav-link" data-scroll-target="#chuyển-đổi-điểm">Chuyển đổi điểm</a></li>
-  <li><a href="#apply-irb" id="toc-apply-irb" class="nav-link" data-scroll-target="#apply-irb">Apply IRB</a></li>
-  <li><a href="#pd-model-calibration" id="toc-pd-model-calibration" class="nav-link" data-scroll-target="#pd-model-calibration">PD Model Calibration</a></li>
-  <li><a href="#xác-định-chu-kỳ-kinh-tế" id="toc-xác-định-chu-kỳ-kinh-tế" class="nav-link" data-scroll-target="#xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</a></li>
-  <li><a href="#chia-pool" id="toc-chia-pool" class="nav-link" data-scroll-target="#chia-pool">Chia pool</a></li>
-  <li><a href="#đánh-giá-lại-pd" id="toc-đánh-giá-lại-pd" class="nav-link" data-scroll-target="#đánh-giá-lại-pd">Đánh giá lại PD</a></li>
-  <li><a href="#moc" id="toc-moc" class="nav-link" data-scroll-target="#moc">MoC</a></li>
-  <li><a href="#thấu-chi" id="toc-thấu-chi" class="nav-link" data-scroll-target="#thấu-chi">Thấu chi</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/nguyenngocbinh/papers/blob/main/statistic/Closeness_Evaluation_Measure__CEM_.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Model guideline</h1>
+<h1 class="title">Closeness Evaluation Measure (CEM)</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nguyễn Ngọc Bình </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
   
     
   </div>
@@ -403,300 +468,372 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="triết-lý-xây-dựng-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</h2>
+<p>Công thức <strong>Closeness Evaluation Measure (CEM)</strong> là một công cụ được thiết kế để đánh giá các hệ thống phân loại thứ tự (ordinal classification), đặc biệt khi các nhãn có tính thứ tự và các lỗi phân loại có mức độ nghiêm trọng khác nhau. Công thức này dựa trên lý thuyết đo lường (Measurement Theory) và lý thuyết thông tin (Information Theory). Để hiểu rõ hơn, chúng ta sẽ phân tích từng thành phần trong công thức của CEM:</p>
+<section id="công-thức-cem" class="level3">
+<h3 class="anchored" data-anchor-id="công-thức-cem">Công thức CEM:</h3>
+<p><span class="math display">\[
+CEM_{ORD}(s, g) = \frac{\sum_{d \in D} CIQ_{ORD}(s(d), g(d))}{\sum_{d \in D} CIQ_{ORD}(g(d), g(d))}
+\]</span></p>
+<p>Trong đó:</p>
+<ol type="1">
+<li><strong><span class="math inline">\(s\)</span></strong> (System Output):
 <ul>
-<li>Nhìn tổng thể chân dung khách hàng</li>
+<li>Đây là đầu ra dự đoán của hệ thống cho mỗi đối tượng (item). Hệ thống phân loại sẽ gán nhãn dự đoán <span class="math inline">\(s(d)\)</span> cho mỗi đối tượng <span class="math inline">\(d\)</span> trong tập dữ liệu <span class="math inline">\(D\)</span>.</li>
+<li>Ví dụ: Nếu hệ thống dự đoán rằng một đối tượng thuộc lớp “Trung bình”, thì <span class="math inline">\(s(d)\)</span> sẽ là nhãn “Trung bình”.</li>
+</ul></li>
+<li><strong><span class="math inline">\(g\)</span></strong> (Gold Standard):
+<ul>
+<li>Đây là nhãn thật (chuẩn vàng) mà đối tượng thực sự thuộc về, được cung cấp bởi tập dữ liệu chuẩn. Nhãn chuẩn vàng này được coi là kết quả chính xác mà hệ thống cần dự đoán.</li>
+<li>Ví dụ: Đối tượng thực sự thuộc lớp “Tốt”, thì <span class="math inline">\(g(d)\)</span> sẽ là nhãn “Tốt”.</li>
+</ul></li>
+<li><strong><span class="math inline">\(D\)</span></strong> (Dataset):
+<ul>
+<li>Đây là tập dữ liệu bao gồm tất cả các đối tượng <span class="math inline">\(d\)</span> cần được phân loại. Mỗi đối tượng có nhãn dự đoán <span class="math inline">\(s(d)\)</span> từ hệ thống và nhãn chuẩn <span class="math inline">\(g(d)\)</span>.</li>
+</ul></li>
+<li><strong><span class="math inline">\(CIQ_{ORD}(s(d), g(d))\)</span></strong> (Closeness Information Quantity - Lượng thông tin về độ gần gũi):
+<ul>
+<li><p>Thành phần quan trọng này đo lường “độ gần gũi” giữa nhãn dự đoán <span class="math inline">\(s(d)\)</span> và nhãn chuẩn <span class="math inline">\(g(d)\)</span>.</p></li>
+<li><p>Nó được định nghĩa bằng lý thuyết thông tin: <span class="math inline">\(CIQ_{ORD}(a, b) = -\log(P(x \leq b \mid x \geq a))\)</span>, trong đó <span class="math inline">\(P(x \leq b \mid x \geq a)\)</span> là xác suất tìm thấy một đối tượng giữa hai nhãn <span class="math inline">\(a\)</span> và <span class="math inline">\(b\)</span> dựa trên sự phân bố của các đối tượng trong các lớp.</p></li>
+<li><p>Nếu các nhãn dự đoán gần với nhãn thật (ví dụ, “Trung bình” dự đoán thành “Tốt”), giá trị CIQ sẽ thấp, tức là lỗi nhẹ. Nếu nhãn dự đoán cách xa nhãn thật (ví dụ, “Tốt” dự đoán thành “Kém”), giá trị CIQ sẽ cao, tức là lỗi nặng hơn.</p></li>
+<li><p><strong>Ví dụ</strong>: Giả sử:</p>
+<ul>
+<li><span class="math inline">\(s(d) = "Trung bình"\)</span>, <span class="math inline">\(g(d) = "Tốt"\)</span>.</li>
+<li>Giá trị CIQ sẽ phản ánh khoảng cách giữa hai nhãn này dựa trên phân bố của dữ liệu.</li>
+</ul></li>
+</ul></li>
+<li><strong><span class="math inline">\(\sum_{d \in D} CIQ_{ORD}(s(d), g(d))\)</span></strong> (Tổng CIQ của dự đoán):
+<ul>
+<li>Đây là tổng giá trị CIQ cho tất cả các đối tượng trong tập dữ liệu, đánh giá độ gần gũi của tất cả các dự đoán so với nhãn chuẩn.</li>
+<li>Thành phần này phản ánh tổng thể hiệu suất của hệ thống dự đoán: nếu các dự đoán của hệ thống thường xuyên gần với nhãn thật, tổng CIQ sẽ nhỏ; nếu các dự đoán sai lệch lớn, tổng CIQ sẽ lớn.</li>
+</ul></li>
+<li><strong><span class="math inline">\(\sum_{d \in D} CIQ_{ORD}(g(d), g(d))\)</span></strong> (Tổng CIQ của chuẩn vàng):
+<ul>
+<li>Đây là tổng giá trị CIQ của hệ thống hoàn hảo (gold standard), tức là hệ thống mà mọi dự đoán đều chính xác.</li>
+<li>Thành phần này đại diện cho giá trị CIQ tối thiểu, khi mọi dự đoán đều trùng khớp với nhãn thật. Do đó, nó là giá trị “chuẩn” mà các hệ thống phân loại khác so sánh.</li>
+</ul></li>
+<li><strong><span class="math inline">\(CEM_{ORD}(s, g)\)</span></strong> (Closeness Evaluation Measure):
+<ul>
+<li><strong>CEM</strong> được tính bằng tỷ lệ giữa tổng CIQ của hệ thống dự đoán và tổng CIQ của hệ thống hoàn hảo (chuẩn vàng). Công thức này chuẩn hóa tổng CIQ của dự đoán để phản ánh mức độ chính xác tương đối của hệ thống so với hệ thống lý tưởng.</li>
+<li>Nếu hệ thống có các dự đoán gần đúng với nhãn thật, giá trị CEM sẽ gần với 1 (càng chính xác thì giá trị càng cao). Nếu các dự đoán sai lệch nhiều, giá trị CEM sẽ nhỏ.</li>
+</ul></li>
+</ol>
+</section>
+<section id="tóm-tắt-các-thành-phần-chính" class="level3">
+<h3 class="anchored" data-anchor-id="tóm-tắt-các-thành-phần-chính">Tóm tắt các thành phần chính:</h3>
+<ul>
+<li><strong>CIQ (Closeness Information Quantity)</strong>: Đo lường khoảng cách giữa nhãn dự đoán và nhãn thật theo lý thuyết thông tin.</li>
+<li><strong>Tổng CIQ của dự đoán</strong>: Tổng CIQ cho mọi đối tượng, phản ánh tổng thể hiệu suất dự đoán của hệ thống.</li>
+<li><strong>Tổng CIQ của chuẩn vàng</strong>: Giá trị chuẩn để so sánh, phản ánh hiệu suất của hệ thống hoàn hảo.</li>
+<li><strong>CEM</strong>: Tỷ lệ giữa tổng CIQ của dự đoán và chuẩn vàng, thể hiện mức độ chính xác của hệ thống.</li>
 </ul>
 </section>
-<section id="phạm-vi-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="phạm-vi-mô-hình">Phạm vi mô hình</h2>
+<section id="đặc-điểm-của-cem" class="level3">
+<h3 class="anchored" data-anchor-id="đặc-điểm-của-cem">Đặc điểm của CEM:</h3>
 <ul>
-<li>Cần xác định rõ phạm vi của mô hình trước khi bắt đầu xây dựng &amp; phát triển mô hình</li>
+<li><strong>Phù hợp với phân loại thứ tự</strong>: CEM đánh giá sự khác biệt giữa các nhãn có tính thứ tự, ví dụ như đánh giá mức độ “nặng nhẹ” của các lỗi dự đoán.</li>
+<li><strong>CEM càng cao (gần 1)</strong>, hệ thống càng chính xác, dự đoán gần với nhãn thật.</li>
+<li><strong>CEM càng thấp</strong>, hệ thống dự đoán sai nhiều và cách xa so với nhãn thật.</li>
 </ul>
 </section>
-<section id="single-factor-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="single-factor-analysis">Single factor analysis</h2>
-<section id="woe-binning" class="level3">
-<h3 class="anchored" data-anchor-id="woe-binning">WoE binning</h3>
-<ul>
-<li>Số lượng nhóm phân chia dựa trên tỷ lệ bad rate tương đối, nếu 5 nhóm thì nhóm thứ 3 tỷ lệ này xấp xỉ 1</li>
-<li>Số lượng nhóm khoảng 5-7 nhóm (đẹp nhất là 5 nhóm)</li>
-<li>Nên chọn số lượng nhóm số lẻ</li>
-<li>Missing tùy thuộc từng trường hợp sẽ nhóm vào nhóm có tỷ lệ bad rate cao nhất hoặc nhóm có tỷ lệ bad rate xấp xỉ</li>
-<li>Tùy từng biến có trend sẽ coasre trend theo biến</li>
-</ul>
-</section>
-<section id="chuẩn-hóa-biến" class="level3">
-<h3 class="anchored" data-anchor-id="chuẩn-hóa-biến">Chuẩn hóa biến</h3>
-<ul>
-<li><code>Normalising Score</code>: Dùng để dễ so sánh coef của mô hình đa biến sau khi đã hồi quy. Normalised Log Odds thông thường có <strong>trung bình = 0, std = 50</strong></li>
-</ul>
-</section>
-</section>
-<section id="multiple-factors-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-factors-analysis">Multiple Factors Analysis</h2>
-<ul>
-<li><p>Theo triết lý xây dựng mô hình, mỗi nhóm thông tin khách hàng có ít nhất 1 biến:</p>
-<p>VD: Nhóm thông tin chung có 1 biến, nhóm thông tin hành vi tiêu dùng 3 biến, … các nhóm thông tin còn lại có ít nhất 1 biến</p></li>
-</ul>
-</section>
-<section id="chọn-mô-hình-cuối-cùng" class="level2">
-<h2 class="anchored" data-anchor-id="chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</h2>
-<ul>
-<li>30% &gt; <code>std-coef</code> &gt; 5%</li>
-<li>Nếu có hệ số dưới 5%, điều chỉnh lại trọng số = 5%, rồi nhân ngược lại ra <code>adjusted-coef</code></li>
-<li>Cân nhắc trọng số của các nhóm thông tin: Ví dụ: Nhóm thông tin A có 2 biến tổng trọng số 10%, nhóm thông tin B có 3 biến tổng trọng số 50% (nhóm thông tin B này quá mạnh so với nhóm thông tin A)</li>
-<li>Nên tăng hoặc giảm hệ số các biến trong cùng 1 nhóm thông tin</li>
-</ul>
-</section>
-<section id="kiểm-định-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="kiểm-định-mô-hình">Kiểm định mô hình</h2>
-</section>
-<section id="giám-sát-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="giám-sát-mô-hình">Giám sát mô hình</h2>
-<ul>
-<li><p><code>Gini</code> đơn biến suy giảm quá 15%, hoặc 10% cho các biến nhân khẩu học điều chỉnh lại mô hình</p></li>
-<li><p>Sau khi mô hình vi phạm các ngưỡng thì xem xét lại mô hình</p></li>
-<li><p>Báo cáo lại những yếu tố ảnh hưởng tới mô hình. VD: Tình hình cho vay, …</p></li>
-<li><p>Front-end monitoring: Xem sự dịch chuyển các nhóm hạng, danh mục</p></li>
-<li><p>Back-end monitoring: performance (test trên cả overall, sub-segment)của mô hình vẫn tốt, các factors vẫn phản ánh được kết quả của mô hình. Tùy thuộc dữ liệu có thể ấy dữ liệu từ 2 năm đến 5 năm dữ liệu</p></li>
-<li><p>Thông thường các factors dễ thay đổi, có thể chạy mô hình trên dữ liệu mới</p></li>
-<li><p>Population thay đổi (PSI):</p>
-<ul>
-<li>Front-end</li>
-</ul>
+<section id="các-bước-thực-hiện-tính-toán-proximity-matrix-và-cem" class="level2">
+<h2 class="anchored" data-anchor-id="các-bước-thực-hiện-tính-toán-proximity-matrix-và-cem">Các bước thực hiện tính toán <strong>Proximity Matrix</strong> và <strong>CEM</strong></h2>
+<section id="bước-1-dữ-liệu-ví-dụ" class="level3">
+<h3 class="anchored" data-anchor-id="bước-1-dữ-liệu-ví-dụ">Bước 1: Dữ liệu ví dụ</h3>
+<p>Giả sử bạn có tập dữ liệu sau:</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 85%">
-</colgroup>
 <thead>
 <tr class="header">
-<th></th>
-<th>Dev</th>
-<th>OOT</th>
-<th>Remark</th>
+<th>Mẫu</th>
+<th>Nhãn thực tế (Ground Truth)</th>
+<th>Nhãn dự đoán (System Output)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>PSI</td>
-<td>NA</td>
-<td>3.1%</td>
-<td><p>Chỉ số ổn định tổng thể (PSI)</p>
-<p>- PSI &lt; 15%: chỉ số phân phối điểm ổn định.</p>
-<p>- PSI &gt;= 15% và &lt; 25%: chỉ số dịch chuyển vừa phải.</p>
-<p>- PSI &gt;=25%: thể hiện sự thay đổi đáng kể.</p>
-<p>Nếu có sự thay đổi đáng kể, thẻ điểm có thể không áp dụng cho mẫu OOT.<br>
-</p></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr class="even">
-<td>AHI</td>
-<td>5.1%</td>
-<td>4.0%</td>
-<td><p>Chỉ số Herfindah được điều chỉnh (AHI) để đo độ tập trung trong dải điểm nhất định.</p>
-<p>- AHI &lt; 20%: không tập trung</p>
-<p>- AHI &gt;= 20%: có sự tập trung trong dải điểm nhất định. Cần điều tra để đảm bảo không có vấn đề gì với khả năng phân biệt rủi ro.</p></td>
-</tr>
-</tbody>
-</table></li>
-<li><p>Back-end</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 22%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Overall</th>
-<th>Dev</th>
-<th>OOT</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Gini</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>No of default</td>
-<td></td>
-<td></td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
 </tr>
 <tr class="odd">
-<td>Outcome</td>
-<td></td>
-<td></td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
 </tr>
 <tr class="even">
-<td></td>
-<td></td>
-<td></td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>2</td>
+<td>2</td>
 </tr>
 </tbody>
 </table>
+<p>Các nhóm phân loại là: <code>0 = tiêu cực</code>, <code>1 = trung lập</code>, <code>2 = tích cực</code>.</p>
+</section>
+<section id="bước-2-tính-toán-ma-trận-proximity" class="level3">
+<h3 class="anchored" data-anchor-id="bước-2-tính-toán-ma-trận-proximity">Bước 2: Tính toán ma trận Proximity</h3>
+<ol type="1">
+<li><strong>Xác định số lượng phần tử trong mỗi nhóm</strong>:
+<ul>
+<li>Nhóm <code>0</code>: 3 phần tử.</li>
+<li>Nhóm <code>1</code>: 3 phần tử.</li>
+<li>Nhóm <code>2</code>: 4 phần tử.</li>
+<li>Tổng số phần tử: 10.</li>
+</ul></li>
+<li><strong>Công thức tính Proximity cho nhóm với chính nó</strong>:
+<ul>
+<li>Proximity của nhóm với chính nó được tính bằng công thức: <span class="math display">\[
+\text{prox}(i, i) = -\log\left(\frac{\text{số lượng phần tử trong nhóm i}}{2 \times \text{tổng số phần tử}}\right)
+\]</span></li>
+<li>Áp dụng công thức cho từng nhóm:
+<ul>
+<li>Nhóm <code>0</code>: <span class="math display">\[
+\text{prox}(0, 0) = -\log\left(\frac{3}{2 \times 10}\right) = -\log\left(0.15\right) = 0.823
+\]</span></li>
+<li>Nhóm <code>1</code>: <span class="math display">\[
+\text{prox}(1, 1) = -\log\left(\frac{3}{2 \times 10}\right) = -\log\left(0.15\right) = 0.823
+\]</span></li>
+<li>Nhóm <code>2</code>: <span class="math display">\[
+\text{prox}(2, 2) = -\log\left(\frac{4}{2 \times 10}\right) = -\log\left(0.2\right) = 0.699
+\]</span></li>
+</ul></li>
+</ul></li>
+<li><strong>Công thức tính Proximity giữa các nhóm khác nhau</strong>:
+<ul>
+<li>Proximity giữa hai nhóm khác nhau được tính bằng công thức: <span class="math display">\[
+\text{prox}(i, j) = -\log\left(\frac{\frac{\text{số lượng phần tử trong nhóm i}}{2} + \text{tổng số phần tử nằm giữa nhóm i và nhóm j}}{\text{tổng số phần tử}}\right)
+\]</span></li>
+<li>Tính toán cho các cặp nhóm:
+<ul>
+<li>Giữa nhóm <code>0</code> và <code>1</code>: <span class="math display">\[
+\text{prox}(0, 1) = -\log\left(\frac{\frac{3}{2} + 4}{10}\right) = -\log\left(\frac{1.5 + 4}{10}\right) = -\log(0.55) = 0.260
+\]</span></li>
+<li>Giữa nhóm <code>0</code> và <code>2</code>: <span class="math display">\[
+\text{prox}(0, 2) = -\log\left(\frac{\frac{3}{2} + 7}{10}\right) = -\log(0.85) = 0.071
+\]</span></li>
+<li>Giữa nhóm <code>1</code> và <code>2</code>: <span class="math display">\[
+\text{prox}(1, 2) = -\log\left(\frac{\frac{3}{2} + 4}{10}\right) = -\log(0.55) = 0.260
+\]</span></li>
+</ul></li>
+</ul></li>
+<li><strong>Ma trận Proximity</strong>:
+<ul>
+<li>Sau khi tính toán, ma trận <strong>Proximity Matrix</strong> sẽ như sau:</li>
+</ul>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 16%">
-<col style="width: 9%">
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 9%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Sub-segment</th>
-<th>Risk Ranking</th>
-<th></th>
-<th>Default</th>
-<th></th>
-<th>Outcome</th>
-<th></th>
+<th>Group</th>
+<th>Class 0</th>
+<th>Class 1</th>
+<th>Class 2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td></td>
-<td>Dev</td>
-<td>OOT</td>
-<td>Dev</td>
-<td>OOT</td>
-<td>Baseline</td>
-<td>2020</td>
+<td><strong>0</strong></td>
+<td>0.823</td>
+<td>0.260</td>
+<td>0.071</td>
 </tr>
 <tr class="even">
-<td><strong>Product type</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><strong>1</strong></td>
+<td>0.260</td>
+<td>0.823</td>
+<td>0.260</td>
 </tr>
 <tr class="odd">
-<td>Credit card only</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Personal Loan only</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Đơn vị kinh doanh</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>HO</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Công ty tài chính</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><strong>2</strong></td>
+<td>0.071</td>
+<td>0.260</td>
+<td>0.699</td>
 </tr>
 </tbody>
 </table></li>
-<li><p>Factor mới thêm vào có thể dùng phương pháp điều chỉnh weight</p></li>
-</ul>
-</section>
-<section id="chuyển-đổi-điểm" class="level2">
-<h2 class="anchored" data-anchor-id="chuyển-đổi-điểm">Chuyển đổi điểm</h2>
-</section>
-<section id="apply-irb" class="level2">
-<h2 class="anchored" data-anchor-id="apply-irb">Apply IRB</h2>
-<ul>
-<li>Quy trình tín dụng</li>
-<li>Quy trình đánh giá khách hàng</li>
-</ul>
-</section>
-<section id="pd-model-calibration" class="level2">
-<h2 class="anchored" data-anchor-id="pd-model-calibration">PD Model Calibration</h2>
-<ul>
-<li><p>Housing loan: với 6 tháng hành vi trả nợ chưa đủ mạnh, chưa có nhiều behavious, sử dụng MoB 12 để xác định khách hàng mới hoặc cũ</p></li>
-<li><p>Thẻ tín dụng: chỉ cần 6 tháng đã có được hành vi tiêu dùng, trả nợ</p></li>
-<li><p>Chú ý <strong><code>tính đồng nhất</code></strong> của danh mục</p></li>
-<li><p>Nếu thay đổi chính sách thì mô hình phải phản ánh chính sách forward-looking</p></li>
-<li><p>Nếu không có thông tin liên quan đến thị trường, thì phải có điều chỉnh downgrade PD</p></li>
-<li><p>A-score: Cyclicality ~ 40 -50%, B-score ~ 60-70%</p></li>
-<li><p>Ước tính cyclicality: do 1 model thường không dùng qua 1 chu kỳ kinh tế, nếu back score thì có thẻ dữ liệu cũ không đủ. Những biến như age, gender thì không có cyclicality</p></li>
-<li><p>Retail có thể có master scale riêng với từng danh mục, nhưng có thể distribution không đẹp</p></li>
-</ul>
-</section>
-<section id="xác-định-chu-kỳ-kinh-tế" class="level2">
-<h2 class="anchored" data-anchor-id="xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</h2>
-<ul>
-<li><p>Thu thập dữ liệu càng dài càng tốt, tối thiểu 5 năm</p></li>
-<li><p>Thị trường châu á, lấy mốc khủng hoảng kinh tế là 1998</p></li>
-<li><p>Dùng portfolio có tính chất tương tự, có thể dùng portfolio tương tự của Central Bank NPL, chứng minh correlation sau đó <code>extrapolate</code></p></li>
-<li><p>Forward looking, chọn số trung bình giữa baseline và worst-case</p></li>
-<li><p>Trong giai đoạn covid, nếu có nhà nước có nhiều chính sách làm cho odr giảm, thì có thể bỏ những data point này ra khỏi mẫu trong thời kỳ crisis</p></li>
-</ul>
-</section>
-<section id="chia-pool" class="level2">
-<h2 class="anchored" data-anchor-id="chia-pool">Chia pool</h2>
-<ul>
-<li>Dựa trên product types, pd, mob, bucket …</li>
-</ul>
-</section>
-<section id="đánh-giá-lại-pd" class="level2">
-<h2 class="anchored" data-anchor-id="đánh-giá-lại-pd">Đánh giá lại PD</h2>
-<ul>
-<li>dựa vào CT, ODR, đánh giá implied pd còn phù hợp hay không</li>
-</ul>
-</section>
-<section id="moc" class="level2">
-<h2 class="anchored" data-anchor-id="moc">MoC</h2>
-</section>
-<section id="thấu-chi" class="level2">
-<h2 class="anchored" data-anchor-id="thấu-chi">Thấu chi</h2>
-<ol type="1">
-<li><p>Có tài sản đảm bảo</p>
-<ul>
-<li>Nếu là KH housing loan vay thêm thấu chi, có thể dùng housing score card</li>
-</ul>
-<!-- -->
-<ul>
-<li>Nếu tài sản là tiền gửi nhỏ, thì áp dụng standardise</li>
-</ul></li>
-<li><p>Không có tài sản</p>
-<ul>
-<li><p>Xếp chung vào nhóm credit card</p></li>
-<li></li>
-</ul></li>
 </ol>
+</section>
+<section id="bước-3-tính-điểm-cem" class="level3">
+<h3 class="anchored" data-anchor-id="bước-3-tính-điểm-cem">Bước 3: Tính điểm CEM</h3>
+<ol type="1">
+<li><p><strong>Tính tổng proximity</strong> (tính trên các dự báo đúng):</p>
+<ul>
+<li>Tính <strong>Confusion Matrix</strong>:</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Class 0</th>
+<th>Class 1</th>
+<th>Class 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Lấy từng phần tử trong <strong>Proximity Matrix</strong> nhân với từng phần tử trong <strong>Confusion Matrix</strong> : <span class="math display">\[
+\text{Tổng proximity} = 0.823 * 3 + 0.823 * 2 + 0.260 * 1 + + 0.260 * 1 + 0.699 * 3 = 6.732
+\]</span></li>
+</ul></li>
+<li><p><strong>Tính tổng proximity tối đa</strong> (khi tất cả các dự đoán là chính xác):</p>
+<ul>
+<li>Chỉ sử dụng các giá trị trên đường chéo chính (khi dự đoán đúng với nhãn thực tế): <span class="math display">\[
+\text{Tổng proximity tối đa} = 0.823 * 3 + .823 * 3 + 0.699 * 4 = 7.733
+\]</span></li>
+</ul></li>
+<li><p><strong>Tính điểm CEM</strong>: <span class="math display">\[
+\text{CEM} = \frac{\text{Tổng proximity}}{\text{Tổng proximity tối đa}} = \frac{6.732}{7.733} = 0.871
+\]</span></p></li>
+</ol>
+</section>
+<section id="kết-quả-cuối-cùng" class="level3">
+<h3 class="anchored" data-anchor-id="kết-quả-cuối-cùng">Kết quả cuối cùng</h3>
+<ul>
+<li><p><strong>Ma trận Proximity</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Class 0</th>
+<th>Class 1</th>
+<th>Class 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>0.823</td>
+<td>0.260</td>
+<td>0.071</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>0.260</td>
+<td>0.823</td>
+<td>0.260</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>0.071</td>
+<td>0.260</td>
+<td>0.699</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Điểm CEM</strong>: 0.871 (hoặc 87.1%).</p></li>
+</ul>
+<div id="cell-5" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Example ground truth (actual) and system output (predicted) labels</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ground_truth <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>])  <span class="co"># Actual labels</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>system_output <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>])  <span class="co"># Predicted labels</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_proximity(ground_truth):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate the proximity between the classes based on their distribution.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    classes, counts <span class="op">=</span> np.unique(ground_truth, return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    total_items <span class="op">=</span> <span class="bu">len</span>(ground_truth)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    proximity_matrix <span class="op">=</span> np.zeros((<span class="bu">len</span>(classes), <span class="bu">len</span>(classes)))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classes)):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(classes)):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> j:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Proximity of the class with itself</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                proximity_matrix[i, j] <span class="op">=</span> <span class="op">-</span>math.log(counts[i] <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> total_items))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Proximity of two different classes</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                ni <span class="op">=</span> counts[i]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                nj <span class="op">=</span> counts[j]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                total_between <span class="op">=</span> <span class="bu">sum</span>(counts[<span class="bu">min</span>(i, j):<span class="bu">max</span>(i, j)])  <span class="co"># Total items between classes</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                proximity_matrix[i, j] <span class="op">=</span> <span class="op">-</span>math.log((ni <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> total_between) <span class="op">/</span> total_items)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> proximity_matrix</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cem_score(system_output, ground_truth, proximity_matrix):</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate the CEM score based on system output and ground truth.</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    total_proximity <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    max_proximity <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(system_output)):</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        pred_class <span class="op">=</span> system_output[i]</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        true_class <span class="op">=</span> ground_truth[i]</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        total_proximity <span class="op">+=</span> proximity_matrix[pred_class, true_class]</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        max_proximity <span class="op">+=</span> proximity_matrix[true_class, true_class]  <span class="co"># When prediction is perfect</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># CEM score is the ratio of total proximity to max proximity</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    cem_value <span class="op">=</span> total_proximity <span class="op">/</span> max_proximity <span class="cf">if</span> max_proximity <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cem_value</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate proximity matrix from the ground truth data</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>proximity_matrix <span class="op">=</span> calculate_proximity(ground_truth)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the CEM score based on the proximity matrix</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>cem_value <span class="op">=</span> cem_score(system_output, ground_truth, proximity_matrix)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"CEM Score: </span><span class="sc">{</span>cem_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CEM Score: 0.8869</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1261,18 +1398,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Welcome">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../machine-learning/Index.html" class="pagination-link" aria-label="Machine learning">
-        <span class="nav-page-text">Machine learning</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1281,7 +1406,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nguyenngocbinh/papers/blob/main/statistic/Closeness_Evaluation_Measure__CEM_.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

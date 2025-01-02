@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Model guideline – Making sharable documents</title>
+<title>Classifier Chain – Making sharable documents</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../machine-learning/Index.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../machine-learning/Wine_Quality_pytorch.html" rel="next">
+<link href="../machine-learning/Autoencoders.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../irb/ModelGuideline.html">Model guideline</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/Index.html">Machine learning</a></li><li class="breadcrumb-item"><a href="../machine-learning/Classifier_Chain.html">Classifier Chain</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -121,16 +155,16 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
+            <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model guideline</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link active">
+  <a href="../irb/ModelGuideline.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model guideline</span></a>
   </div>
 </li>
@@ -140,11 +174,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../machine-learning/Index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Machine learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../machine-learning/focal-loss.html" class="sidebar-item-text sidebar-link">
@@ -219,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../machine-learning/Classifier_Chain.html" class="sidebar-item-text sidebar-link">
+  <a href="../machine-learning/Classifier_Chain.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Classifier Chain</span></a>
   </div>
 </li>
@@ -354,39 +388,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#triết-lý-xây-dựng-mô-hình" id="toc-triết-lý-xây-dựng-mô-hình" class="nav-link active" data-scroll-target="#triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</a></li>
-  <li><a href="#phạm-vi-mô-hình" id="toc-phạm-vi-mô-hình" class="nav-link" data-scroll-target="#phạm-vi-mô-hình">Phạm vi mô hình</a></li>
-  <li><a href="#single-factor-analysis" id="toc-single-factor-analysis" class="nav-link" data-scroll-target="#single-factor-analysis">Single factor analysis</a>
-  <ul class="collapse">
-  <li><a href="#woe-binning" id="toc-woe-binning" class="nav-link" data-scroll-target="#woe-binning">WoE binning</a></li>
-  <li><a href="#chuẩn-hóa-biến" id="toc-chuẩn-hóa-biến" class="nav-link" data-scroll-target="#chuẩn-hóa-biến">Chuẩn hóa biến</a></li>
-  </ul></li>
-  <li><a href="#multiple-factors-analysis" id="toc-multiple-factors-analysis" class="nav-link" data-scroll-target="#multiple-factors-analysis">Multiple Factors Analysis</a></li>
-  <li><a href="#chọn-mô-hình-cuối-cùng" id="toc-chọn-mô-hình-cuối-cùng" class="nav-link" data-scroll-target="#chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</a></li>
-  <li><a href="#kiểm-định-mô-hình" id="toc-kiểm-định-mô-hình" class="nav-link" data-scroll-target="#kiểm-định-mô-hình">Kiểm định mô hình</a></li>
-  <li><a href="#giám-sát-mô-hình" id="toc-giám-sát-mô-hình" class="nav-link" data-scroll-target="#giám-sát-mô-hình">Giám sát mô hình</a></li>
-  <li><a href="#chuyển-đổi-điểm" id="toc-chuyển-đổi-điểm" class="nav-link" data-scroll-target="#chuyển-đổi-điểm">Chuyển đổi điểm</a></li>
-  <li><a href="#apply-irb" id="toc-apply-irb" class="nav-link" data-scroll-target="#apply-irb">Apply IRB</a></li>
-  <li><a href="#pd-model-calibration" id="toc-pd-model-calibration" class="nav-link" data-scroll-target="#pd-model-calibration">PD Model Calibration</a></li>
-  <li><a href="#xác-định-chu-kỳ-kinh-tế" id="toc-xác-định-chu-kỳ-kinh-tế" class="nav-link" data-scroll-target="#xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</a></li>
-  <li><a href="#chia-pool" id="toc-chia-pool" class="nav-link" data-scroll-target="#chia-pool">Chia pool</a></li>
-  <li><a href="#đánh-giá-lại-pd" id="toc-đánh-giá-lại-pd" class="nav-link" data-scroll-target="#đánh-giá-lại-pd">Đánh giá lại PD</a></li>
-  <li><a href="#moc" id="toc-moc" class="nav-link" data-scroll-target="#moc">MoC</a></li>
-  <li><a href="#thấu-chi" id="toc-thấu-chi" class="nav-link" data-scroll-target="#thấu-chi">Thấu chi</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/Index.html">Machine learning</a></li><li class="breadcrumb-item"><a href="../machine-learning/Classifier_Chain.html">Classifier Chain</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Model guideline</h1>
+<h1 class="title">Classifier Chain</h1>
 </div>
 
 
@@ -403,301 +413,249 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="triết-lý-xây-dựng-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="triết-lý-xây-dựng-mô-hình">Triết lý xây dựng mô hình</h2>
+<hr>
+<p><strong>Mô hình Classifier Chain cho dự báo rủi ro tín dụng với các mức DPD</strong></p>
+<p><strong>Bối cảnh:</strong><br>
+- <strong>Dữ liệu đặc trưng:</strong><br>
+- Nhân khẩu học: <em>Tuổi, thu nhập, tình trạng việc làm</em><br>
+- Lịch sử tín dụng: <em>Dư nợ hiện tại, số lần trễ hạn trước đây, tỷ lệ sử dụng tín dụng</em><br>
+- Đặc trưng khoản vay: <em>Số tiền vay, lãi suất, kỳ hạn, tỷ lệ nợ trên giá trị tài sản</em></p>
 <ul>
-<li>Nhìn tổng thể chân dung khách hàng</li>
-</ul>
-</section>
-<section id="phạm-vi-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="phạm-vi-mô-hình">Phạm vi mô hình</h2>
+<li><strong>Nhãn (Labels) đa nhãn:</strong>
 <ul>
-<li>Cần xác định rõ phạm vi của mô hình trước khi bắt đầu xây dựng &amp; phát triển mô hình</li>
-</ul>
-</section>
-<section id="single-factor-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="single-factor-analysis">Single factor analysis</h2>
-<section id="woe-binning" class="level3">
-<h3 class="anchored" data-anchor-id="woe-binning">WoE binning</h3>
-<ul>
-<li>Số lượng nhóm phân chia dựa trên tỷ lệ bad rate tương đối, nếu 5 nhóm thì nhóm thứ 3 tỷ lệ này xấp xỉ 1</li>
-<li>Số lượng nhóm khoảng 5-7 nhóm (đẹp nhất là 5 nhóm)</li>
-<li>Nên chọn số lượng nhóm số lẻ</li>
-<li>Missing tùy thuộc từng trường hợp sẽ nhóm vào nhóm có tỷ lệ bad rate cao nhất hoặc nhóm có tỷ lệ bad rate xấp xỉ</li>
-<li>Tùy từng biến có trend sẽ coasre trend theo biến</li>
-</ul>
-</section>
-<section id="chuẩn-hóa-biến" class="level3">
-<h3 class="anchored" data-anchor-id="chuẩn-hóa-biến">Chuẩn hóa biến</h3>
-<ul>
-<li><code>Normalising Score</code>: Dùng để dễ so sánh coef của mô hình đa biến sau khi đã hồi quy. Normalised Log Odds thông thường có <strong>trung bình = 0, std = 50</strong></li>
-</ul>
-</section>
-</section>
-<section id="multiple-factors-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-factors-analysis">Multiple Factors Analysis</h2>
-<ul>
-<li><p>Theo triết lý xây dựng mô hình, mỗi nhóm thông tin khách hàng có ít nhất 1 biến:</p>
-<p>VD: Nhóm thông tin chung có 1 biến, nhóm thông tin hành vi tiêu dùng 3 biến, … các nhóm thông tin còn lại có ít nhất 1 biến</p></li>
-</ul>
-</section>
-<section id="chọn-mô-hình-cuối-cùng" class="level2">
-<h2 class="anchored" data-anchor-id="chọn-mô-hình-cuối-cùng">Chọn mô hình cuối cùng</h2>
-<ul>
-<li>30% &gt; <code>std-coef</code> &gt; 5%</li>
-<li>Nếu có hệ số dưới 5%, điều chỉnh lại trọng số = 5%, rồi nhân ngược lại ra <code>adjusted-coef</code></li>
-<li>Cân nhắc trọng số của các nhóm thông tin: Ví dụ: Nhóm thông tin A có 2 biến tổng trọng số 10%, nhóm thông tin B có 3 biến tổng trọng số 50% (nhóm thông tin B này quá mạnh so với nhóm thông tin A)</li>
-<li>Nên tăng hoặc giảm hệ số các biến trong cùng 1 nhóm thông tin</li>
-</ul>
-</section>
-<section id="kiểm-định-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="kiểm-định-mô-hình">Kiểm định mô hình</h2>
-</section>
-<section id="giám-sát-mô-hình" class="level2">
-<h2 class="anchored" data-anchor-id="giám-sát-mô-hình">Giám sát mô hình</h2>
-<ul>
-<li><p><code>Gini</code> đơn biến suy giảm quá 15%, hoặc 10% cho các biến nhân khẩu học điều chỉnh lại mô hình</p></li>
-<li><p>Sau khi mô hình vi phạm các ngưỡng thì xem xét lại mô hình</p></li>
-<li><p>Báo cáo lại những yếu tố ảnh hưởng tới mô hình. VD: Tình hình cho vay, …</p></li>
-<li><p>Front-end monitoring: Xem sự dịch chuyển các nhóm hạng, danh mục</p></li>
-<li><p>Back-end monitoring: performance (test trên cả overall, sub-segment)của mô hình vẫn tốt, các factors vẫn phản ánh được kết quả của mô hình. Tùy thuộc dữ liệu có thể ấy dữ liệu từ 2 năm đến 5 năm dữ liệu</p></li>
-<li><p>Thông thường các factors dễ thay đổi, có thể chạy mô hình trên dữ liệu mới</p></li>
-<li><p>Population thay đổi (PSI):</p>
-<ul>
-<li>Front-end</li>
-</ul>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 85%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Dev</th>
-<th>OOT</th>
-<th>Remark</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PSI</td>
-<td>NA</td>
-<td>3.1%</td>
-<td><p>Chỉ số ổn định tổng thể (PSI)</p>
-<p>- PSI &lt; 15%: chỉ số phân phối điểm ổn định.</p>
-<p>- PSI &gt;= 15% và &lt; 25%: chỉ số dịch chuyển vừa phải.</p>
-<p>- PSI &gt;=25%: thể hiện sự thay đổi đáng kể.</p>
-<p>Nếu có sự thay đổi đáng kể, thẻ điểm có thể không áp dụng cho mẫu OOT.<br>
-</p></td>
-</tr>
-<tr class="even">
-<td>AHI</td>
-<td>5.1%</td>
-<td>4.0%</td>
-<td><p>Chỉ số Herfindah được điều chỉnh (AHI) để đo độ tập trung trong dải điểm nhất định.</p>
-<p>- AHI &lt; 20%: không tập trung</p>
-<p>- AHI &gt;= 20%: có sự tập trung trong dải điểm nhất định. Cần điều tra để đảm bảo không có vấn đề gì với khả năng phân biệt rủi ro.</p></td>
-</tr>
-</tbody>
-</table></li>
-<li><p>Back-end</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 22%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Overall</th>
-<th>Dev</th>
-<th>OOT</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Gini</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>No of default</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Outcome</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 16%">
-<col style="width: 9%">
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Sub-segment</th>
-<th>Risk Ranking</th>
-<th></th>
-<th>Default</th>
-<th></th>
-<th>Outcome</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td>Dev</td>
-<td>OOT</td>
-<td>Dev</td>
-<td>OOT</td>
-<td>Baseline</td>
-<td>2020</td>
-</tr>
-<tr class="even">
-<td><strong>Product type</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Credit card only</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Personal Loan only</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Đơn vị kinh doanh</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>HO</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Công ty tài chính</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table></li>
-<li><p>Factor mới thêm vào có thể dùng phương pháp điều chỉnh weight</p></li>
-</ul>
-</section>
-<section id="chuyển-đổi-điểm" class="level2">
-<h2 class="anchored" data-anchor-id="chuyển-đổi-điểm">Chuyển đổi điểm</h2>
-</section>
-<section id="apply-irb" class="level2">
-<h2 class="anchored" data-anchor-id="apply-irb">Apply IRB</h2>
-<ul>
-<li>Quy trình tín dụng</li>
-<li>Quy trình đánh giá khách hàng</li>
-</ul>
-</section>
-<section id="pd-model-calibration" class="level2">
-<h2 class="anchored" data-anchor-id="pd-model-calibration">PD Model Calibration</h2>
-<ul>
-<li><p>Housing loan: với 6 tháng hành vi trả nợ chưa đủ mạnh, chưa có nhiều behavious, sử dụng MoB 12 để xác định khách hàng mới hoặc cũ</p></li>
-<li><p>Thẻ tín dụng: chỉ cần 6 tháng đã có được hành vi tiêu dùng, trả nợ</p></li>
-<li><p>Chú ý <strong><code>tính đồng nhất</code></strong> của danh mục</p></li>
-<li><p>Nếu thay đổi chính sách thì mô hình phải phản ánh chính sách forward-looking</p></li>
-<li><p>Nếu không có thông tin liên quan đến thị trường, thì phải có điều chỉnh downgrade PD</p></li>
-<li><p>A-score: Cyclicality ~ 40 -50%, B-score ~ 60-70%</p></li>
-<li><p>Ước tính cyclicality: do 1 model thường không dùng qua 1 chu kỳ kinh tế, nếu back score thì có thẻ dữ liệu cũ không đủ. Những biến như age, gender thì không có cyclicality</p></li>
-<li><p>Retail có thể có master scale riêng với từng danh mục, nhưng có thể distribution không đẹp</p></li>
-</ul>
-</section>
-<section id="xác-định-chu-kỳ-kinh-tế" class="level2">
-<h2 class="anchored" data-anchor-id="xác-định-chu-kỳ-kinh-tế">Xác định chu kỳ kinh tế</h2>
-<ul>
-<li><p>Thu thập dữ liệu càng dài càng tốt, tối thiểu 5 năm</p></li>
-<li><p>Thị trường châu á, lấy mốc khủng hoảng kinh tế là 1998</p></li>
-<li><p>Dùng portfolio có tính chất tương tự, có thể dùng portfolio tương tự của Central Bank NPL, chứng minh correlation sau đó <code>extrapolate</code></p></li>
-<li><p>Forward looking, chọn số trung bình giữa baseline và worst-case</p></li>
-<li><p>Trong giai đoạn covid, nếu có nhà nước có nhiều chính sách làm cho odr giảm, thì có thể bỏ những data point này ra khỏi mẫu trong thời kỳ crisis</p></li>
-</ul>
-</section>
-<section id="chia-pool" class="level2">
-<h2 class="anchored" data-anchor-id="chia-pool">Chia pool</h2>
-<ul>
-<li>Dựa trên product types, pd, mob, bucket …</li>
-</ul>
-</section>
-<section id="đánh-giá-lại-pd" class="level2">
-<h2 class="anchored" data-anchor-id="đánh-giá-lại-pd">Đánh giá lại PD</h2>
-<ul>
-<li>dựa vào CT, ODR, đánh giá implied pd còn phù hợp hay không</li>
-</ul>
-</section>
-<section id="moc" class="level2">
-<h2 class="anchored" data-anchor-id="moc">MoC</h2>
-</section>
-<section id="thấu-chi" class="level2">
-<h2 class="anchored" data-anchor-id="thấu-chi">Thấu chi</h2>
-<ol type="1">
-<li><p>Có tài sản đảm bảo</p>
-<ul>
-<li>Nếu là KH housing loan vay thêm thấu chi, có thể dùng housing score card</li>
-</ul>
-<!-- -->
-<ul>
-<li>Nếu tài sản là tiền gửi nhỏ, thì áp dụng standardise</li>
+<li><strong>DPD30+:</strong> Trễ ≥30 ngày<br>
+</li>
+<li><strong>DPD60+:</strong> Trễ ≥60 ngày<br>
+</li>
+<li><strong>DPD90+:</strong> Trễ ≥90 ngày</li>
 </ul></li>
-<li><p>Không có tài sản</p>
+</ul>
+<p>Các nhãn này không loại trừ lẫn nhau. Ví dụ, nếu khách hàng trễ 90 ngày, họ chắc chắn đã trễ 30 và 60 ngày trước đó. Điều này tạo ra <strong>mối liên hệ chặt chẽ giữa các nhãn</strong>.</p>
+<hr>
+<p><strong>Ý tưởng chính của Classifier Chain:</strong><br>
+Thay vì dự đoán từng nhãn một cách độc lập, mô hình sẽ dự đoán tuần tự và sử dụng kết quả dự đoán trước đó như một phần đầu vào cho bước tiếp theo. Điều này giúp mô hình tận dụng quan hệ giữa các nhãn.</p>
+<p><strong>Minh họa (mô tả ảnh):</strong><br>
+Hãy tưởng tượng một <strong>sơ đồ dạng chuỗi</strong>:</p>
+<pre><code>        ┌────────────────┐
+        │   Đặc trưng    │
+        │  (Features)    │
+        └───────┬────────┘
+                │
+                v
+        ┌────────────────┐
+        │ Classifier A    │
+        │ Dự đoán DPD30+  │
+        └───────┬────────┘
+                │
+         (Xác suất DPD30+)
+                │
+                v
+        ┌────────────────┐
+        │ Classifier B    │
+        │ Dự đoán DPD60+  │
+        │ (dựa trên       │
+        │ đặc trưng +     │
+        │ kết quả A)      │
+        └───────┬────────┘
+                │
+         (Xác suất DPD60+)
+                │
+                v
+        ┌────────────────┐
+        │ Classifier C    │
+        │ Dự đoán DPD90+  │
+        │ (dựa trên       │
+        │ đặc trưng +     │
+        │ kết quả A, B)   │
+        └───────┬────────┘
+                │
+         (Xác suất DPD90+)
+                │
+                v
+              (Kết quả)</code></pre>
 <ul>
-<li><p>Xếp chung vào nhóm credit card</p></li>
-<li></li>
+<li><strong>Classifier A</strong>: Dự đoán DPD30+ dựa trên đặc trưng ban đầu.<br>
+</li>
+<li><strong>Classifier B</strong>: Dự đoán DPD60+, nhưng đầu vào gồm cả đặc trưng ban đầu <strong>và</strong> dự đoán từ A (DPD30+).<br>
+</li>
+<li><strong>Classifier C</strong>: Dự đoán DPD90+, đầu vào gồm đặc trưng ban đầu <strong>và</strong> dự đoán từ A, B.</li>
+</ul>
+<p>Trong sơ đồ trên, mỗi mũi tên thể hiện việc truyền thông tin: Dự đoán ở bước trước hỗ trợ bước sau.</p>
+<hr>
+<p><strong>Quy trình dự đoán:</strong><br>
+1. <strong>Bước 1:</strong><br>
+- <strong>Đầu vào:</strong> Đặc trưng khách hàng (nhân khẩu học, lịch sử tín dụng, khoản vay)<br>
+- <strong>Đầu ra A:</strong> Xác suất khách trễ ≥30 ngày (ví dụ: 0.7)</p>
+<ol start="2" type="1">
+<li><strong>Bước 2:</strong>
+<ul>
+<li><strong>Đầu vào:</strong> Đặc trưng ban đầu + kết quả dự đoán DPD30+ (0.7)<br>
+</li>
+<li><strong>Đầu ra B:</strong> Xác suất trễ ≥60 ngày (ví dụ: 0.4)</li>
+</ul></li>
+<li><strong>Bước 3:</strong>
+<ul>
+<li><strong>Đầu vào:</strong> Đặc trưng ban đầu + kết quả DPD30+ (0.7) + kết quả DPD60+ (0.4)<br>
+</li>
+<li><strong>Đầu ra C:</strong> Xác suất trễ ≥90 ngày (ví dụ: 0.1)</li>
 </ul></li>
 </ol>
+<p><strong>Điểm nổi bật:</strong><br>
+- <strong>Khai thác quan hệ giữa các nhãn:</strong><br>
+Các mức trễ hạn cao (DPD90+) phụ thuộc logic vào khả năng trễ hạn ở mức thấp hơn (DPD30+, DPD60+).</p>
+<ul>
+<li><p><strong>Dự đoán thực tế hơn:</strong><br>
+Nếu khả năng trễ 30 ngày và 60 ngày thấp, thì khả năng trễ 90 ngày cũng sẽ thấp. Ngược lại, nếu hệ thống dự đoán 30 và 60 ngày trễ hạn cao, mô hình sẽ phản ánh điều đó vào dự đoán 90 ngày.</p></li>
+<li><p><strong>Dễ mở rộng:</strong><br>
+Có thể thử nhiều thứ tự nhãn khác nhau hoặc sử dụng các mô hình mạnh mẽ (như XGBoost, Deep Learning) bên trong mỗi bước phân loại.</p></li>
+</ul>
+<hr>
+<div id="cell-3" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.multioutput <span class="im">import</span> ClassifierChain</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Giả lập dữ liệu:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  - X: ma trận đặc trưng, giả sử có 1000 khách hàng, mỗi khách có 10 đặc trưng.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  - Y: ma trận nhãn, giả sử có 3 nhãn: DPD30+, DPD60+, DPD90+.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Dữ liệu giả lập mang tính minh họa, trong thực tế bạn dùng dữ liệu thật.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.rand(<span class="dv">1000</span>, <span class="dv">10</span>)           <span class="co"># 1000 khách, 10 đặc trưng</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.zeros((<span class="dv">1000</span>, <span class="dv">3</span>))                <span class="co"># 3 nhãn: DPD30+, DPD60+, DPD90+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo nhãn giả lập dựa trên X. Ví dụ:</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># - Nếu tổng một số đặc trưng &gt; 5 thì khách có khả năng DPD30+,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># - DPD60+ và DPD90+ sẽ phụ thuộc vào DPD30+ (giả lập quan hệ nhãn).</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>threshold_30 <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>threshold_60 <span class="op">=</span> <span class="fl">5.5</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>threshold_90 <span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>sum_feats <span class="op">=</span> X.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">0</span>] <span class="op">=</span> (sum_feats <span class="op">&gt;</span> threshold_30).astype(<span class="bu">int</span>)  <span class="co"># DPD30+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">1</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> threshold_60) <span class="op">&amp;</span> (Y[:,<span class="dv">0</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)  <span class="co"># DPD60+ (phụ thuộc vào DPD30+)</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">2</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> threshold_90) <span class="op">&amp;</span> (Y[:,<span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)  <span class="co"># DPD90+ (phụ thuộc vào DPD60+)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Chia tập dữ liệu</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X, Y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Khởi tạo mô hình LogisticRegression</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>base_lr <span class="op">=</span> LogisticRegression()</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo Classifier Chain</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Thứ tự nhãn: [DPD30+, DPD60+, DPD90+] tương ứng các cột Y[:,0], Y[:,1], Y[:,2]</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> ClassifierChain(base_lr, order<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], cv<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Huấn luyện mô hình</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>chain.fit(X_train, Y_train)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Dự đoán trên dữ liệu test</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> chain.predict(X_test)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Đánh giá</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, hamming_loss</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co"># accuracy_score với multi-label sẽ tính số mẫu mà tất cả các nhãn dự đoán đúng</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> accuracy_score(Y_test, Y_pred)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>h_loss <span class="op">=</span> hamming_loss(Y_test, Y_pred)  <span class="co"># Tỷ lệ nhãn sai trên tổng số nhãn</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy (multi-label exact match):"</span>, acc)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hamming Loss:"</span>, h_loss)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co"># In ra vài kết quả dự đoán</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dự đoán một vài khách hàng (DPD30+, DPD60+, DPD90+):"</span>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Thực tế:"</span>, Y_test[i], <span class="st">"Dự đoán:"</span>, Y_pred[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy (multi-label exact match): 0.925
+Hamming Loss: 0.025
+Dự đoán một vài khách hàng (DPD30+, DPD60+, DPD90+):
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.multioutput <span class="im">import</span> ClassifierChain</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> cohen_kappa_score, roc_auc_score</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMClassifier</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.rand(<span class="dv">1000</span>, <span class="dv">10</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.zeros((<span class="dv">1000</span>, <span class="dv">5</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>sum_feats <span class="op">=</span> X.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> [<span class="fl">4.5</span>, <span class="fl">5.0</span>, <span class="fl">5.5</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">0</span>] <span class="op">=</span> (sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">0</span>]).astype(<span class="bu">int</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">1</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">1</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">0</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">2</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">2</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">3</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">3</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">2</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">4</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">4</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X, Y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Thay LogisticRegression bằng LGBMClassifier</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>base_clf <span class="op">=</span> LGBMClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, verbose<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> ClassifierChain(base_clf, order<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>], cv<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>chain.fit(X_train, Y_train)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> chain.predict(X_test)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>Y_pred_proba <span class="op">=</span> chain.predict_proba(X_test)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>kappas <span class="op">=</span> []</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>ginis <span class="op">=</span> []</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    kappa_i <span class="op">=</span> cohen_kappa_score(Y_test[:, i], Y_pred[:, i])</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    kappas.append(kappa_i)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    proba_i <span class="op">=</span> Y_pred_proba[i]</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kiểm tra xem có hai lớp (2 chiều) không</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> proba_i.ndim <span class="op">==</span> <span class="dv">1</span> <span class="kw">or</span> proba_i.shape[<span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Nếu chỉ có một lớp</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        ginis.append(<span class="fl">0.0</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        auc_i <span class="op">=</span> roc_auc_score(Y_test[:, i], proba_i[:, <span class="dv">1</span>])</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>        gini_i <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> auc_i <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        ginis.append(gini_i)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>mean_kappa <span class="op">=</span> np.mean(kappas)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>mean_gini <span class="op">=</span> np.mean(ginis)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kết quả đánh giá:"</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Nhãn </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: Kappa = </span><span class="sc">{</span>kappas[i]<span class="sc">:.4f}</span><span class="ss">, Gini = </span><span class="sc">{</span>ginis[i]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Trung bình Kappa (macro): </span><span class="sc">{</span>mean_kappa<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Trung bình Gini (macro): </span><span class="sc">{</span>mean_gini<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Kết quả đánh giá:
+Nhãn 0: Kappa = 0.7465, Gini = 0.0000
+Nhãn 1: Kappa = 0.7375, Gini = 0.0000
+Nhãn 2: Kappa = 0.7867, Gini = 0.0000
+Nhãn 3: Kappa = 0.6131, Gini = 0.0000
+Nhãn 4: Kappa = 0.1870, Gini = 0.0000
+Trung bình Kappa (macro): 0.6142
+Trung bình Gini (macro): 0.0000</code></pre>
+</div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Y.shape:"</span>, Y.shape)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Y_train.shape:"</span>, Y_train.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Y.shape: (1000, 5)
+Y_train.shape: (800, 5)</code></pre>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1263,13 +1221,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Welcome">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="../machine-learning/Autoencoders.html" class="pagination-link" aria-label="Autoencoders - anomaly detection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Autoencoders - anomaly detection</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../machine-learning/Index.html" class="pagination-link" aria-label="Machine learning">
-        <span class="nav-page-text">Machine learning</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../machine-learning/Wine_Quality_pytorch.html" class="pagination-link" aria-label="Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch">
+        <span class="nav-page-text">Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1281,7 +1239,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/irb/ModelGuideline.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/Classifier_Chain.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
