@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>From the Browser – Making sharable documents</title>
+<title>Classifier Chain – Making sharable documents</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../quarto-workflows/rstudio.html" rel="next">
-<link href="../quarto-workflows/index.html" rel="prev">
+<link href="../machine-learning/Wine_Quality_pytorch.html" rel="next">
+<link href="../machine-learning/Autoencoders.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto-workflows/index.html">Quarto workflows</a></li><li class="breadcrumb-item"><a href="../quarto-workflows/browser.html">From the Browser</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/Index.html">Machine learning</a></li><li class="breadcrumb-item"><a href="../machine-learning/Classifier_Chain.html">Classifier Chain</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -140,11 +174,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../machine-learning/Index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Machine learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../machine-learning/focal-loss.html" class="sidebar-item-text sidebar-link">
@@ -219,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../machine-learning/Classifier_Chain.html" class="sidebar-item-text sidebar-link">
+  <a href="../machine-learning/Classifier_Chain.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Classifier Chain</span></a>
   </div>
 </li>
@@ -324,14 +358,14 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../quarto-workflows/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quarto workflows</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quarto-workflows/browser.html" class="sidebar-item-text sidebar-link active">
+  <a href="../quarto-workflows/browser.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">From the Browser</span></a>
   </div>
 </li>
@@ -366,23 +400,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#edit-content-on-an-existing-page" id="toc-edit-content-on-an-existing-page" class="nav-link active" data-scroll-target="#edit-content-on-an-existing-page">Edit content on an existing page</a></li>
-  <li><a href="#commit-and-publish" id="toc-commit-and-publish" class="nav-link" data-scroll-target="#commit-and-publish">Commit and publish</a></li>
-  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/quarto-workflows/browser.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto-workflows/index.html">Quarto workflows</a></li><li class="breadcrumb-item"><a href="../quarto-workflows/browser.html">From the Browser</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../machine-learning/Index.html">Machine learning</a></li><li class="breadcrumb-item"><a href="../machine-learning/Classifier_Chain.html">Classifier Chain</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">From the Browser</h1>
+<h1 class="title">Classifier Chain</h1>
 </div>
 
 
@@ -399,42 +425,249 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A workflow from the browser if good for getting started (since you do not need to install additional software) and for making small contributions, but is definitely limited. Once you feel comfortable here, you can move to a different setup.</p>
-<p>Here’s an example of editing content on an existing page.</p>
-<section id="edit-content-on-an-existing-page" class="level2">
-<h2 class="anchored" data-anchor-id="edit-content-on-an-existing-page">Edit content on an existing page</h2>
-<p>Let’s change the date on the home page of this website.</p>
-<p>In your repository, navigate to <code>index.md</code>. Then, click the pencil icon in the top right to edit directly.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/github-edit-index.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
-</figure>
+<hr>
+<p><strong>Mô hình Classifier Chain cho dự báo rủi ro tín dụng với các mức DPD</strong></p>
+<p><strong>Bối cảnh:</strong><br>
+- <strong>Dữ liệu đặc trưng:</strong><br>
+- Nhân khẩu học: <em>Tuổi, thu nhập, tình trạng việc làm</em><br>
+- Lịch sử tín dụng: <em>Dư nợ hiện tại, số lần trễ hạn trước đây, tỷ lệ sử dụng tín dụng</em><br>
+- Đặc trưng khoản vay: <em>Số tiền vay, lãi suất, kỳ hạn, tỷ lệ nợ trên giá trị tài sản</em></p>
+<ul>
+<li><strong>Nhãn (Labels) đa nhãn:</strong>
+<ul>
+<li><strong>DPD30+:</strong> Trễ ≥30 ngày<br>
+</li>
+<li><strong>DPD60+:</strong> Trễ ≥60 ngày<br>
+</li>
+<li><strong>DPD90+:</strong> Trễ ≥90 ngày</li>
+</ul></li>
+</ul>
+<p>Các nhãn này không loại trừ lẫn nhau. Ví dụ, nếu khách hàng trễ 90 ngày, họ chắc chắn đã trễ 30 và 60 ngày trước đó. Điều này tạo ra <strong>mối liên hệ chặt chẽ giữa các nhãn</strong>.</p>
+<hr>
+<p><strong>Ý tưởng chính của Classifier Chain:</strong><br>
+Thay vì dự đoán từng nhãn một cách độc lập, mô hình sẽ dự đoán tuần tự và sử dụng kết quả dự đoán trước đó như một phần đầu vào cho bước tiếp theo. Điều này giúp mô hình tận dụng quan hệ giữa các nhãn.</p>
+<p><strong>Minh họa (mô tả ảnh):</strong><br>
+Hãy tưởng tượng một <strong>sơ đồ dạng chuỗi</strong>:</p>
+<pre><code>        ┌────────────────┐
+        │   Đặc trưng    │
+        │  (Features)    │
+        └───────┬────────┘
+                │
+                v
+        ┌────────────────┐
+        │ Classifier A    │
+        │ Dự đoán DPD30+  │
+        └───────┬────────┘
+                │
+         (Xác suất DPD30+)
+                │
+                v
+        ┌────────────────┐
+        │ Classifier B    │
+        │ Dự đoán DPD60+  │
+        │ (dựa trên       │
+        │ đặc trưng +     │
+        │ kết quả A)      │
+        └───────┬────────┘
+                │
+         (Xác suất DPD60+)
+                │
+                v
+        ┌────────────────┐
+        │ Classifier C    │
+        │ Dự đoán DPD90+  │
+        │ (dựa trên       │
+        │ đặc trưng +     │
+        │ kết quả A, B)   │
+        └───────┬────────┘
+                │
+         (Xác suất DPD90+)
+                │
+                v
+              (Kết quả)</code></pre>
+<ul>
+<li><strong>Classifier A</strong>: Dự đoán DPD30+ dựa trên đặc trưng ban đầu.<br>
+</li>
+<li><strong>Classifier B</strong>: Dự đoán DPD60+, nhưng đầu vào gồm cả đặc trưng ban đầu <strong>và</strong> dự đoán từ A (DPD30+).<br>
+</li>
+<li><strong>Classifier C</strong>: Dự đoán DPD90+, đầu vào gồm đặc trưng ban đầu <strong>và</strong> dự đoán từ A, B.</li>
+</ul>
+<p>Trong sơ đồ trên, mỗi mũi tên thể hiện việc truyền thông tin: Dự đoán ở bước trước hỗ trợ bước sau.</p>
+<hr>
+<p><strong>Quy trình dự đoán:</strong><br>
+1. <strong>Bước 1:</strong><br>
+- <strong>Đầu vào:</strong> Đặc trưng khách hàng (nhân khẩu học, lịch sử tín dụng, khoản vay)<br>
+- <strong>Đầu ra A:</strong> Xác suất khách trễ ≥30 ngày (ví dụ: 0.7)</p>
+<ol start="2" type="1">
+<li><strong>Bước 2:</strong>
+<ul>
+<li><strong>Đầu vào:</strong> Đặc trưng ban đầu + kết quả dự đoán DPD30+ (0.7)<br>
+</li>
+<li><strong>Đầu ra B:</strong> Xác suất trễ ≥60 ngày (ví dụ: 0.4)</li>
+</ul></li>
+<li><strong>Bước 3:</strong>
+<ul>
+<li><strong>Đầu vào:</strong> Đặc trưng ban đầu + kết quả DPD30+ (0.7) + kết quả DPD60+ (0.4)<br>
+</li>
+<li><strong>Đầu ra C:</strong> Xác suất trễ ≥90 ngày (ví dụ: 0.1)</li>
+</ul></li>
+</ol>
+<p><strong>Điểm nổi bật:</strong><br>
+- <strong>Khai thác quan hệ giữa các nhãn:</strong><br>
+Các mức trễ hạn cao (DPD90+) phụ thuộc logic vào khả năng trễ hạn ở mức thấp hơn (DPD30+, DPD60+).</p>
+<ul>
+<li><p><strong>Dự đoán thực tế hơn:</strong><br>
+Nếu khả năng trễ 30 ngày và 60 ngày thấp, thì khả năng trễ 90 ngày cũng sẽ thấp. Ngược lại, nếu hệ thống dự đoán 30 và 60 ngày trễ hạn cao, mô hình sẽ phản ánh điều đó vào dự đoán 90 ngày.</p></li>
+<li><p><strong>Dễ mở rộng:</strong><br>
+Có thể thử nhiều thứ tự nhãn khác nhau hoặc sử dụng các mô hình mạnh mẽ (như XGBoost, Deep Learning) bên trong mỗi bước phân loại.</p></li>
+</ul>
+<hr>
+<div id="cell-3" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.multioutput <span class="im">import</span> ClassifierChain</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Giả lập dữ liệu:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  - X: ma trận đặc trưng, giả sử có 1000 khách hàng, mỗi khách có 10 đặc trưng.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  - Y: ma trận nhãn, giả sử có 3 nhãn: DPD30+, DPD60+, DPD90+.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Dữ liệu giả lập mang tính minh họa, trong thực tế bạn dùng dữ liệu thật.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.rand(<span class="dv">1000</span>, <span class="dv">10</span>)           <span class="co"># 1000 khách, 10 đặc trưng</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.zeros((<span class="dv">1000</span>, <span class="dv">3</span>))                <span class="co"># 3 nhãn: DPD30+, DPD60+, DPD90+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo nhãn giả lập dựa trên X. Ví dụ:</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># - Nếu tổng một số đặc trưng &gt; 5 thì khách có khả năng DPD30+,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># - DPD60+ và DPD90+ sẽ phụ thuộc vào DPD30+ (giả lập quan hệ nhãn).</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>threshold_30 <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>threshold_60 <span class="op">=</span> <span class="fl">5.5</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>threshold_90 <span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>sum_feats <span class="op">=</span> X.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">0</span>] <span class="op">=</span> (sum_feats <span class="op">&gt;</span> threshold_30).astype(<span class="bu">int</span>)  <span class="co"># DPD30+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">1</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> threshold_60) <span class="op">&amp;</span> (Y[:,<span class="dv">0</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)  <span class="co"># DPD60+ (phụ thuộc vào DPD30+)</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">2</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> threshold_90) <span class="op">&amp;</span> (Y[:,<span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)  <span class="co"># DPD90+ (phụ thuộc vào DPD60+)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Chia tập dữ liệu</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X, Y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Khởi tạo mô hình LogisticRegression</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>base_lr <span class="op">=</span> LogisticRegression()</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Tạo Classifier Chain</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Thứ tự nhãn: [DPD30+, DPD60+, DPD90+] tương ứng các cột Y[:,0], Y[:,1], Y[:,2]</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> ClassifierChain(base_lr, order<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], cv<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Huấn luyện mô hình</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>chain.fit(X_train, Y_train)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Dự đoán trên dữ liệu test</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> chain.predict(X_test)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Đánh giá</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, hamming_loss</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co"># accuracy_score với multi-label sẽ tính số mẫu mà tất cả các nhãn dự đoán đúng</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> accuracy_score(Y_test, Y_pred)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>h_loss <span class="op">=</span> hamming_loss(Y_test, Y_pred)  <span class="co"># Tỷ lệ nhãn sai trên tổng số nhãn</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy (multi-label exact match):"</span>, acc)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hamming Loss:"</span>, h_loss)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="co"># In ra vài kết quả dự đoán</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dự đoán một vài khách hàng (DPD30+, DPD60+, DPD90+):"</span>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Thực tế:"</span>, Y_test[i], <span class="st">"Dự đoán:"</span>, Y_pred[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy (multi-label exact match): 0.925
+Hamming Loss: 0.025
+Dự đoán một vài khách hàng (DPD30+, DPD60+, DPD90+):
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]
+Thực tế: [0. 0. 0.] Dự đoán: [0. 0. 0.]</code></pre>
 </div>
-<p>We are now in the “Edit file” tab of the editor, where we can make modifications. Let’s change the date to today’s date. Click the “Preview” tab to see your changes. You can even check the “Show diff” box on the right side to see the changes you’ve made.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/github-preview-show-diff.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
-</figure>
 </div>
-<p>While you’re here, see if there are additional changes to the text you’d like to make. Maybe changing the title or author at the top, or for the main text on the home page of the website.</p>
-<p>Our <code>index.md</code> file is written in Markdown, which enables you to make simple text formatting. As you go back and forth from “Edit file” to “Preview”, notice the patterns of how the Markdown text looks when it is as source (“Edit file”) and when it is formatted (“Preview”). For example, in Markdown, you can make text as a header with <code>#</code> symbols, bold or italic with <code>*</code> symbols, and hyperlinks with <code>[]()</code>. Notice that spacing is important: for example, there are carriage returns (when you hit the “return” key) before any bullet points. You can learn the short list of Markdown rules here: <a href="https://quarto.org/docs/authoring/markdown-basics.html">https://quarto.org/docs/authoring/markdown-basics</a>.</p>
-</section>
-<section id="commit-and-publish" class="level2">
-<h2 class="anchored" data-anchor-id="commit-and-publish">Commit and publish</h2>
-<p>Commit your changes by scrolling to the bottom of the page and writing a commit message - a note to yourself and others about what changes you made. Write your commit message and then click the green “Commit changes” button.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/github-commit.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
+<div id="cell-4" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.multioutput <span class="im">import</span> ClassifierChain</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> cohen_kappa_score, roc_auc_score</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMClassifier</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.rand(<span class="dv">1000</span>, <span class="dv">10</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.zeros((<span class="dv">1000</span>, <span class="dv">5</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>sum_feats <span class="op">=</span> X.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> [<span class="fl">4.5</span>, <span class="fl">5.0</span>, <span class="fl">5.5</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">0</span>] <span class="op">=</span> (sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">0</span>]).astype(<span class="bu">int</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">1</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">1</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">0</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">2</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">2</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">3</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">3</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">2</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>Y[:, <span class="dv">4</span>] <span class="op">=</span> ((sum_feats <span class="op">&gt;</span> thresholds[<span class="dv">4</span>]) <span class="op">&amp;</span> (Y[:, <span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X, Y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Thay LogisticRegression bằng LGBMClassifier</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>base_clf <span class="op">=</span> LGBMClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, verbose<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> ClassifierChain(base_clf, order<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>], cv<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>chain.fit(X_train, Y_train)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> chain.predict(X_test)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>Y_pred_proba <span class="op">=</span> chain.predict_proba(X_test)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>kappas <span class="op">=</span> []</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>ginis <span class="op">=</span> []</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    kappa_i <span class="op">=</span> cohen_kappa_score(Y_test[:, i], Y_pred[:, i])</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    kappas.append(kappa_i)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    proba_i <span class="op">=</span> Y_pred_proba[i]</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kiểm tra xem có hai lớp (2 chiều) không</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> proba_i.ndim <span class="op">==</span> <span class="dv">1</span> <span class="kw">or</span> proba_i.shape[<span class="dv">1</span>] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Nếu chỉ có một lớp</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        ginis.append(<span class="fl">0.0</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        auc_i <span class="op">=</span> roc_auc_score(Y_test[:, i], proba_i[:, <span class="dv">1</span>])</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>        gini_i <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> auc_i <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        ginis.append(gini_i)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>mean_kappa <span class="op">=</span> np.mean(kappas)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>mean_gini <span class="op">=</span> np.mean(ginis)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kết quả đánh giá:"</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Nhãn </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: Kappa = </span><span class="sc">{</span>kappas[i]<span class="sc">:.4f}</span><span class="ss">, Gini = </span><span class="sc">{</span>ginis[i]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Trung bình Kappa (macro): </span><span class="sc">{</span>mean_kappa<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Trung bình Gini (macro): </span><span class="sc">{</span>mean_gini<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Kết quả đánh giá:
+Nhãn 0: Kappa = 0.7465, Gini = 0.0000
+Nhãn 1: Kappa = 0.7375, Gini = 0.0000
+Nhãn 2: Kappa = 0.7867, Gini = 0.0000
+Nhãn 3: Kappa = 0.6131, Gini = 0.0000
+Nhãn 4: Kappa = 0.1870, Gini = 0.0000
+Trung bình Kappa (macro): 0.6142
+Trung bình Gini (macro): 0.0000</code></pre>
 </div>
-<p>Now, click back to the main page of your GitHub repository. You should see the orange dot <a href="../explore.html#confirm">confirming your website is published</a>. You’ll have to wait for the GitHub Action to tell quarto to build your site for you to see the update, but it will be there!</p>
-</section>
-<section id="limitations" class="level2">
-<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
-<p>While awesome that we can edit using GitHub directly from the browser, there are obvious limitations. One is that to see your edits show up in your book, you have to publish using the GitHub Action. This is slow. Another limitation is that we can only work on one file at a time and commit them each separately, which also is slow. Using additional software can make things much better, as we explore in subsequent chapters.</p>
+</div>
+<div id="cell-5" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Y.shape:"</span>, Y.shape)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Y_train.shape:"</span>, Y_train.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Y.shape: (1000, 5)
+Y_train.shape: (800, 5)</code></pre>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1000,13 +1233,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../quarto-workflows/index.html" class="pagination-link" aria-label="Quarto workflows">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Quarto workflows</span>
+      <a href="../machine-learning/Autoencoders.html" class="pagination-link" aria-label="Autoencoders - anomaly detection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Autoencoders - anomaly detection</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../quarto-workflows/rstudio.html" class="pagination-link" aria-label="From RStudio">
-        <span class="nav-page-text">From RStudio</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../machine-learning/Wine_Quality_pytorch.html" class="pagination-link" aria-label="Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch">
+        <span class="nav-page-text">Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1018,7 +1251,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nguyenngocbinh/papers/edit/main/quarto-workflows/browser.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.dev/nguyenngocbinh/papers/blob/main/machine-learning/Classifier_Chain.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nguyenngocbinh/papers/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
