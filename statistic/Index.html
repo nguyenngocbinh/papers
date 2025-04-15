@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -30,18 +30,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../statistic/StandardizedCoefficients.html" rel="next">
-<link href="../machine-learning/Autoencoders.html" rel="prev">
+<link href="../machine-learning/StackModelShapExplainer.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4379b0ccadffce622b03caf4c46266b3.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0503fe4e8e302ae8bde9be34b49436a0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4f014a588f715d18155f70deac6f36c5.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -217,6 +217,42 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Autoencoders - anomaly detection</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/Classifier_Chain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classifier Chain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/Wine_Quality_pytorch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train a model on the Wine Quality dataset using ordinal loss and the Kappa metric in PyTorch</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/Partial_dependence_and_Accumulated_local_Profiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Partial-dependence Profiles vs Accumulated-local Profiles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/LightGBM_Predict_Contrib_for_Multi_Class.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LightGBM Predict Contrib for Multi-Class Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/deep_dive_stacking_model_multi_class.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Dive into Stacking Model for Multi-Class Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../machine-learning/StackModelShapExplainer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StackModelShapExplainer Documentation</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -268,6 +304,18 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../statistic/ordinal_regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mô Hình Hồi Quy Logistic Thứ Tự</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/Closeness_Evaluation_Measure_CEM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closeness Evaluation Measure (CEM)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statistic/Wine_Quality_Monotonic_Binning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monotonic Trend with Wine Quality Dataset</span></a>
   </div>
 </li>
       </ul>
@@ -580,8 +628,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -692,7 +738,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -920,8 +965,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../machine-learning/Autoencoders.html" class="pagination-link" aria-label="Autoencoders - anomaly detection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Autoencoders - anomaly detection</span>
+      <a href="../machine-learning/StackModelShapExplainer.html" class="pagination-link" aria-label="StackModelShapExplainer Documentation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">StackModelShapExplainer Documentation</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
