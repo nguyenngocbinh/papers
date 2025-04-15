@@ -55,6 +55,7 @@ website:
           - machine-learning/Partial_dependence_and_Accumulated_local_Profiles.ipynb
           - machine-learning/LightGBM_Predict_Contrib_for_Multi_Class.ipynb
           - machine-learning/deep_dive_stacking_model_multi_class.ipynb
+          - machine-learning/StackModelShapExplainer.ipynb
       - section: statistic/Index.md
         contents:
           - statistic/StandardizedCoefficients.ipynb
