@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -59,7 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -69,18 +69,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../machine-learning/EnhanceTraditionalScoreCardByReinforcementLearning.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-73b965cdad09bb77b1eccbeb273f96b8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-99b1fd8f755da725bc21a93c890ebd16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-73b965cdad09bb77b1eccbeb273f96b8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6a5c09c9ddaa08106ae433ae2bf81e16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-32a0fa5ca6fe33a2f3bf29876a5081c9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6a5c09c9ddaa08106ae433ae2bf81e16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -301,7 +302,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/b_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../images/b_hex.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/b_hex.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://nguyenngocbinh.github.io/papers" title="nguyenngocbinh.github.io/papers" class="quarto-navigation-tool px-1" aria-label="nguyenngocbinh.github.io/papers"><i class="bi bi-globe"></i></a>
@@ -625,27 +627,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="sử-dụng-thuật-toán-isolation-forest-cho-việc-phát-hiện-dấu-hiệu-bất-thường-anomaly-detection">Sử dụng thuật toán Isolation Forest cho việc phát hiện dấu hiệu bất thường (anomaly detection)</h2>
 <p><strong>Bước 1: Chuẩn bị Dữ liệu</strong> - Bắt đầu bằng việc thu thập và tải dữ liệu mà bạn muốn phát hiện các dấu hiệu bất thường.</p>
 <p><strong>Bước 2: Tải và Import Thư viện</strong> - Trong Python, sử dụng các thư viện sau: <code>numpy</code>, <code>pandas</code>, và <code>sklearn.ensemble</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Bước 3: Chuẩn bị dữ liệu</strong> - Đảm bảo rằng dữ liệu của bạn đã được chuẩn bị và lấy ra từ các cột không mong muốn.</p>
 <p><strong>Bước 4: Tạo Mô hình Isolation Forest</strong> - Sử dụng <code>IsolationForest</code> để tạo một mô hình phát hiện dấu hiệu bất thường. Bạn có thể tuỳ chỉnh mô hình bằng cách thay đổi các tham số, chẳng hạn như <code>contamination</code> (tỷ lệ dấu hiệu bất thường trong dữ liệu).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> IsolationForest(contamination<span class="op">=</span><span class="fl">0.05</span>)  <span class="co"># Tuỳ chỉnh contamination tại đây</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> IsolationForest(contamination<span class="op">=</span><span class="fl">0.05</span>)  <span class="co"># Tuỳ chỉnh contamination tại đây</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Bước 5: Huấn luyện Mô hình</strong> - Sử dụng dữ liệu huấn luyện của bạn để huấn luyện mô hình Isolation Forest.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model.fit(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model.fit(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Bước 6: Dự đoán Dấu hiệu Bất thường</strong> - Sử dụng mô hình đã huấn luyện để dự đoán dấu hiệu bất thường trên tập dữ liệu kiểm tra.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model.predict(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model.predict(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Bước 7: Lấy Điểm Anomaly</strong> - Sử dụng phương thức <code>decision_function</code> để lấy điểm anomaly cho mỗi mẫu dữ liệu. Điểm càng thấp càng có khả năng là dấu hiệu bất thường.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>anomaly_scores <span class="op">=</span> model.decision_function(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>anomaly_scores <span class="op">=</span> model.decision_function(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Bước 8: Xác định Dấu hiệu Bất thường</strong> - Dùng ngưỡng (threshold) để xác định dấu hiệu bất thường dựa trên điểm anomaly. Bạn có thể tuỳ chỉnh ngưỡng theo ý muốn.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>  <span class="co"># Ngưỡng ngầm định, điều chỉnh tùy theo nhu cầu</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> X[anomaly_scores <span class="op">&lt;</span> threshold]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>  <span class="co"># Ngưỡng ngầm định, điều chỉnh tùy theo nhu cầu</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> X[anomaly_scores <span class="op">&lt;</span> threshold]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Bước 9: Xuất kết quả</strong> - Xuất các mẫu bất thường mà bạn đã xác định từ dữ liệu.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dấu hiệu bất thường:"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(anomalies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dấu hiệu bất thường:"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(anomalies)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Lưu ý rằng bạn có thể tùy chỉnh các tham số và ngưỡng để điều chỉnh độ nhạy của việc phát hiện dấu hiệu bất thường dựa trên nhu cầu của bạn.</p>
 <div id="cell-2" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>data_url <span class="op">=</span> <span class="st">"https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german/german.data"</span></span>
@@ -675,19 +677,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>anomaly_scores <span class="op">=</span> model.decision_function(X)</span>
 <span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify anomalies</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> data[predictions <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> data[predictions <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>c:\Users\binhnn2\anaconda3\envs\env_pycaret\lib\site-packages\sklearn\base.py:439: UserWarning: X does not have valid feature names, but IsolationForest was fitted with feature names
   warnings.warn(</code></pre>
 </div>
 </div>
 <div id="cell-3" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>anomalies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>anomalies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -716,7 +718,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">44</td>
+<th data-quarto-table-cell-role="th">44</th>
 <td>A11</td>
 <td>48</td>
 <td>A34</td>
@@ -740,7 +742,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">55</td>
+<th data-quarto-table-cell-role="th">55</th>
 <td>A14</td>
 <td>6</td>
 <td>A31</td>
@@ -764,7 +766,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">87</td>
+<th data-quarto-table-cell-role="th">87</th>
 <td>A12</td>
 <td>36</td>
 <td>A32</td>
@@ -788,7 +790,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">99</td>
+<th data-quarto-table-cell-role="th">99</th>
 <td>A12</td>
 <td>20</td>
 <td>A33</td>
@@ -812,7 +814,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">105</td>
+<th data-quarto-table-cell-role="th">105</th>
 <td>A12</td>
 <td>24</td>
 <td>A34</td>
@@ -836,7 +838,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">110</td>
+<th data-quarto-table-cell-role="th">110</th>
 <td>A12</td>
 <td>6</td>
 <td>A33</td>
@@ -860,7 +862,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">154</td>
+<th data-quarto-table-cell-role="th">154</th>
 <td>A12</td>
 <td>24</td>
 <td>A33</td>
@@ -884,7 +886,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">157</td>
+<th data-quarto-table-cell-role="th">157</th>
 <td>A11</td>
 <td>12</td>
 <td>A31</td>
@@ -908,7 +910,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">175</td>
+<th data-quarto-table-cell-role="th">175</th>
 <td>A14</td>
 <td>30</td>
 <td>A31</td>
@@ -932,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">181</td>
+<th data-quarto-table-cell-role="th">181</th>
 <td>A12</td>
 <td>36</td>
 <td>A33</td>
@@ -956,7 +958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">186</td>
+<th data-quarto-table-cell-role="th">186</th>
 <td>A12</td>
 <td>9</td>
 <td>A31</td>
@@ -980,7 +982,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">191</td>
+<th data-quarto-table-cell-role="th">191</th>
 <td>A12</td>
 <td>48</td>
 <td>A30</td>
@@ -1004,7 +1006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">226</td>
+<th data-quarto-table-cell-role="th">226</th>
 <td>A12</td>
 <td>48</td>
 <td>A32</td>
@@ -1028,7 +1030,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">263</td>
+<th data-quarto-table-cell-role="th">263</th>
 <td>A14</td>
 <td>12</td>
 <td>A34</td>
@@ -1052,7 +1054,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">272</td>
+<th data-quarto-table-cell-role="th">272</th>
 <td>A12</td>
 <td>48</td>
 <td>A31</td>
@@ -1076,7 +1078,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">287</td>
+<th data-quarto-table-cell-role="th">287</th>
 <td>A12</td>
 <td>48</td>
 <td>A33</td>
@@ -1100,7 +1102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">304</td>
+<th data-quarto-table-cell-role="th">304</th>
 <td>A14</td>
 <td>48</td>
 <td>A34</td>
@@ -1124,7 +1126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">306</td>
+<th data-quarto-table-cell-role="th">306</th>
 <td>A14</td>
 <td>30</td>
 <td>A32</td>
@@ -1148,7 +1150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">333</td>
+<th data-quarto-table-cell-role="th">333</th>
 <td>A14</td>
 <td>48</td>
 <td>A34</td>
@@ -1172,7 +1174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">343</td>
+<th data-quarto-table-cell-role="th">343</th>
 <td>A12</td>
 <td>18</td>
 <td>A32</td>
@@ -1196,7 +1198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">373</td>
+<th data-quarto-table-cell-role="th">373</th>
 <td>A14</td>
 <td>60</td>
 <td>A34</td>
@@ -1220,7 +1222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">374</td>
+<th data-quarto-table-cell-role="th">374</th>
 <td>A12</td>
 <td>60</td>
 <td>A31</td>
@@ -1244,7 +1246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">395</td>
+<th data-quarto-table-cell-role="th">395</th>
 <td>A12</td>
 <td>39</td>
 <td>A33</td>
@@ -1268,7 +1270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">449</td>
+<th data-quarto-table-cell-role="th">449</th>
 <td>A12</td>
 <td>15</td>
 <td>A33</td>
@@ -1292,7 +1294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">496</td>
+<th data-quarto-table-cell-role="th">496</th>
 <td>A12</td>
 <td>36</td>
 <td>A32</td>
@@ -1316,7 +1318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">539</td>
+<th data-quarto-table-cell-role="th">539</th>
 <td>A13</td>
 <td>18</td>
 <td>A32</td>
@@ -1340,7 +1342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">549</td>
+<th data-quarto-table-cell-role="th">549</th>
 <td>A14</td>
 <td>48</td>
 <td>A34</td>
@@ -1364,7 +1366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">551</td>
+<th data-quarto-table-cell-role="th">551</th>
 <td>A14</td>
 <td>6</td>
 <td>A31</td>
@@ -1388,7 +1390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">595</td>
+<th data-quarto-table-cell-role="th">595</th>
 <td>A12</td>
 <td>6</td>
 <td>A31</td>
@@ -1412,7 +1414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">602</td>
+<th data-quarto-table-cell-role="th">602</th>
 <td>A12</td>
 <td>24</td>
 <td>A31</td>
@@ -1436,7 +1438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">607</td>
+<th data-quarto-table-cell-role="th">607</th>
 <td>A12</td>
 <td>36</td>
 <td>A32</td>
@@ -1460,7 +1462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">611</td>
+<th data-quarto-table-cell-role="th">611</th>
 <td>A13</td>
 <td>10</td>
 <td>A32</td>
@@ -1484,7 +1486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">613</td>
+<th data-quarto-table-cell-role="th">613</th>
 <td>A11</td>
 <td>24</td>
 <td>A31</td>
@@ -1508,7 +1510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">616</td>
+<th data-quarto-table-cell-role="th">616</th>
 <td>A12</td>
 <td>60</td>
 <td>A33</td>
@@ -1532,7 +1534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">663</td>
+<th data-quarto-table-cell-role="th">663</th>
 <td>A12</td>
 <td>6</td>
 <td>A33</td>
@@ -1556,7 +1558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">666</td>
+<th data-quarto-table-cell-role="th">666</th>
 <td>A12</td>
 <td>30</td>
 <td>A31</td>
@@ -1580,7 +1582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">667</td>
+<th data-quarto-table-cell-role="th">667</th>
 <td>A14</td>
 <td>48</td>
 <td>A31</td>
@@ -1604,7 +1606,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">684</td>
+<th data-quarto-table-cell-role="th">684</th>
 <td>A12</td>
 <td>36</td>
 <td>A33</td>
@@ -1628,7 +1630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">703</td>
+<th data-quarto-table-cell-role="th">703</th>
 <td>A12</td>
 <td>30</td>
 <td>A33</td>
@@ -1652,7 +1654,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">721</td>
+<th data-quarto-table-cell-role="th">721</th>
 <td>A12</td>
 <td>6</td>
 <td>A31</td>
@@ -1676,7 +1678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">754</td>
+<th data-quarto-table-cell-role="th">754</th>
 <td>A14</td>
 <td>12</td>
 <td>A33</td>
@@ -1700,7 +1702,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">774</td>
+<th data-quarto-table-cell-role="th">774</th>
 <td>A13</td>
 <td>12</td>
 <td>A34</td>
@@ -1724,7 +1726,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">808</td>
+<th data-quarto-table-cell-role="th">808</th>
 <td>A12</td>
 <td>42</td>
 <td>A31</td>
@@ -1748,7 +1750,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">829</td>
+<th data-quarto-table-cell-role="th">829</th>
 <td>A12</td>
 <td>48</td>
 <td>A33</td>
@@ -1772,7 +1774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">876</td>
+<th data-quarto-table-cell-role="th">876</th>
 <td>A11</td>
 <td>18</td>
 <td>A31</td>
@@ -1796,7 +1798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">889</td>
+<th data-quarto-table-cell-role="th">889</th>
 <td>A14</td>
 <td>28</td>
 <td>A31</td>
@@ -1820,7 +1822,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">895</td>
+<th data-quarto-table-cell-role="th">895</th>
 <td>A14</td>
 <td>36</td>
 <td>A33</td>
@@ -1844,7 +1846,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">915</td>
+<th data-quarto-table-cell-role="th">915</th>
 <td>A12</td>
 <td>48</td>
 <td>A30</td>
@@ -1868,7 +1870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">927</td>
+<th data-quarto-table-cell-role="th">927</th>
 <td>A11</td>
 <td>48</td>
 <td>A32</td>
@@ -1892,7 +1894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">935</td>
+<th data-quarto-table-cell-role="th">935</th>
 <td>A12</td>
 <td>30</td>
 <td>A33</td>
@@ -1924,15 +1926,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Ở trên đã sử dụng tỷ lệ 5% mẫu để xác định anomaly. Ngoài ra có thể điều chỉnh ngưỡng anomaly scores phù hợp thay vì đưa ra tỷ lệ.</p>
 <div id="cell-5" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify anomalies based on anomaly scores (you can set a threshold)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify anomalies based on anomaly scores (you can set a threshold)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="op">-</span><span class="fl">0.01</span>  <span class="co"># Adjust the threshold as needed</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>anomalies <span class="op">=</span> X[anomaly_scores <span class="op">&lt;</span> threshold]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>anomalies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>anomalies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1961,7 +1963,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">44</td>
+<th data-quarto-table-cell-role="th">44</th>
 <td>48</td>
 <td>6143</td>
 <td>4</td>
@@ -1985,7 +1987,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">55</td>
+<th data-quarto-table-cell-role="th">55</th>
 <td>6</td>
 <td>783</td>
 <td>1</td>
@@ -2009,7 +2011,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">87</td>
+<th data-quarto-table-cell-role="th">87</th>
 <td>36</td>
 <td>12612</td>
 <td>1</td>
@@ -2033,7 +2035,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">99</td>
+<th data-quarto-table-cell-role="th">99</th>
 <td>20</td>
 <td>7057</td>
 <td>3</td>
@@ -2057,7 +2059,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">175</td>
+<th data-quarto-table-cell-role="th">175</th>
 <td>30</td>
 <td>7485</td>
 <td>4</td>
@@ -2081,7 +2083,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">186</td>
+<th data-quarto-table-cell-role="th">186</th>
 <td>9</td>
 <td>5129</td>
 <td>2</td>
@@ -2105,7 +2107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">191</td>
+<th data-quarto-table-cell-role="th">191</th>
 <td>48</td>
 <td>3844</td>
 <td>4</td>
@@ -2129,7 +2131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">263</td>
+<th data-quarto-table-cell-role="th">263</th>
 <td>12</td>
 <td>2748</td>
 <td>2</td>
@@ -2153,7 +2155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">272</td>
+<th data-quarto-table-cell-role="th">272</th>
 <td>48</td>
 <td>12169</td>
 <td>4</td>
@@ -2177,7 +2179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">287</td>
+<th data-quarto-table-cell-role="th">287</th>
 <td>48</td>
 <td>7582</td>
 <td>2</td>
@@ -2201,7 +2203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">304</td>
+<th data-quarto-table-cell-role="th">304</th>
 <td>48</td>
 <td>10127</td>
 <td>2</td>
@@ -2225,7 +2227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">306</td>
+<th data-quarto-table-cell-role="th">306</th>
 <td>30</td>
 <td>4811</td>
 <td>2</td>
@@ -2249,7 +2251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">374</td>
+<th data-quarto-table-cell-role="th">374</th>
 <td>60</td>
 <td>14782</td>
 <td>3</td>
@@ -2273,7 +2275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">449</td>
+<th data-quarto-table-cell-role="th">449</th>
 <td>15</td>
 <td>1512</td>
 <td>3</td>
@@ -2297,7 +2299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">496</td>
+<th data-quarto-table-cell-role="th">496</th>
 <td>36</td>
 <td>9034</td>
 <td>4</td>
@@ -2321,7 +2323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">549</td>
+<th data-quarto-table-cell-role="th">549</th>
 <td>48</td>
 <td>8858</td>
 <td>2</td>
@@ -2345,7 +2347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">595</td>
+<th data-quarto-table-cell-role="th">595</th>
 <td>6</td>
 <td>931</td>
 <td>1</td>
@@ -2369,7 +2371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">602</td>
+<th data-quarto-table-cell-role="th">602</th>
 <td>24</td>
 <td>1837</td>
 <td>4</td>
@@ -2393,7 +2395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">613</td>
+<th data-quarto-table-cell-role="th">613</th>
 <td>24</td>
 <td>3632</td>
 <td>1</td>
@@ -2417,7 +2419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">616</td>
+<th data-quarto-table-cell-role="th">616</th>
 <td>60</td>
 <td>9157</td>
 <td>2</td>
@@ -2441,7 +2443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">663</td>
+<th data-quarto-table-cell-role="th">663</th>
 <td>6</td>
 <td>1050</td>
 <td>4</td>
@@ -2465,7 +2467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">667</td>
+<th data-quarto-table-cell-role="th">667</th>
 <td>48</td>
 <td>3609</td>
 <td>1</td>
@@ -2489,7 +2491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">754</td>
+<th data-quarto-table-cell-role="th">754</th>
 <td>12</td>
 <td>1555</td>
 <td>4</td>
@@ -2513,7 +2515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">808</td>
+<th data-quarto-table-cell-role="th">808</th>
 <td>42</td>
 <td>9283</td>
 <td>1</td>
@@ -2537,7 +2539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">889</td>
+<th data-quarto-table-cell-role="th">889</th>
 <td>28</td>
 <td>7824</td>
 <td>3</td>
@@ -2561,7 +2563,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">895</td>
+<th data-quarto-table-cell-role="th">895</th>
 <td>36</td>
 <td>8947</td>
 <td>3</td>
@@ -2585,7 +2587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">915</td>
+<th data-quarto-table-cell-role="th">915</th>
 <td>48</td>
 <td>18424</td>
 <td>1</td>
@@ -2609,7 +2611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">927</td>
+<th data-quarto-table-cell-role="th">927</th>
 <td>48</td>
 <td>10297</td>
 <td>4</td>
@@ -2633,7 +2635,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">935</td>
+<th data-quarto-table-cell-role="th">935</th>
 <td>30</td>
 <td>1919</td>
 <td>4</td>
@@ -2677,7 +2679,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Giả sử bạn có dữ liệu về giao dịch tài chính trong một ngân hàng và bạn muốn phát hiện gian lận trong các giao dịch. Một số gian lận xảy ra với các mẫu tương tự với các giao dịch thông thường, nhưng với số lượng nhỏ và gần nhau trong không gian đặc trưng. Isolation Forest có thể không hiệu quả trong việc phát hiện các gian lận như vậy vì nó có thể đánh giá chúng là dấu hiệu thông thường do chúng không được cô lập.</p>
 <p>Nhược điểm này có thể được khắc phục bằng cách sử dụng các kỹ thuật phát hiện gian lận cơ bản hơn và phù hợp hơn cho loại tình huống này hoặc bằng việc sử dụng các thuật toán khác như Local Outlier Factor (LOF) hoặc One-Class SVM.</p>
 <div id="cell-7" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a random seed for reproducibility</span></span>
@@ -2705,7 +2707,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2783,13 +2785,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

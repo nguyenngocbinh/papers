@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -59,7 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -69,18 +69,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../machine-learning/IsolationForest.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-73b965cdad09bb77b1eccbeb273f96b8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-99b1fd8f755da725bc21a93c890ebd16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-73b965cdad09bb77b1eccbeb273f96b8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6a5c09c9ddaa08106ae433ae2bf81e16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-32a0fa5ca6fe33a2f3bf29876a5081c9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6a5c09c9ddaa08106ae433ae2bf81e16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -301,7 +302,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/b_hex.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../images/b_hex.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/b_hex.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://nguyenngocbinh.github.io/papers" title="nguyenngocbinh.github.io/papers" class="quarto-navigation-tool px-1" aria-label="nguyenngocbinh.github.io/papers"><i class="bi bi-globe"></i></a>
@@ -703,7 +705,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Mục đích Sử dụng</strong>: Xem xét yêu cầu cụ thể và tính chất của vấn đề phát hiện dấu vết bất thường của bạn. Mỗi phương pháp có thể hoạt động tố</p></li>
 </ul>
 <div id="cell-3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -728,10 +730,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into features and labels</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(<span class="st">'class'</span>, axis<span class="op">=</span><span class="dv">1</span>).values</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'class'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'class'</span>].values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-4" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -757,7 +759,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>anomalies_detected <span class="op">=</span> reconstruction_errors <span class="op">&gt;</span> threshold</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the number of anomalies detected</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/50
 16/16 [==============================] - 0s 2ms/step - loss: 1.1801
@@ -864,14 +866,14 @@ Anomalies detected: 50 out of 1000</code></pre>
 </div>
 </div>
 <div id="cell-5" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the rows of data that are anomalies</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the rows of data that are anomalies</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>anomalous_data <span class="op">=</span> data[anomalies_detected]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>anomalous_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>anomalous_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -900,7 +902,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">38</td>
+<th data-quarto-table-cell-role="th">38</th>
 <td>10</td>
 <td>1225</td>
 <td>2</td>
@@ -924,7 +926,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">42</td>
+<th data-quarto-table-cell-role="th">42</th>
 <td>18</td>
 <td>6204</td>
 <td>2</td>
@@ -948,7 +950,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">65</td>
+<th data-quarto-table-cell-role="th">65</th>
 <td>27</td>
 <td>5190</td>
 <td>4</td>
@@ -972,7 +974,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">72</td>
+<th data-quarto-table-cell-role="th">72</th>
 <td>8</td>
 <td>1164</td>
 <td>3</td>
@@ -996,7 +998,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">83</td>
+<th data-quarto-table-cell-role="th">83</th>
 <td>24</td>
 <td>1755</td>
 <td>4</td>
@@ -1020,7 +1022,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">105</td>
+<th data-quarto-table-cell-role="th">105</th>
 <td>24</td>
 <td>11938</td>
 <td>2</td>
@@ -1044,7 +1046,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">156</td>
+<th data-quarto-table-cell-role="th">156</th>
 <td>9</td>
 <td>1288</td>
 <td>3</td>
@@ -1068,7 +1070,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">157</td>
+<th data-quarto-table-cell-role="th">157</th>
 <td>12</td>
 <td>339</td>
 <td>4</td>
@@ -1092,7 +1094,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">162</td>
+<th data-quarto-table-cell-role="th">162</th>
 <td>15</td>
 <td>1262</td>
 <td>4</td>
@@ -1116,7 +1118,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">203</td>
+<th data-quarto-table-cell-role="th">203</th>
 <td>12</td>
 <td>902</td>
 <td>4</td>
@@ -1140,7 +1142,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">207</td>
+<th data-quarto-table-cell-role="th">207</th>
 <td>12</td>
 <td>1424</td>
 <td>4</td>
@@ -1164,7 +1166,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">209</td>
+<th data-quarto-table-cell-role="th">209</th>
 <td>12</td>
 <td>1413</td>
 <td>3</td>
@@ -1188,7 +1190,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">215</td>
+<th data-quarto-table-cell-role="th">215</th>
 <td>6</td>
 <td>932</td>
 <td>1</td>
@@ -1212,7 +1214,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">226</td>
+<th data-quarto-table-cell-role="th">226</th>
 <td>48</td>
 <td>10961</td>
 <td>1</td>
@@ -1236,7 +1238,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">244</td>
+<th data-quarto-table-cell-role="th">244</th>
 <td>12</td>
 <td>3447</td>
 <td>4</td>
@@ -1260,7 +1262,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">274</td>
+<th data-quarto-table-cell-role="th">274</th>
 <td>30</td>
 <td>11998</td>
 <td>1</td>
@@ -1284,7 +1286,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">287</td>
+<th data-quarto-table-cell-role="th">287</th>
 <td>48</td>
 <td>7582</td>
 <td>2</td>
@@ -1308,7 +1310,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">310</td>
+<th data-quarto-table-cell-role="th">310</th>
 <td>48</td>
 <td>5381</td>
 <td>3</td>
@@ -1332,7 +1334,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">337</td>
+<th data-quarto-table-cell-role="th">337</th>
 <td>15</td>
 <td>1275</td>
 <td>4</td>
@@ -1356,7 +1358,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">350</td>
+<th data-quarto-table-cell-role="th">350</th>
 <td>9</td>
 <td>1236</td>
 <td>1</td>
@@ -1380,7 +1382,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">374</td>
+<th data-quarto-table-cell-role="th">374</th>
 <td>60</td>
 <td>14782</td>
 <td>3</td>
@@ -1404,7 +1406,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">429</td>
+<th data-quarto-table-cell-role="th">429</th>
 <td>18</td>
 <td>1190</td>
 <td>2</td>
@@ -1428,7 +1430,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">431</td>
+<th data-quarto-table-cell-role="th">431</th>
 <td>24</td>
 <td>11328</td>
 <td>2</td>
@@ -1452,7 +1454,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">436</td>
+<th data-quarto-table-cell-role="th">436</th>
 <td>6</td>
 <td>660</td>
 <td>2</td>
@@ -1476,7 +1478,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">438</td>
+<th data-quarto-table-cell-role="th">438</th>
 <td>42</td>
 <td>3394</td>
 <td>4</td>
@@ -1500,7 +1502,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">442</td>
+<th data-quarto-table-cell-role="th">442</th>
 <td>20</td>
 <td>2629</td>
 <td>2</td>
@@ -1524,7 +1526,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">449</td>
+<th data-quarto-table-cell-role="th">449</th>
 <td>15</td>
 <td>1512</td>
 <td>3</td>
@@ -1548,7 +1550,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">458</td>
+<th data-quarto-table-cell-role="th">458</th>
 <td>6</td>
 <td>343</td>
 <td>4</td>
@@ -1572,7 +1574,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">463</td>
+<th data-quarto-table-cell-role="th">463</th>
 <td>12</td>
 <td>754</td>
 <td>4</td>
@@ -1596,7 +1598,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">473</td>
+<th data-quarto-table-cell-role="th">473</th>
 <td>6</td>
 <td>1238</td>
 <td>4</td>
@@ -1620,7 +1622,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">579</td>
+<th data-quarto-table-cell-role="th">579</th>
 <td>24</td>
 <td>937</td>
 <td>4</td>
@@ -1644,7 +1646,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">583</td>
+<th data-quarto-table-cell-role="th">583</th>
 <td>36</td>
 <td>2384</td>
 <td>4</td>
@@ -1668,7 +1670,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">588</td>
+<th data-quarto-table-cell-role="th">588</th>
 <td>18</td>
 <td>1217</td>
 <td>4</td>
@@ -1692,7 +1694,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">594</td>
+<th data-quarto-table-cell-role="th">594</th>
 <td>24</td>
 <td>1358</td>
 <td>4</td>
@@ -1716,7 +1718,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">610</td>
+<th data-quarto-table-cell-role="th">610</th>
 <td>12</td>
 <td>741</td>
 <td>4</td>
@@ -1740,7 +1742,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">613</td>
+<th data-quarto-table-cell-role="th">613</th>
 <td>24</td>
 <td>3632</td>
 <td>1</td>
@@ -1764,7 +1766,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">665</td>
+<th data-quarto-table-cell-role="th">665</th>
 <td>24</td>
 <td>6314</td>
 <td>4</td>
@@ -1788,7 +1790,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">666</td>
+<th data-quarto-table-cell-role="th">666</th>
 <td>30</td>
 <td>3496</td>
 <td>4</td>
@@ -1812,7 +1814,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">721</td>
+<th data-quarto-table-cell-role="th">721</th>
 <td>6</td>
 <td>433</td>
 <td>4</td>
@@ -1836,7 +1838,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">735</td>
+<th data-quarto-table-cell-role="th">735</th>
 <td>36</td>
 <td>3990</td>
 <td>3</td>
@@ -1860,7 +1862,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">754</td>
+<th data-quarto-table-cell-role="th">754</th>
 <td>12</td>
 <td>1555</td>
 <td>4</td>
@@ -1884,7 +1886,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">782</td>
+<th data-quarto-table-cell-role="th">782</th>
 <td>12</td>
 <td>1410</td>
 <td>2</td>
@@ -1908,7 +1910,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">813</td>
+<th data-quarto-table-cell-role="th">813</th>
 <td>48</td>
 <td>3051</td>
 <td>3</td>
@@ -1932,7 +1934,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">816</td>
+<th data-quarto-table-cell-role="th">816</th>
 <td>6</td>
 <td>1338</td>
 <td>1</td>
@@ -1956,7 +1958,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">818</td>
+<th data-quarto-table-cell-role="th">818</th>
 <td>36</td>
 <td>15857</td>
 <td>2</td>
@@ -1980,7 +1982,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">856</td>
+<th data-quarto-table-cell-role="th">856</th>
 <td>10</td>
 <td>894</td>
 <td>4</td>
@@ -2004,7 +2006,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">873</td>
+<th data-quarto-table-cell-role="th">873</th>
 <td>15</td>
 <td>874</td>
 <td>4</td>
@@ -2028,7 +2030,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">915</td>
+<th data-quarto-table-cell-role="th">915</th>
 <td>48</td>
 <td>18424</td>
 <td>1</td>
@@ -2052,7 +2054,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">964</td>
+<th data-quarto-table-cell-role="th">964</th>
 <td>6</td>
 <td>454</td>
 <td>3</td>
@@ -2076,7 +2078,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">970</td>
+<th data-quarto-table-cell-role="th">970</th>
 <td>15</td>
 <td>1514</td>
 <td>4</td>
@@ -2107,7 +2109,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 </div>
 </div>
 <div id="cell-6" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the features</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2136,7 +2138,7 @@ Anomalies detected: 50 out of 1000</code></pre>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>anomalies_detected <span class="op">=</span> reconstruction_errors <span class="op">&gt;</span> threshold</span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the number of anomalies detected</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/50
 13/13 [==============================] - 0s 11ms/step - loss: 1.2654 - val_loss: 1.1622
@@ -2243,7 +2245,7 @@ Anomalies detected: 10 out of 200</code></pre>
 </div>
 </div>
 <div id="cell-7" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into features and labels</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into features and labels</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(<span class="st">'class'</span>, axis<span class="op">=</span><span class="dv">1</span>).values</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'class'</span>].values</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2273,7 +2275,7 @@ Anomalies detected: 10 out of 200</code></pre>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>anomalies_detected <span class="op">=</span> reconstruction_errors <span class="op">&gt;</span> threshold</span>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the number of anomalies detected</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Anomalies detected: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(anomalies_detected)<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(X)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/50
 16/16 [==============================] - 0s 1ms/step - loss: 1.2795
@@ -2448,13 +2450,14 @@ Anomalies detected: 50 out of 1000</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
